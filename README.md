@@ -1,0 +1,2 @@
+# sidecar
+Gitter embed widget
