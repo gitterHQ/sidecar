@@ -1,11 +1,12 @@
 {
   "name": "gitter-sidecar",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
     "gulp": "babel-node gulpfile.js",
-    "build-standalone": "webpack index.js ./dist/sidecar.js --output-library sidecar --output-library-target umd --module-bind 'js=babel'"
+    "build-standalone": "webpack",
+    "build-standalone-dev":  "webpack --watch"
   },
   "author": "",
   "license": "ISC",
