@@ -16,6 +16,27 @@ Gitter embed widget
 
 # Options
 
+Set options with the global window option:
+
+```html
+<script>
+	window.___gitterEmbedConfig = {
+		container: '.sidebar'
+	};
+</script>
+```
+
+*TODO (not implemented yet):* You can also override these options individually on the container:
+
+```html
+<div
+	class="gitter-chat-embed
+	data-some-option="some-value"
+></div>
+```
+
+
+
  - `options.room`: 
  	 - Default: `'gitterHQ/gitter'`
  - `options.container`: Where you want to embed the chat
