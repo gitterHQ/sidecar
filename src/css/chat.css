@@ -6,7 +6,7 @@
 
 .gitter-chat-embed {
 	position: fixed;
-	top: 10%;
+	top: 0;
 	left: 60%;
 	bottom: 0;
 	right: 0;
@@ -14,18 +14,10 @@
 	display: flex;
 	flex-direction: column;
 
-	padding-top: 16px;
-	padding-left: 16px;
-	padding-right: 16px;
-
-	background: #3a3133;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
-
 	transition: transform 0.3s ease;
 
 	&.is-collapsed {
-		transform: translateY(100%);
+		transform: translateX(100%);
 	}
 
 	& > iframe {
