@@ -62,7 +62,7 @@ let embedGitterStyles = function() {
 let embedGitterChat = function(opts) {
 	let elementStore = new ElementStore();
 
-	let containers = coerceIntoElementsArray(opts.container || (function() {
+	let containers = coerceIntoElementsArray(opts.container || (() => {
 		let container = elementStore.createElement('aside');
 		container.classList.add('gitter-chat-embed');
 		document.body.appendChild(container);
@@ -70,11 +70,11 @@ let embedGitterChat = function(opts) {
 		return container;
 	})());
 
-	containers.forEach(function(container) {
+	containers.forEach((container) => {
 		let iframe = elementStore.createElement('iframe');
 		iframe.setAttribute('frameborder', '0');
-		//iframe.src = 'https://gitter.im/gitterHQ/gitter/~embed';
-		iframe.src = 'https://gitter.im/gitterHQ/gitter/~chat';
+		iframe.src = 'https://gitter.im/gitterHQ/gitter/~embed';
+		//iframe.src = 'https://gitter.im/gitterHQ/gitter/~chat';
 
 		container.appendChild(iframe);
 	});
@@ -186,8 +186,34 @@ class chatEmbed {
 		if(!this[CONTAINERS]) {
 			let embedResult = embedGitterChat(this[OPTS]);
 			this[CONTAINERS] = embedResult.containers;
-
 			this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedResult.elementStore);
+
+
+			this[CONTAINERS].forEach((container) => {
+				let actionBar = this[ELEMENTSTORE].createElement('div');
+				actionBar.classList.add('gitter-chat-embed-action-bar');
+
+				container.insertBefore(actionBar, container.firstChild);
+
+				let collapseActionElement = this[ELEMENTSTORE].createElement('button');
+				collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
+				collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
+				elementOnActivate(collapseActionElement, (e) => {
+					// Hide the chat
+					this.toggleChat(false);
+
+					e.preventDefault();
+				});
+
+				actionBar.appendChild(collapseActionElement);
+
+				let collapseActionContentElement = this[ELEMENTSTORE].createElement('div');
+				collapseActionContentElement.classList.add('gitter-chat-embed-action-bar-item-content');
+				collapseActionContentElement.innerHTML = '-';
+
+				collapseActionElement.appendChild(collapseActionContentElement);
+			});
+
 		}
 	}
 

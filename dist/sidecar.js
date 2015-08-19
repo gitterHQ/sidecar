@@ -246,8 +246,8 @@ return /******/ (function(modules) { // webpackBootstrap
 		containers.forEach(function (container) {
 			var iframe = elementStore.createElement('iframe');
 			iframe.setAttribute('frameborder', '0');
-			//iframe.src = 'https://gitter.im/gitterHQ/gitter/~embed';
-			iframe.src = 'https://gitter.im/gitterHQ/gitter/~chat';
+			iframe.src = 'https://gitter.im/gitterHQ/gitter/~embed';
+			//iframe.src = 'https://gitter.im/gitterHQ/gitter/~chat';
 	
 			container.appendChild(iframe);
 		});
@@ -361,11 +361,37 @@ return /******/ (function(modules) { // webpackBootstrap
 		}, {
 			key: EMBEDCHATONCE,
 			value: function value() {
+				var _this2 = this;
+	
 				if (!this[CONTAINERS]) {
 					var embedResult = embedGitterChat(this[OPTS]);
 					this[CONTAINERS] = embedResult.containers;
-	
 					this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedResult.elementStore);
+	
+					this[CONTAINERS].forEach(function (container) {
+						var actionBar = _this2[ELEMENTSTORE].createElement('div');
+						actionBar.classList.add('gitter-chat-embed-action-bar');
+	
+						container.insertBefore(actionBar, container.firstChild);
+	
+						var collapseActionElement = _this2[ELEMENTSTORE].createElement('button');
+						collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
+						collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
+						elementOnActivate(collapseActionElement, function (e) {
+							// Hide the chat
+							_this2.toggleChat(false);
+	
+							e.preventDefault();
+						});
+	
+						actionBar.appendChild(collapseActionElement);
+	
+						var collapseActionContentElement = _this2[ELEMENTSTORE].createElement('div');
+						collapseActionContentElement.classList.add('gitter-chat-embed-action-bar-item-content');
+						collapseActionContentElement.innerHTML = '-';
+	
+						collapseActionElement.appendChild(collapseActionContentElement);
+					});
 				}
 			}
 	
@@ -5618,7 +5644,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, "[class^=gitter],[class^=gitter]:before,[class^=gitter]:after{box-sizing:border-box}.gitter-chat-embed{position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;-webkit-transition:-webkit-transform .3s ease;transition:transform .3s ease}.gitter-chat-embed.is-collapsed{-webkit-transform:translateX(100%);-ms-transform:translateX(100%);transform:translateX(100%)}.gitter-chat-embed>iframe{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-open-chat-button{z-index:1;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:-webkit-transform .3s ease,background-color .3s ease;transition:transform .3s ease,background-color .3s ease}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{background-color:#3ea07f}.gitter-open-chat-button:focus{box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button.is-collapsed{-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
+	exports.push([module.id, "[class^=gitter],[class^=gitter]:before,[class^=gitter]:after{box-sizing:border-box}.gitter-chat-embed{z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}.gitter-chat-embed.is-collapsed{-webkit-transform:translateX(100%);-ms-transform:translateX(100%);transform:translateX(100%)}.gitter-chat-embed>iframe{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-action-bar{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:vertical;-webkit-box-direction:normal;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;width:40px;background:#383435}.gitter-chat-embed-action-bar-item{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;background:0;border:0;color:#f2f0ed;color:rgba(255,255,255,.9);font-size:48px;font-weight:700;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{background-color:rgba(255,255,255,.2);outline:none;color:#b2ebda}.gitter-open-chat-button{z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:-webkit-transform .3s ease,background-color .3s ease;transition:transform .3s ease,background-color .3s ease}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{background-color:#3ea07f}.gitter-open-chat-button:focus{box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button.is-collapsed{-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
 	
 	// exports
 
