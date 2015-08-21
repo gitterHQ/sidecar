@@ -4,6 +4,18 @@
 	box-sizing: border-box;
 }
 
+
+.gitter-hidden {
+	display: none;
+}
+
+.gitter-icon {
+	width: 24px;
+	height: 24px;
+
+	fill: currentColor;
+}
+
 .gitter-chat-embed {
 	z-index: 100;
 	position: fixed;
@@ -15,10 +27,13 @@
 	display: flex;
 	flex-direction: row;
 
+	border-left: 1px solid #333;
+	box-shadow: -12px 0 18px 0 rgba(50, 50, 50, 0.3);
+
 	transition: transform 0.3s cubic-bezier(0.16, 0.22, 0.22, 1.7);
 
 	&.is-collapsed {
-		transform: translateX(100%);
+		transform: translateX(110%);
 	}
 
 	& > iframe {
@@ -31,13 +46,19 @@
 }
 
 .gitter-chat-embed-action-bar {
+	position: absolute;
+	top: 0;
+	right: 0;
+
 	display: flex;
-	flex-direction: column;
 
-	width: 40px;
+	color: #3a3133;
+	color: rgba(58, 49, 51, 0.65);
 
-	background: #383435;
 
+	&:hover {
+		color: rgba(58, 49, 51, 1);
+	}
 }
 
 .gitter-chat-embed-action-bar-item {
@@ -50,11 +71,12 @@
 
 	width: 100%;
 
-	background: 0;
+	padding: 8px 16px;
+
+	background: rgba(255, 255, 255, 0.5);
 	border: 0;
 
-	color: #f2f0ed;
-	color: rgba(255, 255, 255, 0.9);
+	color: inherit;
 	font-size: 48px;
 	font-weight: bold;
 
@@ -63,14 +85,19 @@
 
 	transition: all 0.2s ease;
 
+
 	&:hover,
 	&:focus {
-		background-color: rgba(255, 255, 255, 0.2);
 		outline: none;
-
-		color: #b2ebda;
-
+		box-shadow: inset 0 32px 32px -32px rgba(0, 0, 0, 0.25);
 	}
+
+	&:active {
+		box-shadow: inset 0 32px 72px -32px rgba(0, 0, 0, 0.25);
+
+		color: #f68d42;
+	}
+
 }
 
 

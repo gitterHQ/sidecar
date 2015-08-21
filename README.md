@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.0
+# Latest version: 0.2.1
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -25,8 +25,8 @@ Set options with the global window option:
 
 ```html
 <script>
-	window.___gitter.chat.options = {
-		container: '.sidebar'
+	((window.___gitter = {}).chat = {}).options = {
+		room: 'gitterHQ/gitter'
 	};
 </script>
 ```

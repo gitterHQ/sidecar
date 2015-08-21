@@ -1,4 +1,13 @@
 
+
+# v0.2.1 - 2015-8-20
+
+ - Update basic example(cosmetic)
+ - Add `popout` action button that opens the room in a new tab.
+ - Update snippets for setting options on the `window` object so it properly deep sets properties
+ - Proper immutable default options property
+
+
 # v0.2.0 - 2015-8-16
 
  - Now using `window.___gitter.chat.options` instead of `window.___gitterEmbedConfig`
