@@ -1,5 +1,5 @@
 import objectAssign from 'object-assign';
-import Promise from 'bluebird';
+import {Promise} from 'es6-promise';
 
 import $ from './bling.js';
 import ElementStore from './element-store.js';
