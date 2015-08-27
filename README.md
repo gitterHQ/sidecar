@@ -69,7 +69,7 @@ The default chat is stored on `window.___gitter.chat.defaultChat`.
 
 
 ```js
-var chat = new window.gitter.Chat(/* options */);`
+var chat = new window.___gitter.Chat(/* options */);`
 ```
 
  - `toggleChat(isChatOpen)`: Function/method - Takes a boolean which toggles the visibility of the chat panel
