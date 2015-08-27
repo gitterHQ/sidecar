@@ -1,4 +1,9 @@
 
+# v0.2.2 - 2015-8-27
+
+ - `options.room` defaults to `undefined` and will throw an error if no room is specified
+ - Using a custom PostCSS plugin and [`postcss-plugin-context`](https://github.com/postcss/postcss-plugin-context) to add `box-sizing: border-box;` to each rule: `@context border-box { /* ... */ }
+ - Use `<a>` element as the default generated activation element so that if the JS fails to execute, we still have it link through to the actual room.
 
 # v0.2.1 - 2015-8-20
 

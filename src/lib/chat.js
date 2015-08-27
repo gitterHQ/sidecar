@@ -120,12 +120,18 @@ let embedGitterChat = function(opts) {
   containers.forEach((container) => {
     let containerOpts = getDataOptionsFromElement(opts, container);
 
-    let iframe = elementStore.createElement('iframe');
-    iframe.setAttribute('frameborder', '0');
-    iframe.src = `https://gitter.im/${containerOpts.room}/~embed`;
-    //iframe.src = `https://gitter.im/${containerOpts.room}/~chat`;
+    if(containerOpts.room) {
+      let iframe = elementStore.createElement('iframe');
+      iframe.setAttribute('frameborder', '0');
+      iframe.src = `https://gitter.im/${containerOpts.room}/~embed`;
+      //iframe.src = `https://gitter.im/${containerOpts.room}/~chat`;
 
-    container.appendChild(iframe);
+      container.appendChild(iframe);
+    }
+    else {
+      console.error('Gitter Sidecar: No room specified for container', container);
+    }
+
   });
 
   return {
@@ -138,7 +144,7 @@ let embedGitterChat = function(opts) {
 
 
 let defaults = {
-  room: 'gitterHQ/gitter',
+  room: undefined,
   // container: single or array of dom elements, or string selector to embed chat in
   container: null,
 
@@ -202,7 +208,6 @@ class chatEmbed {
     if(opts.useStyles) {
       this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedGitterStyles());
       this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedGitterSvgSprites());
-
     }
 
     if(opts.preload) {
@@ -217,7 +222,7 @@ class chatEmbed {
       Promise.resolve(opts.activation)
         .then((activationElement) => {
           activationElement = coerceIntoElementsArray(activationElement || (() => {
-            let button = this[ELEMENTSTORE].createElement('button');
+            let button = this[ELEMENTSTORE].createElement('a');
             // We use the option for the room, not pertaining to a particular container if set
             button.href = opts.room;
             button.innerHTML = 'Open Chat';

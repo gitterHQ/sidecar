@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.1
+# Latest version: 0.2.2
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -42,7 +42,7 @@ You can also override these options individually on the container:
 
 
  - `options.room`: 
- 	 - Default: `gitterHQ/gitter`
+ 	 - Default: `undefined`
  - `options.container`: Where you want to embed the chat. Can accept a dom node, array of dom nodes, or a selector
  	 - Default: Elements that match `'.gitter-chat-embed'`
  - `options.showChatByDefault`: Whether to embed the chat on page load(true) or wait until the `options.activation` is resolved/clicked/interacted with(false).

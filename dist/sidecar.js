@@ -282,12 +282,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	  containers.forEach(function (container) {
 	    var containerOpts = getDataOptionsFromElement(opts, container);
 	
-	    var iframe = elementStore.createElement('iframe');
-	    iframe.setAttribute('frameborder', '0');
-	    iframe.src = 'https://gitter.im/' + containerOpts.room + '/~embed';
-	    //iframe.src = `https://gitter.im/${containerOpts.room}/~chat`;
+	    if (containerOpts.room) {
+	      var iframe = elementStore.createElement('iframe');
+	      iframe.setAttribute('frameborder', '0');
+	      iframe.src = 'https://gitter.im/' + containerOpts.room + '/~embed';
+	      //iframe.src = `https://gitter.im/${containerOpts.room}/~chat`;
 	
-	    container.appendChild(iframe);
+	      container.appendChild(iframe);
+	    } else {
+	      console.error('Gitter Sidecar: No room specified for container', container);
+	    }
 	  });
 	
 	  return {
@@ -297,7 +301,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	var defaults = {
-	  room: 'gitterHQ/gitter',
+	  room: undefined,
 	  // container: single or array of dom elements, or string selector to embed chat in
 	  container: null,
 	
@@ -379,7 +383,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        _bluebird2['default'].resolve(opts.activation).then(function (activationElement) {
 	          activationElement = coerceIntoElementsArray(activationElement || (function () {
-	            var button = _this[ELEMENTSTORE].createElement('button');
+	            var button = _this[ELEMENTSTORE].createElement('a');
 	            // We use the option for the room, not pertaining to a particular container if set
 	            button.href = opts.room;
 	            button.innerHTML = 'Open Chat';
@@ -5714,7 +5718,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, ".gitter-hidden {\n    box-sizing: border-box;\n    display: none;\n}\n.gitter-icon {\n    box-sizing: border-box;\n    width: 24px;\n    height: 24px;\n    fill: currentColor;\n}\n.gitter-chat-embed {\n    box-sizing: border-box;\n    z-index: 100;\n    position: fixed;\n    top: 0;\n    left: 60%;\n    bottom: 0;\n    right: 0;\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    -webkit-box-orient: horizontal;\n    -webkit-box-direction: normal;\n    -webkit-flex-direction: row;\n        -ms-flex-direction: row;\n            flex-direction: row;\n    border-left: 1px solid #333;\n    box-shadow: -12px 0 18px 0 rgba(50, 50, 50, 0.3);\n    -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.16, 0.22, 0.22, 1.7);\n            transition: transform 0.3s cubic-bezier(0.16, 0.22, 0.22, 1.7);\n}\n.gitter-chat-embed.is-collapsed {\n    box-sizing: border-box;\n    -webkit-transform: translateX(110%);\n        -ms-transform: translateX(110%);\n            transform: translateX(110%);\n}\n.gitter-chat-embed > iframe {\n    box-sizing: border-box;\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    width: 100%;\n    height: 100%;\n    border: 0;\n}\n.gitter-chat-embed-action-bar {\n    box-sizing: border-box;\n    position: absolute;\n    top: 0;\n    right: 0;\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    color: #3a3133;\n    color: rgba(58, 49, 51, 0.65);\n}\n.gitter-chat-embed-action-bar:hover {\n    box-sizing: border-box;\n    color: rgba(58, 49, 51, 1);\n}\n.gitter-chat-embed-action-bar-item {\n    box-sizing: border-box;\n    -webkit-box-flex: 1;\n    -webkit-flex: 1;\n        -ms-flex: 1;\n            flex: 1;\n    display: -webkit-box;\n    display: -webkit-flex;\n    display: -ms-flexbox;\n    display: flex;\n    /* main axis */\n    -webkit-box-pack: center;\n    -webkit-justify-content: center;\n        -ms-flex-pack: center;\n            justify-content: center;\n    /* cross axis */\n    -webkit-box-align: center;\n    -webkit-align-items: center;\n        -ms-flex-align: center;\n            align-items: center;\n    width: 100%;\n    padding: 8px 16px;\n    background: rgba(255, 255, 255, 0.5);\n    border: 0;\n    color: inherit;\n    font-size: 48px;\n    font-weight: bold;\n    cursor: pointer;\n    cursor: hand;\n    -webkit-transition: all 0.2s ease;\n            transition: all 0.2s ease;\n}\n.gitter-chat-embed-action-bar-item:hover, .gitter-chat-embed-action-bar-item:focus {\n    box-sizing: border-box;\n    outline: none;\n    box-shadow: inset 0 32px 32px -32px rgba(0, 0, 0, 0.25);\n}\n.gitter-chat-embed-action-bar-item:active {\n    box-sizing: border-box;\n    box-shadow: inset 0 32px 72px -32px rgba(0, 0, 0, 0.25);\n    color: #f68d42;\n}\n.gitter-open-chat-button {\n    box-sizing: border-box;\n    z-index: 100;\n    position: fixed;\n    bottom: 0;\n    right: 10px;\n    padding: 1em 3em;\n    background-color: #36bc98;\n    border: 0;\n    border-top-left-radius: 0.5em;\n    border-top-right-radius: 0.5em;\n    color: #ffffff;\n    text-align: center;\n    text-decoration: none;\n    cursor: pointer;\n    cursor: hand;\n    -webkit-transition: \r\n\t\t\t-webkit-transform 0.3s ease,\r\n\t\t\tbackground-color 0.3s ease;\n            transition: \r\n\t\t\ttransform 0.3s ease,\r\n\t\t\tbackground-color 0.3s ease;\n}\n.gitter-open-chat-button:hover, .gitter-open-chat-button:focus {\n    box-sizing: border-box;\n    background-color: #3ea07f;\n}\n.gitter-open-chat-button:focus {\n    box-sizing: border-box;\n    box-shadow: 0 0 8px rgba(62, 160, 127, 0.6);\n    outline: none;\n}\n.gitter-open-chat-button.is-collapsed {\n    box-sizing: border-box;\n    -webkit-transform: translateY(120%);\n        -ms-transform: translateY(120%);\n            transform: translateY(120%);\n}", ""]);
+	exports.push([module.id, ".gitter-hidden{box-sizing:border-box;display:none}.gitter-icon{box-sizing:border-box;width:24px;height:24px;fill:currentColor}.gitter-chat-embed{box-sizing:border-box;z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}.gitter-chat-embed.is-collapsed{box-sizing:border-box;-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed>iframe{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-action-bar{box-sizing:border-box;position:absolute;top:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;color:#3a3133;color:rgba(58,49,51,.65)}.gitter-chat-embed-action-bar:hover{box-sizing:border-box;color:#3a3133}.gitter-chat-embed-action-bar-item{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;padding:8px 16px;background:rgba(255,255,255,.5);border:0;color:inherit;font-size:48px;font-weight:700;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{box-sizing:border-box;outline:none;box-shadow:inset 0 32px 32px -32px rgba(0,0,0,.25)}.gitter-chat-embed-action-bar-item:active{box-sizing:border-box;box-shadow:inset 0 32px 72px -32px rgba(0,0,0,.25);color:#f68d42}.gitter-open-chat-button{box-sizing:border-box;z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:-webkit-transform .3s ease,background-color .3s ease;transition:transform .3s ease,background-color .3s ease}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{box-sizing:border-box;background-color:#3ea07f}.gitter-open-chat-button:focus{box-sizing:border-box;box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button.is-collapsed{box-sizing:border-box;-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
 	
 	// exports
 
