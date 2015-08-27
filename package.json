@@ -6,7 +6,7 @@
   "scripts": {
     "gulp": "babel-node gulpfile.js",
     "build-standalone": "webpack",
-    "build-standalone-dev": "webpack --watch"
+    "build-standalone-dev": "webpack --watch --progress"
   },
   "author": "",
   "license": "ISC",

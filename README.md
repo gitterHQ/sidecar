@@ -31,7 +31,7 @@ Set options with the global window option:
 </script>
 ```
 
-*TODO (not implemented yet):* You can also override these options individually on the container:
+You can also override these options individually on the container:
 
 ```html
 <div
@@ -47,6 +47,7 @@ Set options with the global window option:
  	 - Default: Elements that match `'.gitter-chat-embed'`
  - `options.showChatByDefault`: Whether to embed the chat on page load(true) or wait until the `options.activation` is resolved/clicked/interacted with(false).
  	 - Default: `true`
+ 	 - Note: **Use with caution,** useful for use cases where you have a page dedicated to chat.
  - `options.activation`: If `options.showChatByDefault` is `false`, this is the element you have to click/interact with to get the chat to actually embed. You can also pass in a promise which can optionally resolve to a dom node
  	 - Default: `null`
  - `options.useStyles`: Whether to embed some pre-made CSS styles to the page

@@ -9,7 +9,7 @@ module.exports = {
 	output: {
 		path: path.join(__dirname, 'dist'),
 		filename: 'sidecar.js',
-		library: 'sidecare',
+		library: 'sidecar',
 		libraryTarget: 'umd'
 	},
 	devtool: 'source-map',
