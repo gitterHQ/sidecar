@@ -5,6 +5,22 @@ var context = require('postcss-plugin-context');
 var autoprefixer = require('autoprefixer');
 var csswring = require('csswring');
 var nested = require('postcss-nested');
+var cssvariables = require('postcss-css-variables');
+
+
+var borderBox = postcss.plugin('postcss-border-box', function (opts) {
+  opts = opts || {};
+  return function(css) {
+    css.eachRule(function(rule) {
+      var decl = postcss.decl({
+        prop: 'box-sizing',
+        value: 'border-box'
+      });
+      rule.prepend(decl);
+    });
+  };
+});
+
 
 module.exports = {
   entry: './src/index.js',
@@ -31,19 +47,9 @@ module.exports = {
   postcss: function () {
     return [
       nested(),
+      cssvariables(),
       context({
-        'border-box': postcss.plugin('postcss-border-box', function (opts) {
-          opts = opts || {};
-          return function(css) {
-            css.eachRule(function(rule) {
-              var decl = postcss.decl({
-                prop: 'box-sizing',
-                value: 'border-box'
-              });
-              rule.prepend(decl);
-            });
-          };
-        })()
+        'border-box': borderBox
       }),
       autoprefixer(),
       csswring()

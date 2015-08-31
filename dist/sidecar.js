@@ -184,7 +184,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  return args.reduce(function (result, item) {
 	    // If array-like
-	    if (item.length && !Array.isArray(item)) {
+	    if (item && item.length && !Array.isArray(item)) {
 	      item = Array.prototype.slice.call(item);
 	    }
 	
@@ -252,7 +252,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return elementStore;
 	};
 	
-	var gitterSvgSprites = '\n  <svg class="gitter-hidden">\n    <defs>\n      <symbol id="gitter-shape-times-circle" viewBox="0 0 1792 1792">\n        <path d="M1225 1079l-146 146q-10 10-23 10t-23-10l-137-137-137 137q-10 10-23 10t-23-10l-146-146q-10-10-10-23t10-23l137-137-137-137q-10-10-10-23t10-23l146-146q10-10 23-10t23 10l137 137 137-137q10-10 23-10t23 10l146 146q10 10 10 23t-10 23l-137 137 137 137q10 10 10 23t-10 23zm215-183q0-148-73-273t-198-198-273-73-273 73-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273zm224 0q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>\n      </symbol>\n      <symbol id="gitter-shape-external-link" viewBox="0 0 1792 1792">\n        <path d="M1408 928v320q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h704q14 0 23 9t9 23v64q0 14-9 23t-23 9h-704q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-320q0-14 9-23t23-9h64q14 0 23 9t9 23zm384-864v512q0 26-19 45t-45 19-45-19l-176-176-652 652q-10 10-23 10t-23-10l-114-114q-10-10-10-23t10-23l652-652-176-176q-19-19-19-45t19-45 45-19h512q26 0 45 19t19 45z"/>\n      </symbol>\n    </defs>\n  </svg>';
+	var gitterSvgSprites = '\n  <svg class="gitter-hidden">\n    <defs>\n      <symbol id="gitter-shape-times-circle" viewBox="0 0 1792 1792">\n        <path d="M1225 1079l-146 146q-10 10-23 10t-23-10l-137-137-137 137q-10 10-23 10t-23-10l-146-146q-10-10-10-23t10-23l137-137-137-137q-10-10-10-23t10-23l146-146q10-10 23-10t23 10l137 137 137-137q10-10 23-10t23 10l146 146q10 10 10 23t-10 23l-137 137 137 137q10 10 10 23t-10 23zm215-183q0-148-73-273t-198-198-273-73-273 73-198 198-73 273 73 273 198 198 273 73 273-73 198-198 73-273zm224 0q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>\n      </symbol>\n      <symbol id="gitter-shape-external-link" viewBox="0 0 1792 1792">\n        <path d="M1408 928v320q0 119-84.5 203.5t-203.5 84.5h-832q-119 0-203.5-84.5t-84.5-203.5v-832q0-119 84.5-203.5t203.5-84.5h704q14 0 23 9t9 23v64q0 14-9 23t-23 9h-704q-66 0-113 47t-47 113v832q0 66 47 113t113 47h832q66 0 113-47t47-113v-320q0-14 9-23t23-9h64q14 0 23 9t9 23zm384-864v512q0 26-19 45t-45 19-45-19l-176-176-652 652q-10 10-23 10t-23-10l-114-114q-10-10-10-23t10-23l652-652-176-176q-19-19-19-45t19-45 45-19h512q26 0 45 19t19 45z"/>\n      </symbol>\n      <symbol id="gitter-shape-spinner" viewBox="0 0 1792 1792">\n        <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"/>\n      </symbol>\n    </defs>\n  </svg>\n';
 	
 	var embedGitterSvgSprites = function embedGitterSvgSprites() {
 	  var elementStore = new _elementStoreJs2['default']();
@@ -271,13 +271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var embedGitterChat = function embedGitterChat(opts) {
 	  var elementStore = new _elementStoreJs2['default']();
 	
-	  var containers = coerceIntoElementsArray(opts.container || (function () {
-	    var container = elementStore.createElement('aside');
-	    container.classList.add('gitter-chat-embed');
-	    document.body.appendChild(container);
-	
-	    return container;
-	  })());
+	  var containers = opts.container;
 	
 	  containers.forEach(function (container) {
 	    var containerOpts = getDataOptionsFromElement(opts, container);
@@ -294,10 +288,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	
-	  return {
-	    containers: containers,
-	    elementStore: elementStore
-	  };
+	  return elementStore;
 	};
 	
 	var defaults = {
@@ -314,7 +305,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  activation: null,
 	  // Whether to preload the gitter chat iframe.
 	  // We preload the chat so there isn't any jank when the chat opens
-	  preload: true,
+	  preload: false,
 	
 	  // Whether to embed a `<style>` tag with some pre-made CSS
 	  useStyles: true,
@@ -326,6 +317,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  //showLeftMenu: false
 	};
+	// Make the defaults a little more immutable
 	Object.keys(defaults).forEach(function (key) {
 	  Object.defineProperty(defaults, key, {
 	    value: defaults[key],
@@ -339,23 +331,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	var OPTIONS = Symbol();
 	var ELEMENTSTORE = Symbol();
 	var INIT = Symbol();
-	var CONTAINERS = Symbol();
+	var ISEMBEDDED = Symbol();
 	var EMBEDCHATONCE = Symbol();
+	var TOGGLECONTAINERS = Symbol();
 	
 	var chatEmbed = (function () {
 	  function chatEmbed() {
+	    var _this = this;
+	
 	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
 	    _classCallCheck(this, chatEmbed);
 	
 	    this[ELEMENTSTORE] = new _elementStoreJs2['default']();
 	
-	    this[DEFAULTS] = defaults;
+	    this[DEFAULTS] = (0, _objectAssign2['default'])({}, defaults);
 	
 	    // Coerce into array of dom elements on what they pass in
 	    if (options.container) {
 	      options.container = coerceIntoElementsArray(options.container);
 	    }
+	    // Otherwise create our own default container
+	    else {
+	        this[DEFAULTS].container = coerceIntoElementsArray((function () {
+	          var container = _this[ELEMENTSTORE].createElement('aside');
+	          container.classList.add('gitter-chat-embed');
+	          // Start out collapsed
+	          container.classList.add('is-collapsed');
+	          document.body.appendChild(container);
+	
+	          return container;
+	        })());
+	      }
 	
 	    this[OPTIONS] = (0, _objectAssign2['default'])({}, this[DEFAULTS], options);
 	
@@ -365,7 +372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(chatEmbed, [{
 	    key: INIT,
 	    value: function value() {
-	      var _this = this;
+	      var _this2 = this;
 	
 	      var opts = this[OPTIONS];
 	
@@ -373,6 +380,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedGitterStyles());
 	        this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedGitterSvgSprites());
 	      }
+	
+	      var containers = opts.container;
+	      containers.forEach(function (container) {
+	        var loadingIndicatorElement = _this2[ELEMENTSTORE].createElement('div');
+	        loadingIndicatorElement.classList.add('gitter-chat-embed-loading-wrapper');
+	        loadingIndicatorElement.innerHTML = '\n        <svg class=" gitter-chat-embed-loading-indicator gitter-icon"><use xlink:href="#gitter-shape-spinner"></use></svg>\n      ';
+	
+	        // Prepend
+	        container.insertBefore(loadingIndicatorElement, container.firstChild);
+	      });
 	
 	      if (opts.preload) {
 	        this.toggleChat(false);
@@ -383,7 +400,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      } else {
 	        _bluebird2['default'].resolve(opts.activation).then(function (activationElement) {
 	          activationElement = coerceIntoElementsArray(activationElement || (function () {
-	            var button = _this[ELEMENTSTORE].createElement('a');
+	            var button = _this2[ELEMENTSTORE].createElement('a');
 	            // We use the option for the room, not pertaining to a particular container if set
 	            button.href = opts.room;
 	            button.innerHTML = 'Open Chat';
@@ -395,12 +412,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	          elementOnActivate(activationElement, function (e) {
 	            // Show the chat
-	            _this.toggleChat(true);
+	            _this2.toggleChat(true);
 	
 	            e.preventDefault();
 	          });
 	
-	          _this[CONTAINERS].forEach(function (container) {
+	          opts.container.forEach(function (container) {
 	            container.on('gitter-chat-toggle', function (e) {
 	              var isChatOpen = e.detail.state;
 	              // Toggle the visibiltiy of the activation element
@@ -416,42 +433,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: EMBEDCHATONCE,
 	    value: function value() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
-	      if (!this[CONTAINERS]) {
+	      if (!this[ISEMBEDDED]) {
+	        var opts = this[OPTIONS];
+	
 	        var embedResult = embedGitterChat(this[OPTIONS]);
-	        this[CONTAINERS] = embedResult.containers;
-	        this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedResult.elementStore);
+	        this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedResult);
 	
-	        this[CONTAINERS].forEach(function (container) {
-	          var actionBar = _this2[ELEMENTSTORE].createElement('div');
+	        var containers = opts.container;
+	        containers.forEach(function (container) {
+	          var actionBar = _this3[ELEMENTSTORE].createElement('div');
 	          actionBar.classList.add('gitter-chat-embed-action-bar');
 	
+	          // Prepend
 	          container.insertBefore(actionBar, container.firstChild);
 	
-	          var collapseActionElement = _this2[ELEMENTSTORE].createElement('button');
+	          var collapseActionElement = _this3[ELEMENTSTORE].createElement('button');
 	          collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
 	          collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
 	          collapseActionElement.innerHTML = '<svg class="gitter-icon"><use xlink:href="#gitter-shape-times-circle"></use></svg>';
 	          elementOnActivate(collapseActionElement, function (e) {
 	            // Hide the chat
-	            _this2.toggleChat(false);
+	            _this3.toggleChat(false);
 	
 	            e.preventDefault();
 	          });
 	
 	          actionBar.appendChild(collapseActionElement);
 	
-	          var popOutActionElement = _this2[ELEMENTSTORE].createElement('button');
+	          var popOutActionElement = _this3[ELEMENTSTORE].createElement('button');
 	          popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
 	          popOutActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
 	          popOutActionElement.innerHTML = '<svg class="gitter-icon"><use xlink:href="#gitter-shape-external-link"></use></svg>';
 	          elementOnActivate(popOutActionElement, function (e) {
 	            // Hide the chat
-	            _this2.toggleChat(false);
+	            _this3.toggleChat(false);
 	
 	            // Open in new tab
-	            var win = window.open('https://gitter.im/' + _this2[OPTIONS].room, '_blank');
+	            var win = window.open('https://gitter.im/' + _this3[OPTIONS].room, '_blank');
 	            win.focus();
 	
 	            e.preventDefault();
@@ -460,18 +480,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	          actionBar.appendChild(popOutActionElement);
 	        });
 	      }
-	    }
 	
-	    // Public API
+	      this[ISEMBEDDED] = true;
+	    }
 	  }, {
-	    key: 'toggleChat',
-	    value: function toggleChat(state) {
-	      this[EMBEDCHATONCE]();
-	      if (!this[CONTAINERS]) {
+	    key: TOGGLECONTAINERS,
+	    value: function value(state) {
+	      var opts = this[OPTIONS];
+	
+	      if (!opts.container) {
 	        console.warn('Gitter Sidecar: No chat embed elements to toggle visibility on');
 	      }
 	
-	      coerceIntoElementsArray(this[CONTAINERS]).forEach(function (container) {
+	      var containers = opts.container;
+	      containers.forEach(function (container) {
 	        container.classList.toggle('is-collapsed', !state);
 	
 	        var event = new CustomEvent('gitter-chat-toggle', {
@@ -481,6 +503,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	        container.dispatchEvent(event);
 	      });
+	    }
+	
+	    // Public API
+	  }, {
+	    key: 'toggleChat',
+	    value: function toggleChat(state) {
+	      var _this4 = this;
+	
+	      var opts = this[OPTIONS];
+	
+	      // We delay the embed to make sure the animation can go jank free
+	      // if it isn't already embedded
+	      if (state && !this[ISEMBEDDED]) {
+	        (function () {
+	          var containers = opts.container;
+	          // Start the loading spinner
+	          containers.forEach(function (container) {
+	            container.classList.add('is-loading');
+	          });
+	
+	          setTimeout(function () {
+	            _this4[EMBEDCHATONCE]();
+	            _this4[TOGGLECONTAINERS](state);
+	
+	            // Remove the loading spinner
+	            containers.forEach(function (container) {
+	              container.classList.remove('is-loading');
+	            });
+	          }, 300 /* TODO change to transition/animation end, see for robust transition/animation end code: https://github.com/MadLittleMods/jquery-carouselss */);
+	        })();
+	      }
+	      // But we still want people to embed no matter what state :)
+	      // For example `options.preload`, should load the chat but not show it
+	      else {
+	          this[EMBEDCHATONCE]();
+	          this[TOGGLECONTAINERS](state);
+	        }
 	    }
 	  }, {
 	    key: 'destroy',
@@ -5718,7 +5777,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, ".gitter-hidden{box-sizing:border-box;display:none}.gitter-icon{box-sizing:border-box;width:24px;height:24px;fill:currentColor}.gitter-chat-embed{box-sizing:border-box;z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}.gitter-chat-embed.is-collapsed{box-sizing:border-box;-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed>iframe{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-action-bar{box-sizing:border-box;position:absolute;top:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;color:#3a3133;color:rgba(58,49,51,.65)}.gitter-chat-embed-action-bar:hover{box-sizing:border-box;color:#3a3133}.gitter-chat-embed-action-bar-item{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;padding:8px 16px;background:rgba(255,255,255,.5);border:0;color:inherit;font-size:48px;font-weight:700;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{box-sizing:border-box;outline:none;box-shadow:inset 0 32px 32px -32px rgba(0,0,0,.25)}.gitter-chat-embed-action-bar-item:active{box-sizing:border-box;box-shadow:inset 0 32px 72px -32px rgba(0,0,0,.25);color:#f68d42}.gitter-open-chat-button{box-sizing:border-box;z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:-webkit-transform .3s ease,background-color .3s ease;transition:transform .3s ease,background-color .3s ease}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{box-sizing:border-box;background-color:#3ea07f}.gitter-open-chat-button:focus{box-sizing:border-box;box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button.is-collapsed{box-sizing:border-box;-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
+	exports.push([module.id, ".gitter-hidden{display:none}.gitter-icon{width:24px;height:24px;fill:currentColor}.gitter-chat-embed{z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;background-color:#fff;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}@context border-box{.gitter-chat-embed{background-color:#fff}}.gitter-chat-embed.is-collapsed:not(.is-loading){-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed:after{content:'';z-index:-1;position:absolute;top:0;left:100%;bottom:0;right:-100%;background-color:#fff}@context border-box{.gitter-chat-embed:after{background-color:#fff}}.gitter-chat-embed>iframe{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-loading-wrapper{position:absolute;top:0;left:0;bottom:0;right:0;display:none;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}.is-loading .gitter-chat-embed-loading-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.gitter-chat-embed-loading-indicator{color:rgba(0,0,0,.75);-webkit-animation:spin 2s infinite linear;animation:spin 2s infinite linear}@-webkit-keyframes spin{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}@keyframes spin{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}.gitter-chat-embed-action-bar{position:absolute;top:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;color:#3a3133;color:rgba(58,49,51,.65)}.gitter-chat-embed-action-bar:hover{color:#3a3133}.gitter-chat-embed-action-bar-item{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:100%;padding:8px 16px;background:rgba(255,255,255,.5);border:0;color:inherit;font-size:48px;font-weight:700;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{outline:none;box-shadow:inset 0 32px 32px -32px rgba(0,0,0,.25)}.gitter-chat-embed-action-bar-item:active{box-shadow:inset 0 32px 72px -32px rgba(0,0,0,.25);color:#f68d42}.gitter-open-chat-button{z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:-webkit-transform .3s ease,background-color .3s ease;transition:transform .3s ease,background-color .3s ease}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{background-color:#3ea07f}.gitter-open-chat-button:focus{box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button.is-collapsed{-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
 	
 	// exports
 

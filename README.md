@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.2
+# Latest version: 0.2.3
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -52,6 +52,8 @@ You can also override these options individually on the container:
  	 - Default: `null`
  - `options.useStyles`: Whether to embed some pre-made CSS styles to the page
  	 - Default: `true`
+ - `preload`: Whether the Gitter chat iframe should be loaded in when the chat embed instance is created(this is the page load for default embed)
+ 	 - Defaut: `false`
 
 
 ### Window Options:

@@ -1,4 +1,9 @@
 
+# v0.2.3 - 2015-8-31
+
+ - `options.preload` defaults to `false`. Instead, we load the iframe after the "Open Chat" button is clicked and the aside is slid into place. This is to avoid the unnecessary strain to the Gitter servers for people who never click the open chat button, etc.
+ - Add `.is-loading` state for when the iframe hasn't embedded yet but we are working on it. We don't add the iframe exactly on click because that causes jank in the slide in animation.
+
 # v0.2.2 - 2015-8-27
 
  - `options.room` defaults to `undefined` and will throw an error if no room is specified
