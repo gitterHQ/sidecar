@@ -1,11 +1,11 @@
 {
   "name": "gitter-sidecar",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "",
   "main": "index.js",
   "scripts": {
     "gulp": "babel-node gulpfile.js",
-    "build-standalone": "webpack",
+    "build-standalone": "webpack -p",
     "build-standalone-dev": "webpack --watch --progress"
   },
   "author": "",
@@ -26,7 +26,7 @@
     "webpack": "^1.10.5"
   },
   "dependencies": {
-    "bluebird": "^2.9.34",
+    "es6-promise": "^3.0.2",
     "object-assign": "^3.0.0"
   }
 }

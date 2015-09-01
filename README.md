@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.3
+# Latest version: 0.2.4
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -25,7 +25,7 @@ Set options with the global window option:
 
 ```html
 <script>
-	((window.___gitter = {}).chat = {}).options = {
+	((window.gitter = {}).chat = {}).options = {
 		room: 'gitterHQ/gitter'
 	};
 </script>
@@ -60,9 +60,9 @@ You can also override these options individually on the container:
 
 You can set any of the chat options above in this object as well
 
- - `window.___gitter.chat.options.disableDefaultChat`: Stop the default chat from just loading on the page when including the Sidecar script. *So you can handle the Gitter chat creation yourself.*
+ - `window.gitter.chat.options.disableDefaultChat`: Stop the default chat from just loading on the page when including the Sidecar script. *So you can handle the Gitter chat creation yourself.*
 
-The default chat is stored on `window.___gitter.chat.defaultChat`.
+The default chat is stored on `window.gitter.chat.defaultChat`.
 
 
 # API
@@ -71,7 +71,7 @@ The default chat is stored on `window.___gitter.chat.defaultChat`.
 
 
 ```js
-var chat = new window.___gitter.Chat(/* options */);`
+var chat = new window.gitter.Chat(/* options */);`
 ```
 
  - `toggleChat(isChatOpen)`: Function/method - Takes a boolean which toggles the visibility of the chat panel
@@ -80,8 +80,19 @@ var chat = new window.___gitter.Chat(/* options */);`
 
 ## Events
 
+Emitted on Document:
+
+ - `gitter-sidecar-ready`: Emitted when the sidecar script has loaded and is available via `window.gitter`
+ - `gitter-sidecar-instance-started`: Emitted after any Sidecar chat instance has initialized
+ 	 - Data: `chat`: The sidecar chat instance that was initialized
+
+Emitted on Container:
+
  - `gitter-chat-toggle`: Emitted whenever the chat is opened or closed
  	 - Data: `state`: Whether it was opened(true) or closed(false)
+ - `gitter-chat-started`: Emitted after the Sidecar chat instance has initialized
+ 	 - Data: `chat`: The sidecar chat instance that was initialized
+
 
 
 *example:*

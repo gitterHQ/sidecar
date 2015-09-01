@@ -1,14 +1,25 @@
 
+# v0.2.4 - 2015-9-1
+
+ - Emit `gitter-sidecar-ready` event on `document` when the script has loaded: `document.addEventListener('gitter-sidecar-ready', function(e) { var Chat = e.detail.Chat; var chat = new Chat(/*opts*/); });`
+ - Emit `gitter-sidecar-instance-started` event on `document` after a Sidecar chat instance is initialized: `document.addEventListener('gitter-sidecar-instance-started', function(e) { var chat = e.detail.chat; chat.toggleChat(true); });`
+ - Emit `gitter-chat-started` event on container after a Sidecar chat instance is initialized: `document.querySelector('.gitter-chat-embed').addEventListener('gitter-chat-started', function(e) { var chat = e.detail.chat; chat.toggleChat(true); });`
+ - Use [`es6-promise`](https://www.npmjs.com/package/es6-promise) instead of [`bluebird`](https://github.com/petkaantonov/bluebird) for the sake of file size
+ - Stop using `bling.js` for DOM manipulation. Now using `dom-utility.js` which is fully encapsulated from the `window` world.
+
+
 # v0.2.3 - 2015-8-31
 
  - `options.preload` defaults to `false`. Instead, we load the iframe after the "Open Chat" button is clicked and the aside is slid into place. This is to avoid the unnecessary strain to the Gitter servers for people who never click the open chat button, etc.
  - Add `.is-loading` state for when the iframe hasn't embedded yet but we are working on it. We don't add the iframe exactly on click because that causes jank in the slide in animation.
+
 
 # v0.2.2 - 2015-8-27
 
  - `options.room` defaults to `undefined` and will throw an error if no room is specified
  - Using a custom PostCSS plugin and [`postcss-plugin-context`](https://github.com/postcss/postcss-plugin-context) to add `box-sizing: border-box;` to each rule: `@context border-box { /* ... */ }
  - Use `<a>` element as the default generated activation element so that if the JS fails to execute, we still have it link through to the actual room.
+
 
 # v0.2.1 - 2015-8-20
 

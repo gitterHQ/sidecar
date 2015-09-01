@@ -1,36 +1,16 @@
 import objectAssign from 'object-assign';
-import Promise from 'bluebird';
+import {Promise} from 'es6-promise';
 
-import $ from './bling.js';
 import ElementStore from './element-store.js';
 import chatCss from '../css/chat.css';
 
 
+import { default as $ } from './dom-utility.js';
+import * as domUtility from './dom-utility.js';
 
-// This will concat anything including array-like things(like NodeLists)
-let concat = function(...args) {
-  return args.reduce(function(result, item) {
-    // If array-like
-    if(item && item.length && !Array.isArray(item)) {
-      item = Array.prototype.slice.call(item);
-    }
-    
-    return result.concat(item);
-  }, []);
-};
 
-// Pass in a selector string, dom node, or array of dom nodes
-let coerceIntoElementsArray = function(stuff) {
-  let elements = [];
-  if(typeof stuff === 'string') {
-    elements = $(stuff);
-  }
-  else {
-    elements = concat(stuff);
-  }
 
-  return elements;
-};
+const gitterUrl = 'https://gitter.im/';
 
 
 // Pass in a shape object of options and the element
@@ -60,8 +40,8 @@ let getDataOptionsFromElement = function(options, element) {
 const spacebarKey = 32;
 const enterKey = 13;
 let elementOnActivate = function(elements, cb) {
-  elements = coerceIntoElementsArray(elements);
-  NodeList.prototype.on.call(elements, 'click keydown', function(e, ...args) {
+  elements = domUtility.coerceIntoElementsArray(elements);
+  domUtility.on(elements, 'click keydown', function(e, ...args) {
     // If click or spacebar, or enter is pressed
     if(e.type === 'click' || (e.type === 'keydown' && (e.keyCode === spacebarKey || e.keyCode === enterKey))) {
       cb.call(this, e, ...args);
@@ -102,7 +82,7 @@ let embedGitterSvgSprites = function() {
   let tempContainer = document.createElement('div');
   tempContainer.insertAdjacentHTML('beforeend', gitterSvgSprites);
   let body = $('body')[0];
-  tempContainer.children.forEach(function(child) {
+  domUtility.forEach(tempContainer.children, function(child) {
     body.appendChild(child);
     elementStore.push(child);
   });
@@ -121,8 +101,8 @@ let embedGitterChat = function(opts) {
     if(containerOpts.room) {
       let iframe = elementStore.createElement('iframe');
       iframe.setAttribute('frameborder', '0');
-      iframe.src = `https://gitter.im/${containerOpts.room}/~embed`;
-      //iframe.src = `https://gitter.im/${containerOpts.room}/~chat`;
+      iframe.src = `${gitterUrl}${containerOpts.room}/~embed`;
+      //iframe.src = `${gitterUrl}${containerOpts.room}/~chat`;
 
       container.appendChild(iframe);
     }
@@ -191,11 +171,11 @@ class chatEmbed {
 
     // Coerce into array of dom elements on what they pass in
     if(options.container) {
-      options.container = coerceIntoElementsArray(options.container);
+      options.container = domUtility.coerceIntoElementsArray(options.container);
     }
     // Otherwise create our own default container
     else {
-      this[DEFAULTS].container = coerceIntoElementsArray((() => {
+      this[DEFAULTS].container = domUtility.coerceIntoElementsArray((() => {
         let container = this[ELEMENTSTORE].createElement('aside');
         container.classList.add('gitter-chat-embed');
         // Start out collapsed
@@ -241,10 +221,10 @@ class chatEmbed {
     else {
       Promise.resolve(opts.activation)
         .then((activationElement) => {
-          activationElement = coerceIntoElementsArray(activationElement || (() => {
+          activationElement = domUtility.coerceIntoElementsArray(activationElement || (() => {
             let button = this[ELEMENTSTORE].createElement('a');
             // We use the option for the room, not pertaining to a particular container if set
-            button.href = opts.room;
+            button.href = `${gitterUrl}${opts.room}`;
             button.innerHTML = 'Open Chat';
             button.classList.add('gitter-open-chat-button');
             document.body.appendChild(button);
@@ -260,17 +240,36 @@ class chatEmbed {
           });
 
           opts.container.forEach((container) => {
-            container.on('gitter-chat-toggle', (e) => {
+            domUtility.on(container, 'gitter-chat-toggle', (e) => {
               let isChatOpen = e.detail.state;
               // Toggle the visibiltiy of the activation element
               // so it is only there when the the chat is closed
-              activationElement.forEach((element) => {
+              domUtility.forEach(activationElement, (element) => {
                 element.classList.toggle('is-collapsed', isChatOpen);
               });
             });
           });
         });
     }
+
+
+    // Emit for each container
+    opts.container.forEach((container) => {
+      let event = new CustomEvent('gitter-chat-started', {
+        detail: {
+          chat: this
+        }
+      });
+      container.dispatchEvent(event);
+    });
+
+    // Emit for document
+    let documentEvent = new CustomEvent('gitter-sidecar-instance-started', {
+      detail: {
+        chat: this
+      }
+    });
+    document.dispatchEvent(documentEvent);
   }
 
   [EMBEDCHATONCE]() {
@@ -310,7 +309,7 @@ class chatEmbed {
           this.toggleChat(false);
 
           // Open in new tab
-          let win = window.open(`https://gitter.im/${this[OPTIONS].room}`, '_blank');
+          let win = window.open(`${gitterUrl}${this[OPTIONS].room}`, '_blank');
           win.focus();
 
           e.preventDefault();
