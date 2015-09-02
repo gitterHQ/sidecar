@@ -5,6 +5,6 @@ test:
   override:
     - ci/browserstack_tunnel.sh
     - browserstack/BrowserStackLocal -skipCheck -f $BS_KEY
-        background: true
+      background: true
     - mocha
     - script/ci/browserstack_tunnel.sh stop:
