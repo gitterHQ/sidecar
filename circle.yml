@@ -7,4 +7,4 @@ test:
     - browserstack/BrowserStackLocal -skipCheck -f $BS_KEY:
         background: true
     - mocha
-    - script/ci/browserstack_tunnel.sh stop
+    - ci/browserstack_tunnel.sh stop
