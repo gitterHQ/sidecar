@@ -5,8 +5,9 @@ dependencies:
 test:
   override:
     - npm run build
+    - cp $PWD/dist/sidecar.js $PWD/test/fixtures/
     - ci/browserstack_tunnel.sh
-    - browserstack/BrowserStackLocal -f $BS_KEY `pwd`/dist:
+    - browserstack/BrowserStackLocal -f $BS_KEY $PWD/test/fixtures:
         background: true
     - npm test
     - ci/browserstack_tunnel.sh stop
