@@ -4,9 +4,8 @@
   "description": "An embeddable Gitter client.",
   "main": "index.js",
   "scripts": {
-    "gulp": "babel-node gulpfile.js",
-    "build-standalone": "webpack -p",
-    "build-standalone-dev": "webpack --watch --progress"
+    "build": "webpack --watch --progress",
+    "release": "webpack -p && gulp deploy"
   },
   "author": "The Gitter Team",
   "license": "MIT",
@@ -26,11 +25,11 @@
     "postcss-nested": "^0.3.2",
     "postcss-plugin-context": "^1.2.0",
     "style-loader": "^0.12.3",
-    "webpack": "^1.10.5"
+    "webpack": "^1.10.5",
+    "s3": "^4.4.0"
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
-    "object-assign": "^3.0.0",
-    "s3": "^4.4.0"
+    "object-assign": "^3.0.0"
   }
 }

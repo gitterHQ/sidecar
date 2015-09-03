@@ -30,6 +30,7 @@ module.exports = {
     library: 'sidecar',
     libraryTarget: 'umd'
   },
+  devtool: 'sourcemap',
   module: {
     loaders: [
       {
