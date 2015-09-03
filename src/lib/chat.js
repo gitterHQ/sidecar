@@ -370,16 +370,20 @@ class chatEmbed {
 
     let containers = opts.container;
     containers.forEach((container) => {
+      let wasCollapseClassAdded;
       if(state === 'toggle') {
-        container.classList.toggle('is-collapsed');
+        wasCollapseClassAdded = container.classList.toggle('is-collapsed');
       }
       else {
-        container.classList.toggle('is-collapsed', !state);
+        wasCollapseClassAdded = container.classList.toggle('is-collapsed', !state);
       }
+
+      // This is what happened after toggling the classes from the `state` input passed in
+      let actualState = !wasCollapseClassAdded;
 
       let event = new CustomEvent('gitter-chat-toggle', {
         detail: {
-          state
+          state: actualState
         }
       });
       container.dispatchEvent(event);

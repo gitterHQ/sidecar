@@ -528,15 +528,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var containers = opts.container;
 	      containers.forEach(function (container) {
+	        var wasCollapseClassAdded = undefined;
 	        if (state === 'toggle') {
-	          container.classList.toggle('is-collapsed');
+	          wasCollapseClassAdded = container.classList.toggle('is-collapsed');
 	        } else {
-	          container.classList.toggle('is-collapsed', !state);
+	          wasCollapseClassAdded = container.classList.toggle('is-collapsed', !state);
 	        }
+	
+	        // This is what happened after toggling the classes from the `state` input passed in
+	        var actualState = !wasCollapseClassAdded;
 	
 	        var event = new CustomEvent('gitter-chat-toggle', {
 	          detail: {
-	            state: state
+	            state: actualState
 	          }
 	        });
 	        container.dispatchEvent(event);
