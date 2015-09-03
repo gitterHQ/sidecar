@@ -1,4 +1,10 @@
 
+# v0.2.5 - 2015-9-2
+
+ - Listen to `.js-gitter-toggle-chat-button` elements for "activiation"(click) which can toggle the chat panel. You can also set `data-gitter-toggle-chat-state` to an explicit value of `true` or `false` to make a open and close button respectively. By default the value is `'toggle'`.
+ - Add `dom-utility.js -> off` to remove event handlers
+
+
 # v0.2.4 - 2015-9-1
 
  - Emit `gitter-sidecar-ready` event on `document` when the script has loaded: `document.addEventListener('gitter-sidecar-ready', function(e) { var Chat = e.detail.Chat; var chat = new Chat(/*opts*/); });`
@@ -6,6 +12,7 @@
  - Emit `gitter-chat-started` event on container after a Sidecar chat instance is initialized: `document.querySelector('.gitter-chat-embed').addEventListener('gitter-chat-started', function(e) { var chat = e.detail.chat; chat.toggleChat(true); });`
  - Use [`es6-promise`](https://www.npmjs.com/package/es6-promise) instead of [`bluebird`](https://github.com/petkaantonov/bluebird) for the sake of file size
  - Stop using `bling.js` for DOM manipulation. Now using `dom-utility.js` which is fully encapsulated from the `window` world.
+ - Now using `window.gitter` instead of `window.___gitter`
 
 
 # v0.2.3 - 2015-8-31

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sidecar Basic Example</title>
+
+  <link href="../common.css" rel="stylesheet">
+</head>
+<body>
+  <button class="js-gitter-toggle-chat-button">Toggle Chat</button>
+  <button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="true">Open Chat</button>
+  <button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="false">Close Chat</button>
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      room: 'marionettejs/backbone.marionette'
+    };
+  </script>
+  <script src="../../dist/sidecar.js" async defer></script>
+</body>
+</html>
+
+

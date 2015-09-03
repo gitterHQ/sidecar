@@ -1,15 +1,14 @@
 {
   "name": "gitter-sidecar",
-  "version": "0.2.4",
-  "description": "",
+  "version": "0.2.5",
+  "description": "An embeddable Gitter client.",
   "main": "index.js",
   "scripts": {
-    "gulp": "babel-node gulpfile.js",
-    "build-standalone": "webpack -p",
-    "build-standalone-dev": "webpack --watch --progress"
+    "build": "webpack --watch --progress",
+    "release": "webpack -p && gulp deploy"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "The Gitter Team",
+  "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^5.2.0",
     "babel": "^5.8.20",
@@ -19,13 +18,17 @@
     "css-loader": "^0.16.0",
     "csswring": "^3.0.5",
     "mocha": "^2.3.0",
+    "gulp": "^3.9.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-util": "^3.0.6",
     "postcss": "^4.1.16",
     "postcss-css-variables": "^0.4.0",
     "postcss-loader": "^0.5.1",
     "postcss-nested": "^0.3.2",
     "postcss-plugin-context": "^1.2.0",
     "style-loader": "^0.12.3",
-    "webpack": "^1.10.5"
+    "webpack": "^1.10.5",
+    "s3": "^4.4.0"
   },
   "dependencies": {
     "es6-promise": "^3.0.2",
