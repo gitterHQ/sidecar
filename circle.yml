@@ -1,0 +1,19 @@
+dependencies:
+  cache_directories:
+    - browserstack
+
+test:
+  override:
+    - npm run build
+    - ci/browserstack_tunnel.sh
+    - browserstack/BrowserStackLocal -f $BS_KEY `pwd`/dist:
+        background: true
+    - npm test
+    - ci/browserstack_tunnel.sh stop
+
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    owner: gitterHQ
+    commands:
+      - npm run deploy
