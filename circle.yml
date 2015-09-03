@@ -3,6 +3,7 @@ dependencies:
     - browserstack
 test:
   override:
+    - npm run build-standalone
     - ci/browserstack_tunnel.sh
     - browserstack/BrowserStackLocal -f $BS_KEY `pwd`/dist:
         background: true
