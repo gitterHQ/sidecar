@@ -4,8 +4,9 @@
   "description": "An embeddable Gitter client.",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --watch --progress",
-    "build-production": "webpack -p",
+    "test": "mocha",
+    "devbuild": "webpack --watch --progress",
+    "build": "webpack -p",
     "deploy": "gulp deploy"
   },
   "author": "The Gitter Team",

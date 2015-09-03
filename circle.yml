@@ -4,11 +4,11 @@ dependencies:
 
 test:
   override:
-    - npm run build-production
+    - npm run build
     - ci/browserstack_tunnel.sh
     - browserstack/BrowserStackLocal -f $BS_KEY `pwd`/dist:
         background: true
-    - mocha
+    - npm test
     - ci/browserstack_tunnel.sh stop
 
 deployment:
