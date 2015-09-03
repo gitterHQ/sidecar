@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --watch --progress",
-    "release": "webpack -p && gulp deploy"
+    "build-production": "webpack -p",
+    "deploy": "gulp deploy"
   },
   "author": "The Gitter Team",
   "license": "MIT",

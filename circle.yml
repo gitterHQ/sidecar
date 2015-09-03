@@ -1,11 +1,19 @@
 dependencies:
   cache_directories:
     - browserstack
+
 test:
   override:
-    - npm run build-standalone
+    - npm run build-production
     - ci/browserstack_tunnel.sh
     - browserstack/BrowserStackLocal -f $BS_KEY `pwd`/dist:
         background: true
     - mocha
     - ci/browserstack_tunnel.sh stop
+
+deployment:
+  release:
+    tag: /release-.*/
+    owner: gitterhq
+    commands:
+      - npm run deploy
