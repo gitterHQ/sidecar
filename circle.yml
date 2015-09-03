@@ -14,6 +14,6 @@ test:
 deployment:
   release:
     tag: /v[0-9]+(\.[0-9]+)*/
-    owner: gitterhq
+    owner: gitterHQ
     commands:
       - npm run deploy
