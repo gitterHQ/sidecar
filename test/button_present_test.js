@@ -22,17 +22,19 @@ var browsers = [
 
 
 test.describe('Sidecar', function() {
-  var driver, server;
 
   browsers.forEach(function(capabilities) {
+
+    var driver, server;
 
     test.before(function() {
       console.log('Testing:', capabilities);
 
-      capabilities['browserstack.local']  =  'true';
+      capabilities['browserstack.local']  =  'true'; // Gives access to the BrowserStack tunnel from the VM
       capabilities['browserstack.user']   =  USER;
       capabilities['browserstack.key']    =  KEY;
       capabilities['resolution']          = '1280x1024';
+      capabilities['browserstack.debug']  = true; // Provides visual logs
 
       driver = new webdriver.Builder().
       usingServer('http://hub.browserstack.com/wd/hub').
@@ -51,7 +53,9 @@ test.describe('Sidecar', function() {
         });
       }, 1000);
     });
+
+    test.after(function() { driver.quit(); });
+
   });
 
-  test.after(function() { driver.quit(); });
 });
