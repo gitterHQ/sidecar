@@ -30,7 +30,7 @@ module.exports = {
     library: 'sidecar',
     libraryTarget: 'umd'
   },
-  devtool: 'sourcemap',
+  devtool: 'source-map',
   module: {
     loaders: [
       {
@@ -44,7 +44,6 @@ module.exports = {
       }
     ]
   },
-  plugins: [],
   postcss: function () {
     return [
       nested(),
