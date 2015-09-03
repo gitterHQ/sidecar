@@ -13,6 +13,22 @@ import * as domUtility from './dom-utility.js';
 const gitterUrl = 'https://gitter.im/';
 
 
+let parseAttributeTruthiness = function(value) {
+  if(value) {
+    let valueSanitized = value.trim().toLowerCase();
+    if(valueSanitized === 'true' || valueSanitized === '1') {
+      return true;
+    }
+    else if(valueSanitized === 'false' || valueSanitized === '0') {
+      return false;
+    }
+  }
+
+  return value;
+};
+
+
+
 // Pass in a shape object of options and the element
 // and we will extend and properties available
 // NOTE: We will only look for keys present in `options` passed in
@@ -36,17 +52,24 @@ let getDataOptionsFromElement = function(options, element) {
 
 
 // Helper method that detects whether an element was "activated"
+// Returns a function that you can execute to remove the listeners
 // Accibility in mind: click, spacebar, enter
 const spacebarKey = 32;
 const enterKey = 13;
 let elementOnActivate = function(elements, cb) {
   elements = domUtility.coerceIntoElementsArray(elements);
-  domUtility.on(elements, 'click keydown', function(e, ...args) {
+
+  let handler = function(e, ...args) {
     // If click or spacebar, or enter is pressed
     if(e.type === 'click' || (e.type === 'keydown' && (e.keyCode === spacebarKey || e.keyCode === enterKey))) {
       cb.call(this, e, ...args);
     }
-  });
+  };
+  domUtility.on(elements, 'click keydown', handler);
+
+  return function() {
+    domUtility.off(elements, 'click keydown', handler);
+  };
 };
 
 
@@ -158,6 +181,7 @@ Object.keys(defaults).forEach((key) => {
 const DEFAULTS = Symbol();
 const OPTIONS = Symbol();
 const ELEMENTSTORE = Symbol();
+const EVENTHANDLESTORE = Symbol();
 const INIT = Symbol();
 const ISEMBEDDED = Symbol();
 const EMBEDCHATONCE = Symbol();
@@ -166,6 +190,7 @@ const TOGGLECONTAINERS = Symbol();
 class chatEmbed {
   constructor(options = {}) {
     this[ELEMENTSTORE] = new ElementStore();
+    this[EVENTHANDLESTORE] = [];
     
     this[DEFAULTS] = objectAssign({}, defaults);
 
@@ -252,6 +277,16 @@ class chatEmbed {
         });
     }
 
+    // Listen to buttons with a class of `.js-gitter-toggle-chat-button`
+    // We also look for an options `data-gitter-toggle-chat-state` attribute
+    let classToggleButtonOff = elementOnActivate($('.js-gitter-toggle-chat-button'), (e) => {
+      let state = parseAttributeTruthiness(e.target.getAttribute('data-gitter-toggle-chat-state'));
+      this.toggleChat(state !== null ? state : 'toggle');
+
+      e.preventDefault();
+    });
+    this[EVENTHANDLESTORE].push(classToggleButtonOff);
+
 
     // Emit for each container
     opts.container.forEach((container) => {
@@ -325,6 +360,7 @@ class chatEmbed {
     this[ISEMBEDDED] = true;
   }
 
+  // state: true, false, 'toggle'
   [TOGGLECONTAINERS](state) {
     let opts = this[OPTIONS];
 
@@ -334,11 +370,20 @@ class chatEmbed {
 
     let containers = opts.container;
     containers.forEach((container) => {
-      container.classList.toggle('is-collapsed', !state);
+      let wasCollapseClassAdded;
+      if(state === 'toggle') {
+        wasCollapseClassAdded = container.classList.toggle('is-collapsed');
+      }
+      else {
+        wasCollapseClassAdded = container.classList.toggle('is-collapsed', !state);
+      }
+
+      // This is what happened after toggling the classes from the `state` input passed in
+      let actualState = !wasCollapseClassAdded;
 
       let event = new CustomEvent('gitter-chat-toggle', {
         detail: {
-          state
+          state: actualState
         }
       });
       container.dispatchEvent(event);
@@ -347,6 +392,7 @@ class chatEmbed {
 
 
   // Public API
+  // state: true, false, 'toggle'
   toggleChat(state) {
     let opts = this[OPTIONS];
 
@@ -378,6 +424,12 @@ class chatEmbed {
   }
 
   destroy() {
+    // Remove all the event handlers
+    this[EVENTHANDLESTORE].forEach(function(fn) {
+      fn();
+    });
+
+    // Remove and DOM elements, we made
     this[ELEMENTSTORE].destroy();
   }
 }
