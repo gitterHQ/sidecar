@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.4
+# Latest version: 0.2.5
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -17,6 +17,17 @@ Gitter embed widget
 ## Examples
 
  - [Basic](https://github.com/gitterHQ/sidecar/tree/master/examples/basic)
+
+
+### Toggle Buttons
+
+You can define toggle/open/close buttons in your page using the `.js-gitter-toggle-chat-button` class and an optional `data-gitter-toggle-chat-state` attribute. If you do not provide a `data-gitter-toggle-chat-state`, it will default to `'toggle'`. See the `examples/toggle-chat-class-buttons` example.
+
+```html
+<button class="js-gitter-toggle-chat-button">Toggle Chat</button>
+<button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="true">Open Chat</button>
+<button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="false">Close Chat</button>
+```
 
 
 # Options

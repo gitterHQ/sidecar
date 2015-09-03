@@ -30,7 +30,7 @@ document.dispatchEvent(event);
 
 
 
-
+// Create the default instance
 if(!((windowGitter.chat || {}).options || {}).disableDefaultChat) {
   let windowGitterChat = getOrDefaultKey(windowGitter, 'chat');
   windowGitterChat.defaultChat = new Chat(windowGitterChat.options || {});

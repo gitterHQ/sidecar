@@ -26,7 +26,7 @@ export function coerceIntoElementsArray(stuff) {
   }
 
   return elements;
-};
+}
 
 
 // `arrayLike` can be a single object, array, or array-like (NodeList, HTMLCollection)
@@ -36,7 +36,8 @@ export function forEach(arrayLike, cb) {
       cb.apply(cb, args);
     }
   });
-};
+}
+
 
 // Listen to events.
 // Pass in a string name of events separated by spaces
@@ -49,7 +50,20 @@ export function on(elements, names, cb) {
 
   // Keep the chaining going
   return this;
-};
+}
+
+// Remove the event listener
+// Pass in a string name of events separated by spaces
+export function off(elements, names, cb) {
+  names.split(/\s/).forEach(function(name) {
+    forEach(elements, (element) => {
+      element.removeEventListener(name, cb);
+    });
+  });
+
+  // Keep the chaining going
+  return this;
+}
 
 
 

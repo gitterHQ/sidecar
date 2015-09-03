@@ -92,6 +92,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	});
 	document.dispatchEvent(event);
 	
+	// Create the default instance
 	if (!((windowGitter.chat || {}).options || {}).disableDefaultChat) {
 	  var windowGitterChat = getOrDefaultKey(windowGitter, 'chat');
 	  windowGitterChat.defaultChat = new _libChatJs2['default'](windowGitterChat.options || {});
@@ -185,6 +186,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var gitterUrl = 'https://gitter.im/';
 	
+	var parseAttributeTruthiness = function parseAttributeTruthiness(value) {
+	  if (value) {
+	    var valueSanitized = value.trim().toLowerCase();
+	    if (valueSanitized === 'true' || valueSanitized === '1') {
+	      return true;
+	    } else if (valueSanitized === 'false' || valueSanitized === '0') {
+	      return false;
+	    }
+	  }
+	
+	  return value;
+	};
+	
 	// Pass in a shape object of options and the element
 	// and we will extend and properties available
 	// NOTE: We will only look for keys present in `options` passed in
@@ -206,12 +220,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	// Helper method that detects whether an element was "activated"
+	// Returns a function that you can execute to remove the listeners
 	// Accibility in mind: click, spacebar, enter
 	var spacebarKey = 32;
 	var enterKey = 13;
 	var elementOnActivate = function elementOnActivate(elements, cb) {
 	  elements = domUtility.coerceIntoElementsArray(elements);
-	  domUtility.on(elements, 'click keydown', function (e) {
+	
+	  var handler = function handler(e) {
 	    // If click or spacebar, or enter is pressed
 	    if (e.type === 'click' || e.type === 'keydown' && (e.keyCode === spacebarKey || e.keyCode === enterKey)) {
 	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -220,7 +236,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      cb.call.apply(cb, [this, e].concat(args));
 	    }
-	  });
+	  };
+	  domUtility.on(elements, 'click keydown', handler);
+	
+	  return function () {
+	    domUtility.off(elements, 'click keydown', handler);
+	  };
 	};
 	
 	var embedGitterStyles = function embedGitterStyles() {
@@ -311,6 +332,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var DEFAULTS = Symbol();
 	var OPTIONS = Symbol();
 	var ELEMENTSTORE = Symbol();
+	var EVENTHANDLESTORE = Symbol();
 	var INIT = Symbol();
 	var ISEMBEDDED = Symbol();
 	var EMBEDCHATONCE = Symbol();
@@ -325,6 +347,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _classCallCheck(this, chatEmbed);
 	
 	    this[ELEMENTSTORE] = new _elementStoreJs2['default']();
+	    this[EVENTHANDLESTORE] = [];
 	
 	    this[DEFAULTS] = (0, _objectAssign2['default'])({}, defaults);
 	
@@ -411,6 +434,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	        });
 	      }
 	
+	      // Listen to buttons with a class of `.js-gitter-toggle-chat-button`
+	      // We also look for an options `data-gitter-toggle-chat-state` attribute
+	      var classToggleButtonOff = elementOnActivate((0, _domUtilityJs2['default'])('.js-gitter-toggle-chat-button'), function (e) {
+	        var state = parseAttributeTruthiness(e.target.getAttribute('data-gitter-toggle-chat-state'));
+	        _this2.toggleChat(state !== null ? state : 'toggle');
+	
+	        e.preventDefault();
+	      });
+	      this[EVENTHANDLESTORE].push(classToggleButtonOff);
+	
 	      // Emit for each container
 	      opts.container.forEach(function (container) {
 	        var event = new CustomEvent('gitter-chat-started', {
@@ -482,6 +515,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      this[ISEMBEDDED] = true;
 	    }
+	
+	    // state: true, false, 'toggle'
 	  }, {
 	    key: TOGGLECONTAINERS,
 	    value: function value(state) {
@@ -493,7 +528,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var containers = opts.container;
 	      containers.forEach(function (container) {
-	        container.classList.toggle('is-collapsed', !state);
+	        if (state === 'toggle') {
+	          container.classList.toggle('is-collapsed');
+	        } else {
+	          container.classList.toggle('is-collapsed', !state);
+	        }
 	
 	        var event = new CustomEvent('gitter-chat-toggle', {
 	          detail: {
@@ -505,6 +544,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    // Public API
+	    // state: true, false, 'toggle'
 	  }, {
 	    key: 'toggleChat',
 	    value: function toggleChat(state) {
@@ -543,6 +583,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'destroy',
 	    value: function destroy() {
+	      // Remove all the event handlers
+	      this[EVENTHANDLESTORE].forEach(function (fn) {
+	        fn();
+	      });
+	
+	      // Remove and DOM elements, we made
 	      this[ELEMENTSTORE].destroy();
 	    }
 	  }]);
@@ -2096,6 +2142,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.coerceIntoElementsArray = coerceIntoElementsArray;
 	exports.forEach = forEach;
 	exports.on = on;
+	exports.off = off;
 	
 	var $ = document.querySelectorAll.bind(document);
 	
@@ -2128,8 +2175,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return elements;
 	}
 	
-	;
-	
 	// `arrayLike` can be a single object, array, or array-like (NodeList, HTMLCollection)
 	
 	function forEach(arrayLike, cb) {
@@ -2143,8 +2188,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  });
 	}
-	
-	;
 	
 	// Listen to events.
 	// Pass in a string name of events separated by spaces
@@ -2160,7 +2203,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return this;
 	}
 	
-	;
+	// Remove the event listener
+	// Pass in a string name of events separated by spaces
+	
+	function off(elements, names, cb) {
+	  names.split(/\s/).forEach(function (name) {
+	    forEach(elements, function (element) {
+	      element.removeEventListener(name, cb);
+	    });
+	  });
+	
+	  // Keep the chaining going
+	  return this;
+	}
 	
 	exports['default'] = $;
 
