@@ -4,7 +4,7 @@ dependencies:
 test:
   override:
     - ci/browserstack_tunnel.sh
-    - browserstack/BrowserStackLocal -skipCheck -f $BS_KEY:
+    - browserstack/BrowserStackLocal -f $BS_KEY `pwd`/dist:
         background: true
     - mocha
     - ci/browserstack_tunnel.sh stop
