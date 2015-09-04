@@ -1,0 +1,20 @@
+dependencies:
+  cache_directories:
+    - browserstack
+
+test:
+  override:
+    - npm run build
+    - cp $PWD/dist/sidecar.js $PWD/test/fixtures/
+    - ci/browserstack_tunnel.sh
+    - browserstack/BrowserStackLocal -f $BS_KEY $PWD/test/fixtures:
+        background: true
+    - npm test
+    - ci/browserstack_tunnel.sh stop
+
+deployment:
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    owner: gitterHQ
+    commands:
+      - npm run deploy
