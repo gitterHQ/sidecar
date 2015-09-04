@@ -53,6 +53,19 @@
       background-color: var(--background-color);
     }
 
+    @media (max-width: 1150px) {
+      left: 45%;
+    }
+    @media (max-width: 944px) {
+      left: 30%;
+    }
+    @media (max-width: 600px) {
+      left: 15%;
+    }
+    @media (max-width: 500px) {
+      left: 0;
+    }
+
     & > iframe {
       flex: 1;
       width: 100%;
