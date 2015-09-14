@@ -189,9 +189,12 @@
     cursor: hand;
     
     transition: 
-      transform 0.3s ease,
-      background-color 0.3s ease;
+      all 0.3s ease;
 
+
+    &:visited {
+      color: #ffffff;
+    }
 
     &:hover,
     &:focus {
@@ -201,6 +204,10 @@
       box-shadow: 0 0 8px rgba(62, 160, 127, 0.6);
 
       outline: none;
+    }
+
+    &:active {
+      color: #eeeeee;
     }
 
     &.is-collapsed {

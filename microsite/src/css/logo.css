@@ -1,0 +1,66 @@
+.gitter-logo-name {
+	display: inline-block;
+	vertical-align: middle;
+
+	margin-top: 0;
+	margin-bottom: 0;
+
+	font-family: 'Ubuntu', sans-serif;
+	font-size: 1em;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	white-space: nowrap;
+}
+
+.gitter-logo-holder {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+
+	width: 1.0625em;
+
+	&:after {
+		content: '';
+
+		display: block;
+		width: 100%;
+
+		padding-bottom: 141.176%;
+	}
+
+}
+
+.logo-left-arm,
+.logo-body-left,
+.logo-body-right,
+.logo-right-arm {
+	position: absolute;
+	width: 11.7647%;
+
+	background-color: currentColor;
+}
+
+.logo-left-arm {
+	height: 62.5%;
+}
+
+.logo-body-right,
+.logo-body-left {
+	top: 16.6667%;
+
+	height: 83.3334%;
+}
+.logo-body-left {
+	left: 29.41176%;
+}
+.logo-body-right {
+	left: 58.8235%;
+}
+
+.logo-right-arm {
+	top: 16.6667%;
+	left: 88.23529%;
+
+	height: 55%;
+}

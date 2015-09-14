@@ -127,6 +127,14 @@ Same as `devbuild` but also watches the directory and rebuilds on any file chang
 
 `npm run devbuild`
 
+### Microsite
+
+`npm run build-microsite`
+
+This is currently a work in progress. But I hope to have `react-hot-loader` and `webpack-dev-server` working for this:
+
+`npm run devbuild-microsite`
+
 ### Testing
 
 You'll need a BrowserStack username and key, exported as `BS_USER` and `BS_KEY` respectively.

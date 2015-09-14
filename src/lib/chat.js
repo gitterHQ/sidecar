@@ -57,7 +57,7 @@ let getDataOptionsFromElement = function(options, element) {
 const spacebarKey = 32;
 const enterKey = 13;
 let elementOnActivate = function(elements, cb) {
-  elements = domUtility.coerceIntoElementsArray(elements);
+  elements = $(elements);
 
   let handler = function(e, ...args) {
     // If click or spacebar, or enter is pressed
@@ -196,11 +196,11 @@ class chatEmbed {
 
     // Coerce into array of dom elements on what they pass in
     if(options.container) {
-      options.container = domUtility.coerceIntoElementsArray(options.container);
+      options.container = $(options.container);
     }
     // Otherwise create our own default container
     else {
-      this[DEFAULTS].container = domUtility.coerceIntoElementsArray((() => {
+      this[DEFAULTS].container = $((() => {
         let container = this[ELEMENTSTORE].createElement('aside');
         container.classList.add('gitter-chat-embed');
         // Start out collapsed
@@ -229,7 +229,7 @@ class chatEmbed {
       let loadingIndicatorElement = this[ELEMENTSTORE].createElement('div');
       loadingIndicatorElement.classList.add('gitter-chat-embed-loading-wrapper');
       loadingIndicatorElement.innerHTML = `
-        <svg class=" gitter-chat-embed-loading-indicator gitter-icon"><use xlink:href="#gitter-shape-spinner"></use></svg>
+        <svg class="gitter-chat-embed-loading-indicator gitter-icon"><use xlink:href="#gitter-shape-spinner"></use></svg>
       `;
 
       // Prepend
@@ -246,7 +246,7 @@ class chatEmbed {
     else {
       Promise.resolve(opts.activation)
         .then((activationElement) => {
-          activationElement = domUtility.coerceIntoElementsArray(activationElement || (() => {
+          activationElement = $(activationElement || (() => {
             let button = this[ELEMENTSTORE].createElement('a');
             // We use the option for the room, not pertaining to a particular container if set
             button.href = `${gitterUrl}${opts.room}`;

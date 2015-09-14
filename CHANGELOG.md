@@ -1,4 +1,8 @@
 
+# v0.2.x - 2015-9-13
+
+ - Add `microsite/` to showcase Sidecar and some getting started goodness
+
 # v0.2.5 - 2015-9-2
 
  - Listen to `.js-gitter-toggle-chat-button` elements for "activiation"(click) which can toggle the chat panel. You can also set `data-gitter-toggle-chat-state` to an explicit value of `true` or `false` to make a open and close button respectively. By default the value is `'toggle'`.

@@ -1,0 +1,274 @@
+@import './foundation.css';
+
+@import './logo.css';
+
+
+
+$normal-primary-text-color: #312d2c;
+$normal-primary-body-text-color: #878687;
+
+
+$code-block-background-color: #f4f4f4;
+$code-block-border-radius: 10px;
+
+@define-mixin code-block-padding {
+	padding-top: 15px;
+	padding-left: 20px;
+	padding-bottom: 15px;
+	padding-right: 20px;
+}
+
+
+
+:root {
+	font-size: 1em;
+}
+
+body {
+	height: 100%;
+
+	font-family: 'Source Sans Pro', pt sans, calibri, sans-serif;
+	font-size: 1rem;
+	line-height: 1.4;
+	font-weight: 400;
+}
+
+
+
+.microsite-app-entry-point {
+	height: 100%;
+}
+
+.panel-wrapper {
+	overflow: auto;
+	display: flex;
+	flex-direction: row;
+	/* main axis */
+	justify-content: flex-start;
+	/* cross axis */
+	align-items: stretch;
+
+	height: 100%;
+
+	@media (max-width: 675px) {
+		flex-direction: column-reverse;
+		height: auto;
+	}
+}
+
+.primary-panel,
+.documentation-panel {
+	overflow: auto;
+
+	flex: 1;
+	height: 100%;
+
+	padding: 5%;
+
+
+	@media (max-width: 675px) {
+		flex: none;
+		height: auto;
+	}
+}
+
+.primary-panel {
+	background-image: url('../images/primary-background.jpg');
+	background-size: cover;
+
+	color: #d5d2e5;
+
+	& > h1,
+	& > h2,
+	& > h3,
+	& > h4,
+	& > h5,
+	& > h6 {
+		color: #f4f2ed;
+	}
+}
+
+.primary-panel-gitter-logo-title {
+	margin-bottom: 2em;
+
+	color: #f4f2ed;
+	font-size: 1.8em;
+	text-align: center;
+
+	& > .gitter-logo-holder + .gitter-logo-name {
+		margin-left: 0.75em;
+	}
+}
+
+.primary-panel-secondary-header {
+	font-size: 1.5em;
+}
+
+
+
+
+
+
+.documentation-panel {
+	color: $normal-primary-body-text-color;
+}
+
+.documentation-panel-primary-header,
+.documentation-panel-secondary-header {
+	width: 100%;
+
+	margin-top: 0;
+	margin-bottom: 0.5em;
+
+	color: $normal-primary-text-color;
+	text-align: center;
+}
+
+.documentation-panel-primary-header {
+	font-size: 2em;
+}
+.documentation-panel-secondary-header {
+	font-size: 1.5em;
+}
+
+.documentation-panel-body {
+
+}
+
+
+.primary-input {
+	width: 100%;
+
+	padding: 9px;
+
+	border: 1px solid #deddde;
+	box-shadow: inset 0 4px 8px -4px rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+
+	text-align: center;
+}
+
+
+.copy-snippet-block {
+	margin-bottom: 1em;
+
+	border: 1px solid $code-block-background-color;
+	border-radius: $code-block-border-radius;
+}
+
+.copy-snippet-block-body {
+	@mixin code-block-padding;
+
+	margin-top: 0;
+	margin-bottom: 0;
+
+	background-color: $code-block-background-color;
+	border-radius: $code-block-border-radius;
+}
+
+.copy-snippet-block-under-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	padding-top: 8px;
+	padding-left: 12px;
+	padding-bottom: 8px;
+	padding-right: 12px;
+}
+
+.copy-snippet-block-annotation {
+	color: #c4c4c2;
+}
+
+.copy-snippet-block-copy-button {
+	display: block;
+
+	padding-top: 4px;
+	padding-left: 8px;
+	padding-bottom: 4px;
+	padding-right: 8px;
+
+	background-color: #f4f2ed;
+	border: 1px solid #d6d5d3;
+	border-radius: 3px;
+
+	color: $normal-primary-text-color;
+	text-transform: uppercase;
+}
+
+
+
+
+.use-markdown {
+	/* We use this to size the headings to their environment
+	 * but we reset the font-size to `1rem` for normal paragraph text */
+	font-size: 0.90em;
+
+	a {
+		color: #40de92;
+	}
+
+	ul, ol {
+		padding-left: 2em;
+
+		ul, ol {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+
+	h1 { font-size: 2em; }
+	h2 { font-size: 1.5em; }
+	h3 { font-size: 1.17em; }
+	h4 { font-size: 1.12em; }
+	h5 { font-size: .83em; }
+	h6 { font-size: .75em; }
+
+	h1,
+	h2,
+	h3 {
+		margin-top: 0.25em;
+		margin-bottom: 0.25em;
+	}
+
+	h4,
+	h5,
+	h6 {
+		margin-top: 0.15em;
+		margin-bottom: 0.15em;
+	}
+
+	p,
+	ul,
+	ol,
+	pre {
+		margin-top: 1em;
+		margin-bottom: 1em;
+
+		font-size: 1rem;
+	}
+
+	pre {
+		overflow: auto;
+
+		@mixin code-block-padding;
+
+		background-color: $code-block-background-color;
+		border-radius: $code-block-border-radius;
+
+		& > code {
+			padding: 0;
+
+			background: none;
+			border-radius: 0;
+		}
+	}
+
+	code {
+		padding: 3px;
+
+		background-color: $code-block-background-color;
+		border-radius: 2px;
+	}
+}
