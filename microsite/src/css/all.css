@@ -63,7 +63,10 @@ body {
 	flex: 1;
 	height: 100%;
 
-	padding: 5%;
+	padding-top: 2.5%;
+	padding-left: 5%;
+	padding-bottom: 5%;
+	padding-right: 5%;
 
 
 	@media (max-width: 768px) {
@@ -104,6 +107,13 @@ body {
 	font-size: 1.5em;
 }
 
+
+.sidecar-people-diagram {
+	width: 100%;
+	max-height: 35vh;
+
+	margin: 0 auto;
+}
 
 
 

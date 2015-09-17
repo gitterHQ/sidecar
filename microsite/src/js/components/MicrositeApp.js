@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, bindActionCreators } from 'react-redux';
+import { connect } from 'react-redux';
 
 import stripIndent from '../utility/strip-indent-tag';
 
@@ -83,6 +83,11 @@ class MicrositeApp extends React.Component {
             <h1 className="gitter-logo-name">Gitter</h1>
           </div>
 
+          <img
+            className="sidecar-people-diagram"
+            src="images/sidecar-people.svg"
+          />
+
           <h2 className="primary-panel-secondary-header">Add some Gitter to your site</h2>
 
           <p>
@@ -94,7 +99,7 @@ class MicrositeApp extends React.Component {
           </p>
 
           <div className="">
-            See it in action
+            <img src="images/see-it-in-action.svg" />
           </div>
         </section>
       </div>

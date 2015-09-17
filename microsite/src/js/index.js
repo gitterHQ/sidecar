@@ -3,28 +3,18 @@ import 'whatwg-fetch';
 import React from 'react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import marked from 'marked';
+import objectAssign from 'object-assign';
 
 import MicrositeApp from './components/MicrositeApp';
 import micrositeAppReducer from './reducers/MicrositeReducer';
 
 
-import readmeMarkdown from 'raw!../../../README.md';
+const initialState = window.__INITIAL_STATE__;
 
-marked.setOptions({
-  renderer: new marked.Renderer(),
-  gfm: true,
-  tables: true,
-  breaks: true,
-  smartLists: true
-});
-
-
-
-let store = createStore(micrositeAppReducer, {
+let store = createStore(micrositeAppReducer, objectAssign({
   roomName: '',
-  documentation: marked(readmeMarkdown)
-});
+  documentation: ''
+}, initialState));
 
 React.render(
   // The child must be wrapped in a function

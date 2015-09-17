@@ -1,6 +1,7 @@
 var gulp = require('gulp');
-
+var through = require('through2');
 var gutil = require('gulp-util');
+
 var runSequence = require('run-sequence');
 var plumber = require('gulp-plumber');
 var del = require('del');
@@ -22,16 +23,19 @@ var sidecarWebpackConfig = require('./webpack.config');
 var micrositeWebpackConfig = require('./microsite/webpack.config');
 var micrositeProductionWebpackConfig = require('./microsite/webpack.production.config');
 
-
 var micrositeBasePath = './microsite/';
 var config = {
   paths: {
     micrositeTemplates: {
-      src: path.join(micrositeBasePath, 'src/index.html'),
+      generateRenderResponse: require('./microsite/server/generate-render-response'),
       dist: path.join(micrositeBasePath, 'dist/'),
       watch: {
         tasks: 'build-microsite-templates',
-        globs: path.join(micrositeBasePath, 'src/index.html')
+        globs: [
+          path.join(micrositeBasePath, 'src/index.html'),
+          // We use the readme in the documentation section
+          path.join('./README.md')
+        ]
       }
     },
     micrositeCss: {
@@ -118,7 +122,32 @@ gulp.task('microsite-build-clean', function() {
 
 // Move the templates into dist
 gulp.task('build-microsite-templates', function() {
-  return gulp.src(config.paths.micrositeTemplates.src)
+  var generateTemplate = function() {
+
+    var stream = through.obj(function(chunk, enc, callback) {
+      this.push(chunk);
+      return callback();
+    });
+    
+    config.paths.micrositeTemplates.generateRenderResponse().then((page) => {
+      var file = new gutil.File({
+        cwd: '',
+        base: '',
+        path: 'index.html',
+        contents: new Buffer(page)
+      });
+   
+      stream.write(file);
+
+      stream.end();
+    });
+
+
+
+    return stream;
+  };
+
+  return generateTemplate()
     .pipe(gulp.dest(config.paths.micrositeTemplates.dist));
 });
 
