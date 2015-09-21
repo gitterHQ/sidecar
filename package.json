@@ -3,6 +3,9 @@
   "version": "0.2.9",
   "description": "An embeddable Gitter client.",
   "main": "index.js",
+  "engine": {
+    "node": "=4.0.0"
+  },
   "scripts": {
     "test": "mocha",
     "devbuild": "webpack --watch --progress",
