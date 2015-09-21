@@ -244,8 +244,8 @@ gulp.task('build-microsite', function(callback) {
   );
 });
 
-gulp.task('deploy_sidecar', ['upload_sidecar_to_s3']);
-gulp.task('deploy_microsite', ['upload_microsite_to_s3']);
+gulp.task('deploy-sidecar', ['upload_sidecar_to_s3']);
+gulp.task('deploy-microsite', ['upload_microsite_to_s3']);
 
 
 // Default Task

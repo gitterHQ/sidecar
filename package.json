@@ -13,7 +13,8 @@
     "build-microsite": "gulp build-microsite",
     "devbuild-microsite": "gulp build-microsite --dev",
     "start-microsite": "babel-node ./microsite/server/server.js",
-    "deploy": "gulp deploy"
+    "deploy-sidecar": "gulp deploy-sidecar",
+    "deploy-microsite": "gulp deploy-microsite"
   },
   "author": "The Gitter Team",
   "license": "MIT",
