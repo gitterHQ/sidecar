@@ -113,7 +113,6 @@ gulp.task('upload_redirect', function(done) {
       Bucket: 'sidecar.gitter.im',
       Key: 'index.html',
       CacheControl: 'public, max-age=0, no-cache',
-      ContentType: 'application/javascript',
       WebsiteRedirectLocation:  '/microsite/index.html',
       ACL: 'public-read'
     }
