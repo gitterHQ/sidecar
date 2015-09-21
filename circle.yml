@@ -24,3 +24,7 @@ deployment:
     owner: gitterHQ
     commands:
       - npm run deploy_sidecar
+
+machine:
+  node:
+    version: 4.0.0
