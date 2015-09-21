@@ -106,7 +106,40 @@ gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
   });
 });
 
-gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
+gulp.task('upload_redirect', function(done) {
+  var params = {
+    localFile: './microsite/index.html',
+    s3Params: {
+      Bucket: 'sidecar.gitter.im',
+      Key: 'index.html',
+      CacheControl: 'public, max-age=0, no-cache',
+      ContentType: 'application/javascript',
+      WebsiteRedirectLocation:  '/microsite/index.html',
+      ACL: 'public-read'
+    }
+  };
+
+  var S3Client = S3.createClient({
+    s3Options: {
+      accessKeyId: process.env.AWS_KEY,
+      secretAccessKey: process.env.AWS_SECRET
+    },
+  });
+
+  var uploader = S3Client.uploadFile(params);
+
+  uploader.on('error', function (err) {
+    gutil.log(err.stack);
+    done(err);
+  });
+
+  uploader.on('end', function(metadata) {
+    done();
+  });
+});
+
+
+gulp.task('upload_microsite_to_s3', ['build-microsite', 'upload_redirect'], function(done) {
   var params = {
     localDir: './microsite/dist',
     s3Params: {
