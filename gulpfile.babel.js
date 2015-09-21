@@ -113,8 +113,6 @@ gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
       Bucket: 'sidecar.gitter.im',
       Prefix: 'microsite',
       CacheControl: 'public, max-age=0, no-cache',
-      ContentType: 'application/javascript',
-      ContentEncoding: 'gzip',
       ACL: 'public-read'
     }
   };
