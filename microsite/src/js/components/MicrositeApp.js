@@ -30,6 +30,7 @@ class MicrositeApp extends React.Component {
           room: '${roomName}'
         };
       </script>
+      <script src="https://sidecar.gitter.im/js/sidecar.v0.js" async defer></script>
     `;
 
     return (
@@ -63,7 +64,7 @@ class MicrositeApp extends React.Component {
 
 
           <h2 className="documentation-panel-secondary-header">
-            Documentaion
+            Documentation
           </h2>
 
           <section
@@ -84,8 +85,8 @@ class MicrositeApp extends React.Component {
           </div>
 
           <img
-            className="sidecar-people-diagram"
-            src="images/sidecar-people.svg"
+            className="sidecar-diagram"
+            src="images/sidecar-diagram.svg"
           />
 
           <h2 className="primary-panel-secondary-header">Add some Gitter to your site</h2>

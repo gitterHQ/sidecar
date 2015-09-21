@@ -4,7 +4,6 @@
 // Inspired by bling.js: https://gist.github.com/paulirish/12fb951a8b893a454b32
 // But we needed full module encapsulation
 
-
 // This will concat anything including array-like things(like NodeLists or HTMLCollections)
 let concat = function(...args) {
   return args.reduce((result, item) => {
@@ -22,7 +21,7 @@ let concat = function(...args) {
 };
 
 // Pass in a selector string, dom node, or array of dom nodes
-export function coerceIntoElementsArray(...args) {
+let coerceIntoElementsArray = function(...args) {
   let elements = [];
   if(typeof args[0] === 'string') {
     elements = document.querySelectorAll.call(document, ...args);
@@ -32,7 +31,7 @@ export function coerceIntoElementsArray(...args) {
   }
 
   return elements;
-}
+};
 
 
 // `arrayLike` can be a single object, array, or array-like (NodeList, HTMLCollection)
@@ -42,6 +41,9 @@ export function forEach(arrayLike, cb) {
       cb(...args);
     }
   });
+  
+  // Keep the chaining going
+  return this;
 }
 
 

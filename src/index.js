@@ -39,5 +39,4 @@ if(!((windowGitter.chat || {}).options || {}).disableDefaultChat) {
 
 
 
-
 export default sidecar;

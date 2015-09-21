@@ -92,10 +92,10 @@ body {
 }
 
 .primary-panel-gitter-logo-title {
-	margin-bottom: 2em;
+	margin-bottom: 1em;
 
 	color: #f4f2ed;
-	font-size: 1.8em;
+	font-size: 1.36em;
 	text-align: center;
 
 	& > .gitter-logo-holder + .gitter-logo-name {
@@ -108,7 +108,7 @@ body {
 }
 
 
-.sidecar-people-diagram {
+.sidecar-diagram {
 	width: 100%;
 	max-height: 35vh;
 
@@ -168,6 +168,8 @@ body {
 
 .copy-snippet-block-body {
 	@mixin code-block-padding;
+
+	overflow: auto;
 
 	margin-top: 0;
 	margin-bottom: 0;

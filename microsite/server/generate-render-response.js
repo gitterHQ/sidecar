@@ -14,8 +14,8 @@ import App from '../src/js/components/MicrositeApp';
 import appReducer from '../src/js/reducers/MicrositeReducer';
 
 
-const readmeMarkdownFilePath = path.join(__dirname, '../../README.md');
-const getReadmeMarkdown = readFile(readmeMarkdownFilePath).then(function(buffer) {
+const documentationMarkdownFilePath = path.join(__dirname, '../../API.md');
+const getDocumentationMarkdown = readFile(documentationMarkdownFilePath).then(function(buffer) {
     return String(buffer);
   });
 
@@ -29,7 +29,7 @@ marked.setOptions({
 
 // We are going to fill these out in the sections to follow
 export default function generateRenderResponse(req) {
-  return getReadmeMarkdown.then((readmeMarkdown) => {
+  return getDocumentationMarkdown.then((readmeMarkdown) => {
 
     // Create a new Redux store instance
     const store = createStore(appReducer, {

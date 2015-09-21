@@ -1,7 +1,9 @@
 
-# v0.2.x - 2015-9-13
+# v0.2.9 - 2015-9-20
 
  - Add `microsite/` to showcase Sidecar and some getting started goodness
+ - Change `options.container` to `options.targetElement`
+ - Change `optionts.activation` to `options.activationElement`
 
 # v0.2.5 - 2015-9-2
 

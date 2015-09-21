@@ -1,7 +1,7 @@
 import objectAssign from 'object-assign';
 
-let remove = function() {
-  this.parentElement.removeChild(this);
+let remove = function(element) {
+  element.parentElement.removeChild(element);
 };
 
 
@@ -51,6 +51,7 @@ class ElementStore extends Array {
 
   destroy() {
     this.forEach((element, index) => {
+      console.log('el', index);
       remove(element);
       this.splice(index, 1);
     });

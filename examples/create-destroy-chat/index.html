@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidecar Basic Example</title>
+
+  <link href="../common.css" rel="stylesheet">
+</head>
+<body>
+  <div class="js-sidecar-status">... waiting for Sidecar</div>
+  <button class="js-destroy-chat-button">Destroy Chat</button>
+  <button class="js-create-chat-button">Create Chat</button>
+
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      disableDefaultChat: true
+    };
+  </script>
+  <script src="../../dist/sidecar.js" async defer></script>
+
+  <script>
+    document.addEventListener('gitter-sidecar-ready', function(e) {
+      var GitterChat = e.detail.Chat;
+      document.querySelector('.js-sidecar-status').innerHTML = 'Sidecar ready';
+      var chat = new GitterChat({
+        room: 'marionettejs/backbone.marionette'
+      });
+
+      document.querySelector('.js-destroy-chat-button').addEventListener('click', function(e) {
+        console.log('Destroy');
+        chat.destroy();
+      });
+    });
+  </script>
+</body>
+</html>
+
+
