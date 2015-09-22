@@ -75,7 +75,7 @@
 	
 	var _componentsMicrositeApp2 = _interopRequireDefault(_componentsMicrositeApp);
 	
-	var _reducersMicrositeReducer = __webpack_require__(185);
+	var _reducersMicrositeReducer = __webpack_require__(187);
 	
 	var _reducersMicrositeReducer2 = _interopRequireDefault(_reducersMicrositeReducer);
 	
@@ -22053,7 +22053,9 @@
 	
 	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-	var _templateObject = _taggedTemplateLiteral(['\n      <script>\n        ((window.gitter = {}).chat = {}).options = {\n          room: \'', '\'\n        };\n      </script>\n      <script src="https://sidecar.gitter.im/js/sidecar.v0.js" async defer></script>\n    '], ['\n      <script>\n        ((window.gitter = {}).chat = {}).options = {\n          room: \'', '\'\n        };\n      </script>\n      <script src="https://sidecar.gitter.im/js/sidecar.v0.js" async defer></script>\n    ']);
+	var _templateObject = _taggedTemplateLiteral(['\n      <script>\n        ((window.gitter = {}).chat = {}).options = {\n          room: \'', '\'\n        };\n      </script>\n      <script src="https://sidecar.gitter.im/dist/sidecar.v0.js" async defer></script>\n    '], ['\n      <script>\n        ((window.gitter = {}).chat = {}).options = {\n          room: \'', '\'\n        };\n      </script>\n      <script src="https://sidecar.gitter.im/dist/sidecar.v0.js" async defer></script>\n    ']);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
@@ -22073,11 +22075,21 @@
 	
 	var _utilityStripIndentTag2 = _interopRequireDefault(_utilityStripIndentTag);
 	
-	var _CopySnippetBlock = __webpack_require__(181);
+	var _utilityDomUtility = __webpack_require__(181);
+	
+	var _utilityDomUtility2 = _interopRequireDefault(_utilityDomUtility);
+	
+	var domUtility = _interopRequireWildcard(_utilityDomUtility);
+	
+	var _CopySnippetBlock = __webpack_require__(182);
 	
 	var _CopySnippetBlock2 = _interopRequireDefault(_CopySnippetBlock);
 	
-	var _actionsMicrositeActions = __webpack_require__(182);
+	var _Arrow = __webpack_require__(183);
+	
+	var _Arrow2 = _interopRequireDefault(_Arrow);
+	
+	var _actionsMicrositeActions = __webpack_require__(184);
 	
 	var MicrositeApp = (function (_React$Component) {
 	  _inherits(MicrositeApp, _React$Component);
@@ -22086,14 +22098,33 @@
 	    _classCallCheck(this, MicrositeApp);
 	
 	    _get(Object.getPrototypeOf(MicrositeApp.prototype), 'constructor', this).call(this, props);
+	
+	    this.state = {
+	      arrowStartPoint: {
+	        x: 0,
+	        y: 0
+	      },
+	      arrowEndPoint: {
+	        x: 0,
+	        y: 0
+	      }
+	    };
 	  }
 	
 	  _createClass(MicrositeApp, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {}
+	    value: function componentDidMount() {
+	      domUtility.on(document, 'gitter-sidecar-instance-started', this.updateArrowPosition.bind(this));
+	      domUtility.on(window, 'resize', this.updateArrowPosition.bind(this));
+	      domUtility.on(_react2['default'].findDOMNode(this.refs.primaryPanel), 'scroll DOMMouseScroll', this.updateArrowPosition.bind(this));
+	    }
 	  }, {
 	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {}
+	    value: function componentWillUnmount() {
+	      domUtility.off(document, 'gitter-sidecar-instance-started', this.updateArrowPosition.bind(this));
+	      domUtility.off(window, 'resize', this.updateArrowPosition.bind(this));
+	      domUtility.off(_react2['default'].findDOMNode(this.refs.primaryPanel), 'scroll DOMMouseScroll', this.updateArrowPosition.bind(this));
+	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -22112,44 +22143,59 @@
 	          'section',
 	          { className: 'documentation-panel' },
 	          _react2['default'].createElement(
-	            'h1',
-	            { className: 'documentation-panel-primary-header' },
-	            'Sidecar'
+	            'div',
+	            { className: 'documentation-panel-getting-started' },
+	            _react2['default'].createElement(
+	              'h1',
+	              { className: 'documentation-panel-primary-header' },
+	              'Sidecar'
+	            ),
+	            _react2['default'].createElement(
+	              'div',
+	              { className: 'documentation-panel-getting-started-body' },
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                'Please type the name of the room you want to load into your sidecar. E.g. gitterHQ/sidecar'
+	              ),
+	              _react2['default'].createElement('input', {
+	                className: 'primary-input',
+	                type: 'text',
+	                placeholder: 'Enter Room Name',
+	                value: this.props.roomName,
+	                onChange: this.onRoomNameChange.bind(this)
+	              }),
+	              _react2['default'].createElement(
+	                'p',
+	                null,
+	                'Just copy and paste it into your site.'
+	              ),
+	              _react2['default'].createElement(_CopySnippetBlock2['default'], {
+	                value: sidecarBootstrapOptionsCopySnippet,
+	                annotation: 'A little snippet in your website'
+	              })
+	            )
 	          ),
 	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'Please type the name of the room you want to load into your sidecar. E.g. gitterHQ/sidecar'
-	          ),
-	          _react2['default'].createElement('input', {
-	            className: 'primary-input',
-	            type: 'text',
-	            placeholder: 'Enter Room Name',
-	            value: this.props.roomName,
-	            onChange: this._onRoomNameChange.bind(this)
-	          }),
-	          _react2['default'].createElement(
-	            'p',
-	            null,
-	            'Just copy and paste it into your site.'
-	          ),
-	          _react2['default'].createElement(_CopySnippetBlock2['default'], {
-	            value: sidecarBootstrapOptionsCopySnippet,
-	            annotation: 'A little snippet in your website'
-	          }),
-	          _react2['default'].createElement(
-	            'h2',
-	            { className: 'documentation-panel-secondary-header' },
-	            'Documentation'
-	          ),
-	          _react2['default'].createElement('section', {
-	            className: 'documentation-panel-body use-markdown',
-	            dangerouslySetInnerHTML: { __html: documentation }
-	          })
+	            'div',
+	            { className: 'documentation-panel-docs' },
+	            _react2['default'].createElement(
+	              'h2',
+	              { className: 'documentation-panel-secondary-header' },
+	              'Documentation'
+	            ),
+	            _react2['default'].createElement('section', {
+	              className: 'documentation-panel-docs-body use-markdown',
+	              dangerouslySetInnerHTML: { __html: documentation }
+	            })
+	          )
 	        ),
 	        _react2['default'].createElement(
 	          'section',
-	          { className: 'primary-panel' },
+	          {
+	            ref: 'primaryPanel',
+	            className: 'primary-panel'
+	          },
 	          _react2['default'].createElement(
 	            'div',
 	            { className: 'primary-panel-gitter-logo-title' },
@@ -22188,20 +22234,55 @@
 	          ),
 	          _react2['default'].createElement(
 	            'div',
-	            { className: '' },
-	            _react2['default'].createElement('img', { src: 'images/see-it-in-action.svg' })
-	          )
+	            {
+	              className: 'see-action-text-wrapper'
+	            },
+	            _react2['default'].createElement('img', {
+	              ref: 'seeActionText',
+	              className: 'see-action-text',
+	              src: 'images/see-it-in-action-text.svg'
+	            })
+	          ),
+	          _react2['default'].createElement(_Arrow2['default'], {
+	            startPoint: this.state.arrowStartPoint,
+	            endPoint: this.state.arrowEndPoint
+	          })
 	        )
 	      );
 	    }
 	  }, {
-	    key: '_onRoomNameChange',
-	    value: function _onRoomNameChange(e) {
+	    key: 'onRoomNameChange',
+	    value: function onRoomNameChange(e) {
 	      // Injected by connect() call:
 	      var dispatch = this.props.dispatch;
 	
 	      var name = e.target.value;
 	      dispatch((0, _actionsMicrositeActions.setRoomName)(name));
+	    }
+	  }, {
+	    key: 'updateArrowPosition',
+	    value: function updateArrowPosition() {
+	      console.log('asdf', arguments);
+	      var seeActionTextElement = _react2['default'].findDOMNode(this.refs.seeActionText);
+	      var sidecarActivationElement = (0, _utilityDomUtility2['default'])('.gitter-open-chat-button')[0];
+	
+	      var seeActionTextBounds = seeActionTextElement.getBoundingClientRect();
+	      var activationElementBounds = sidecarActivationElement.getBoundingClientRect();
+	
+	      //console.log(seeActionTextBounds, activationElementBounds);
+	      console.log(seeActionTextBounds.bottom);
+	
+	      var padding = 15;
+	      this.setState({
+	        arrowStartPoint: {
+	          x: seeActionTextBounds.left + seeActionTextBounds.width / 2,
+	          y: seeActionTextBounds.bottom + padding
+	        },
+	        arrowEndPoint: {
+	          x: activationElementBounds.left + activationElementBounds.width / 2,
+	          y: activationElementBounds.top - padding
+	        }
+	      });
 	    }
 	  }]);
 	
@@ -22291,6 +22372,112 @@
 
 /***/ },
 /* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	// DOM Utility
+	// https://gist.github.com/MadLittleMods/f71b0ef905832b8c16c9
+	//
+	// Inspired by bling.js: https://gist.github.com/paulirish/12fb951a8b893a454b32
+	// But we needed full module encapsulation
+	
+	// This will concat anything including array-like things(like NodeLists or HTMLCollections)
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports.forEach = forEach;
+	exports.on = on;
+	exports.off = off;
+	var concat = function concat() {
+	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	    args[_key] = arguments[_key];
+	  }
+	
+	  return args.reduce(function (result, item) {
+	    // If array-like
+	    if (item && item.length !== undefined && !Array.isArray(item) && (
+	    // The window object acts as an array of the iframes in the document (undesired effects for our use cases)
+	    !window || window && !(item instanceof window.constructor))) {
+	      item = Array.prototype.slice.call(item);
+	    }
+	
+	    return result.concat(item);
+	  }, []);
+	};
+	
+	// Pass in a selector string, dom node, or array of dom nodes
+	var coerceIntoElementsArray = function coerceIntoElementsArray() {
+	  var elements = [];
+	
+	  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	    args[_key2] = arguments[_key2];
+	  }
+	
+	  if (typeof args[0] === 'string') {
+	    var _document$querySelectorAll;
+	
+	    elements = (_document$querySelectorAll = document.querySelectorAll).call.apply(_document$querySelectorAll, [document].concat(args));
+	  } else {
+	    elements = concat.apply(undefined, args);
+	  }
+	
+	  return elements;
+	};
+	
+	// `arrayLike` can be a single object, array, or array-like (NodeList, HTMLCollection)
+	
+	function forEach(arrayLike, cb) {
+	  concat(arrayLike).forEach(function () {
+	    if (cb) {
+	      cb.apply(undefined, arguments);
+	    }
+	  });
+	
+	  // Keep the chaining going
+	  return this;
+	}
+	
+	// Listen to events.
+	// Pass in a string name of events separated by spaces
+	
+	function on(elements, names, cb) {
+	  names.split(/\s/).forEach(function (name) {
+	    forEach(elements, function (element) {
+	      element.addEventListener(name, cb);
+	    });
+	  });
+	
+	  // Keep the chaining going
+	  return this;
+	}
+	
+	// Remove the event listener
+	// Pass in a string name of events separated by spaces
+	
+	function off(elements, names, cb) {
+	  names.split(/\s/).forEach(function (name) {
+	    forEach(elements, function (element) {
+	      element.removeEventListener(name, cb);
+	    });
+	  });
+	
+	  // Keep the chaining going
+	  return this;
+	}
+	
+	var $ = function $() {
+	  return coerceIntoElementsArray.apply(undefined, arguments);
+	};
+	
+	exports['default'] = $;
+	
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "dom-utility.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22396,7 +22583,126 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CopySnippetBlock.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 182 */
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+	
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var Arrow = (function (_React$Component) {
+	  _inherits(Arrow, _React$Component);
+	
+	  function Arrow(props) {
+	    _classCallCheck(this, Arrow);
+	
+	    _get(Object.getPrototypeOf(Arrow.prototype), 'constructor', this).call(this, props);
+	  }
+	
+	  _createClass(Arrow, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      //console.log(this.props.startPoint, this.props.endPoint);
+	
+	      var arrowAngle = Math.atan2(this.props.endPoint.y - this.props.startPoint.y, this.props.endPoint.x - this.props.startPoint.x);
+	
+	      var arrowLength = Math.sqrt(Math.pow(this.props.endPoint.y - this.props.startPoint.y, 2) + Math.pow(this.props.endPoint.x - this.props.startPoint.x, 2));
+	
+	      // The length before we are completely transparent
+	      var minLength = 50;
+	      // When we start to fade
+	      var fadeThreshold = 100;
+	      var arrowOpacity = arrowLength > fadeThreshold ? 1 : (arrowLength - minLength) / fadeThreshold;
+	
+	      return _react2['default'].createElement(
+	        'div',
+	        {
+	          className: 'arrow-wrapper',
+	          style: {
+	            opacity: '' + arrowOpacity,
+	            width: arrowLength + 'px',
+	            top: this.props.startPoint.y + 'px',
+	            left: '' + this.props.startPoint.x,
+	            transform: 'rotateZ(' + arrowAngle + 'rad)',
+	            transformOrigin: '0 0'
+	          }
+	        },
+	        _react2['default'].createElement(
+	          'svg',
+	          {
+	            className: 'arrow-stem',
+	            viewBox: '0 0 200 73',
+	            style: {
+	              transform: 'translateY(-50%)',
+	              transformOrigin: '0 50%'
+	            }
+	          },
+	          _react2['default'].createElement('path', {
+	            className: 'arrow-stem',
+	            d: 'M198.684,40.389c0,0-50.07-9.676-102.362-7.308c-19.767,0.896-1.368-1.341-39.84,2.495\r c-56.547,5.201-55.734,4.813-53.917,4.813'
+	          })
+	        ),
+	        _react2['default'].createElement(
+	          'svg',
+	          {
+	            className: 'arrow-leafs',
+	            viewBox: '0 0 200 73',
+	            style: {
+	              transform: 'translateY(-50%)',
+	              transformOrigin: '0 50%'
+	            }
+	          },
+	          _react2['default'].createElement(
+	            'g',
+	            null,
+	            _react2['default'].createElement('path', { d: 'M198.684,40.389c0,0-4.371-8.662-41.768-38.389' }),
+	            _react2['default'].createElement('path', { d: 'M198.684,40.389c0,0-6.58,7.112-52.439,31.37' })
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Arrow;
+	})(_react2['default'].Component);
+	
+	exports['default'] = Arrow;
+	
+	var pointType = _react2['default'].PropTypes.shape({
+	  x: _react2['default'].PropTypes.number,
+	  y: _react2['default'].PropTypes.number
+	});
+	Arrow.propTypes = {
+	  startPoint: pointType,
+	  endPoint: pointType
+	};
+	module.exports = exports['default'];
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Arrow.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22411,7 +22717,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _constantsMicrositeConstants = __webpack_require__(183);
+	var _constantsMicrositeConstants = __webpack_require__(185);
 	
 	/*
 	 * Action creators
@@ -22436,7 +22742,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "MicrositeActions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22449,7 +22755,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _keymirror = __webpack_require__(184);
+	var _keymirror = __webpack_require__(186);
 	
 	var _keymirror2 = _interopRequireDefault(_keymirror);
 	
@@ -22462,7 +22768,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "MicrositeConstants.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports) {
 
 	/**
@@ -22521,7 +22827,7 @@
 
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22536,7 +22842,7 @@
 	
 	var _redux = __webpack_require__(158);
 	
-	var _reducers = __webpack_require__(186);
+	var _reducers = __webpack_require__(188);
 	
 	// http://rackt.github.io/redux/docs/basics/Reducers.html
 	
@@ -22550,7 +22856,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "MicrositeReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22563,18 +22869,18 @@
 	
 	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
 	
-	var _RoomNameReducer = __webpack_require__(187);
+	var _RoomNameReducer = __webpack_require__(189);
 	
 	exports.roomName = _interopRequire(_RoomNameReducer);
 	
-	var _DocumentationReducer = __webpack_require__(188);
+	var _DocumentationReducer = __webpack_require__(190);
 	
 	exports.documentation = _interopRequire(_DocumentationReducer);
 	
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "reducers.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22588,7 +22894,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _constantsMicrositeConstants = __webpack_require__(183);
+	var _constantsMicrositeConstants = __webpack_require__(185);
 	
 	var _constantsMicrositeConstants2 = _interopRequireDefault(_constantsMicrositeConstants);
 	
@@ -22609,7 +22915,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RoomNameReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22623,7 +22929,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _constantsMicrositeConstants = __webpack_require__(183);
+	var _constantsMicrositeConstants = __webpack_require__(185);
 	
 	var _constantsMicrositeConstants2 = _interopRequireDefault(_constantsMicrositeConstants);
 	

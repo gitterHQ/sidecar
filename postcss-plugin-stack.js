@@ -1,8 +1,9 @@
 var postcss = require('postcss');
 var context = require('postcss-plugin-context');
 var atImport = require('postcss-import');
-var simpleVariables = require('postcss-simple-vars');
 var mixins = require('postcss-mixins');
+var simpleVariables = require('postcss-simple-vars');
+var writeSvg = require('postcss-write-svg');
 var nested = require('postcss-nested');
 var cssvariables = require('postcss-css-variables');
 var calc = require('postcss-calc');
@@ -29,6 +30,7 @@ module.exports = function() {
     atImport(),
     mixins(),
     simpleVariables(),
+    writeSvg(),
     nested(),
     cssvariables(),
     calc(),

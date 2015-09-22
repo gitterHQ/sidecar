@@ -25,6 +25,7 @@ $code-block-border-radius: 10px;
 }
 
 body {
+	overflow: hidden;
 	height: 100%;
 
 	font-family: 'Source Sans Pro', pt sans, calibri, sans-serif;
@@ -63,11 +64,17 @@ body {
 	flex: 1;
 	height: 100%;
 
-	padding-top: 2.5%;
-	padding-left: 5%;
-	padding-bottom: 5%;
-	padding-right: 5%;
+	padding-top: 5%;
+	padding-left: 10%;
+	padding-bottom: 10%;
+	padding-right: 10%;
 
+	@media (max-width: 1400px) {
+		padding-top: 2.5%;
+		padding-left: 5%;
+		padding-bottom: 5%;
+		padding-right: 5%;
+	}
 
 	@media (max-width: 768px) {
 		flex: none;
@@ -95,7 +102,7 @@ body {
 	margin-bottom: 1em;
 
 	color: #f4f2ed;
-	font-size: 1.36em;
+	font-size: 1.36rem;
 	text-align: center;
 
 	& > .gitter-logo-holder + .gitter-logo-name {
@@ -117,9 +124,49 @@ body {
 
 
 
+.see-action-text-wrapper {
+	display: flex;
+	justify-content: flex-end;
+}
+.see-action-text {
+	width: 30%;
+}
+
+.arrow-wrapper {
+    position: absolute;
+  
+    width: 250px;
+    height: 100px;
+}
+
+.arrow-stem,
+.arrow-leafs {
+    fill: none;
+	stroke: #e5e5e1;
+	stroke-width: 3;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-miterlimit: 10;
+}
+
+.arrow-stem {
+  width: 100%;
+}
+
+.arrow-leafs {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+
+
 
 
 .documentation-panel {
+	position: relative;
+
 	color: $normal-primary-body-text-color;
 }
 
@@ -128,7 +175,7 @@ body {
 	width: 100%;
 
 	margin-top: 0;
-	margin-bottom: 0.5em;
+	margin-bottom: 1.5em;
 
 	color: $normal-primary-text-color;
 	text-align: center;
@@ -141,9 +188,31 @@ body {
 	font-size: 1.5em;
 }
 
-.documentation-panel-body {
+
+.documentation-panel-getting-started {
+	display: flex;
+	flex-direction: column;
+
+	min-height: calc(100vh - 150px);
+}
+
+.documentation-panel-getting-started-body {
+	flex: 1;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.documentation-panel-docs {
+	
+}
+
+.documentation-panel-docs-body {
 
 }
+
+
 
 
 .primary-input {
@@ -175,7 +244,8 @@ body {
 	margin-bottom: 0;
 
 	background-color: $code-block-background-color;
-	border-radius: $code-block-border-radius;
+	border-top-left-radius: $code-block-border-radius;
+	border-top-right-radius: $code-block-border-radius;
 }
 
 .copy-snippet-block-under-section {

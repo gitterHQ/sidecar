@@ -9,8 +9,8 @@ export default function renderFullPage(html, initialState = {}) {
       
       <title>Sidecar - Gitter</title>
 
-      <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet">
-      <link href="http://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
       <link href="css/all.css" rel="stylesheet">
     </head>
     <body>
@@ -28,7 +28,7 @@ export default function renderFullPage(html, initialState = {}) {
           room: 'gitterHQ/sidecar'
         };
       </script>
-      <script src="https://sidecar.gitter.im/js/sidecar.v0.js" async defer></script>
+      <script src="https://sidecar.gitter.im/dist/sidecar.v0.js" async defer></script>
     </body>
     </html>
   `;
