@@ -320,7 +320,8 @@ class chatEmbed {
 
         let popOutActionElement = this[ELEMENTSTORE].createElement('button');
         popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
-        popOutActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
+        popOutActionElement.classList.add('gitter-chat-embed-action-bar-item-pop-out');
+        popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
         popOutActionElement.innerHTML = '<svg class="gitter-icon"><use xlink:href="#gitter-shape-external-link"></use></svg>';
         elementOnActivate(popOutActionElement, (e) => {
           // Hide the chat

@@ -1,35 +1,35 @@
 .gitter-logo-name {
-	display: inline-block;
-	vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 
-	margin-top: 0;
-	margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 
-	font-family: 'Ubuntu', sans-serif;
-	font-size: 1em;
-	font-weight: 400;
-	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	white-space: nowrap;
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
 }
 
 .gitter-logo-holder {
-	position: relative;
-	display: inline-block;
-	vertical-align: middle;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
 
-	/* weird bar equality width issue as you resize the window with just em */
-	width: 1.0625em;
-	width: 27px;
+  /* weird bar equality width issue as you resize the window with just em */
+  width: 1.0625em;
+  width: 24px;
 
-	&:after {
-		content: '';
+  &:after {
+    content: '';
 
-		display: block;
-		width: 100%;
+    display: block;
+    width: 100%;
 
-		padding-bottom: 141.176%;
-	}
+    padding-bottom: 141.176%;
+  }
 
 }
 
@@ -37,32 +37,32 @@
 .logo-body-left,
 .logo-body-right,
 .logo-right-arm {
-	position: absolute;
-	width: 11.7647%;
+  position: absolute;
+  width: 11.7647%;
 
-	background-color: currentColor;
+  background-color: currentColor;
 }
 
 .logo-left-arm {
-	height: 62.5%;
+  height: 62.5%;
 }
 
 .logo-body-right,
 .logo-body-left {
-	top: 16.6667%;
+  top: 16.6667%;
 
-	height: 83.3334%;
+  height: 83.3334%;
 }
 .logo-body-left {
-	left: 29.41176%;
+  left: 29.41176%;
 }
 .logo-body-right {
-	left: 58.8235%;
+  left: 58.8235%;
 }
 
 .logo-right-arm {
-	top: 16.6667%;
-	left: 88.23529%;
+  top: 16.6667%;
+  left: 88.23529%;
 
-	height: 55%;
+  height: 55%;
 }

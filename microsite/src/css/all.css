@@ -12,164 +12,141 @@ $code-block-background-color: #f4f4f4;
 $code-block-border-radius: 10px;
 
 @define-mixin code-block-padding {
-	padding-top: 15px;
-	padding-left: 20px;
-	padding-bottom: 15px;
-	padding-right: 20px;
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-bottom: 15px;
+  padding-right: 20px;
 }
 
 
 
 :root {
-	font-size: 1em;
+  font-size: 1em;
 }
 
 body {
-	overflow: hidden;
-	height: 100%;
+  height: 100%;
 
-	font-family: 'Source Sans Pro', pt sans, calibri, sans-serif;
-	font-size: 1rem;
-	line-height: 1.4;
-	font-weight: 400;
+  font-family: 'Source Sans Pro', pt sans, calibri, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 400;
 }
 
 
 
 .microsite-app-entry-point {
-	height: 100%;
+  height: 100%;
 }
 
 .panel-wrapper {
-	overflow: auto;
-	display: flex;
-	flex-direction: row;
-	/* main axis */
-	justify-content: flex-start;
-	/* cross axis */
-	align-items: stretch;
+  overflow: auto;
+  display: flex;
+  flex-direction: row;
+  /* main axis */
+  justify-content: flex-start;
+  /* cross axis */
+  align-items: stretch;
 
-	height: 100%;
+  height: 100%;
 
-	@media (max-width: 768px) {
-		flex-direction: column-reverse;
-		height: auto;
-	}
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    height: auto;
+  }
 }
 
 .primary-panel,
 .documentation-panel {
-	overflow: auto;
+  overflow: auto;
 
-	flex: 1;
-	height: 100%;
+  flex: 1;
+  height: 100%;
 
-	padding-top: 5%;
-	padding-left: 10%;
-	padding-bottom: 10%;
-	padding-right: 10%;
+  padding-top: 5%;
+  padding-left: 10%;
+  padding-bottom: 10%;
+  padding-right: 10%;
 
-	@media (max-width: 1400px) {
-		padding-top: 2.5%;
-		padding-left: 5%;
-		padding-bottom: 5%;
-		padding-right: 5%;
-	}
+  @media (max-width: 1400px) {
+    padding-top: 2.5%;
+    padding-left: 5%;
+    padding-bottom: 5%;
+    padding-right: 5%;
+  }
 
-	@media (max-width: 768px) {
-		flex: none;
-		height: auto;
-	}
+  @media (max-width: 768px) {
+    flex: none;
+    height: auto;
+  }
 }
 
 .primary-panel {
-	/* To remove the scroll bar when the content there, doesn't really need it */
-	padding-bottom: 2%;
+  /* To remove the scroll bar when the content there, doesn't really need it */
+  padding-bottom: 2%;
 
-	background-image: url('../images/primary-background.jpg');
-	background-size: cover;
+  background-image: url('../images/primary-background.jpg');
+  background-size: cover;
 
-	color: #d5d2e5;
+  color: #d5d2e5;
 
-	& > h1,
-	& > h2,
-	& > h3,
-	& > h4,
-	& > h5,
-	& > h6 {
-		color: #f4f2ed;
-	}
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6 {
+    color: #f4f2ed;
+  }
 }
 
 .primary-panel-gitter-logo-title {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 
-	color: #f4f2ed;
-	font-size: 1.36rem;
-	text-align: center;
+  color: #f4f2ed;
+  font-size: 1.36rem;
+  text-align: center;
 
-	& > .gitter-logo-holder + .gitter-logo-name {
-		margin-left: 0.75em;
-	}
+  & > .gitter-logo-holder + .gitter-logo-name {
+    margin-left: 0.75em;
+  }
 }
 
 .primary-panel-secondary-header {
-	margin-top: 1em;
-	margin-bottom: 1em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 
-	font-size: 1.5em;
-	font-weight: normal;
+  font-size: 1.5em;
+  font-weight: normal;
 }
 
 
 .sidecar-diagram {
-	width: 100%;
-	max-height: 30vh;
+  width: 100%;
+  max-height: 30vh;
 
-	margin: 0 auto;
+  margin: 0 auto;
 }
 
 
 
 .see-action-wrapper {
-	position: fixed;
-	right: 20px;
-	bottom: 70px;
+  position: fixed;
+  right: 20px;
+  bottom: 70px;
 
-	width: 150px;
+  width: 150px;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
 }
 
 .see-action-diagram {
-	width: 100%
+  width: 100%
 }
 
-
-.arrow-wrapper {
-    position: absolute;
-  
-    width: 250px;
-    height: 100px;
-}
-
-.arrow-stem,
-.arrow-leafs {
-    fill: none;
-	stroke: #e5e5e1;
-	stroke-width: 3;
-	stroke-linecap: round;
-	stroke-linejoin: round;
-	stroke-miterlimit: 10;
-}
-
-.arrow-stem {
-  width: 100%;
-}
-
-.arrow-leafs {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 
 
@@ -177,68 +154,68 @@ body {
 
 
 .documentation-panel {
-	position: relative;
+  position: relative;
 
-	color: $normal-primary-body-text-color;
+  color: $normal-primary-body-text-color;
 }
 
 .documentation-panel-primary-header,
 .documentation-panel-secondary-header {
-	width: 100%;
+  width: 100%;
 
-	margin-top: 0;
-	margin-bottom: 1.5em;
+  margin-top: 0;
+  margin-bottom: 1.5em;
 
-	color: $normal-primary-text-color;
-	text-align: center;
+  color: $normal-primary-text-color;
+  text-align: center;
 }
 
 .documentation-panel-primary-header {
-	font-size: 2em;
+  font-size: 2em;
 }
 .documentation-panel-secondary-header {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .header-with-down-arrow {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-	&:after {
-		content: '';
-		
-		display: block;
-		width: 50px;
-		height: 18.3188px;
+  &:after {
+    content: '';
+    
+    display: block;
+    width: 50px;
+    height: 18.3188px;
 
-		margin-top: 1em;
-		margin-bottom: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
 
-		background-image: url('../images/more-content-down-arrow.svg');
-		background-repeat: no-repeat;
-		background-size: cover;
-	}
+    background-image: url('../images/more-content-down-arrow.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
 
 .documentation-panel-getting-started {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-	min-height: calc(100vh - 190px);
+  min-height: calc(100vh - 190px);
 }
 
 .documentation-panel-getting-started-body {
-	flex: 1;
+  flex: 1;
 
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .documentation-panel-docs {
-	
+  
 }
 
 .documentation-panel-docs-body {
@@ -249,141 +226,143 @@ body {
 
 
 .primary-input {
-	width: 100%;
+  width: 100%;
 
-	padding: 9px;
+  padding: 9px;
 
-	border: 1px solid #deddde;
-	box-shadow: inset 0 4px 8px -4px rgba(0, 0, 0, 0.15);
-	border-radius: 4px;
+  border: 1px solid #deddde;
+  box-shadow: inset 0 4px 8px -4px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
 
-	text-align: center;
+  text-align: center;
 }
 
 
 .copy-snippet-block {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 
-	border: 1px solid $code-block-background-color;
-	border-radius: $code-block-border-radius;
+  border: 1px solid $code-block-background-color;
+  border-radius: $code-block-border-radius;
 }
 
 .copy-snippet-block-body {
-	@mixin code-block-padding;
+  @mixin code-block-padding;
 
-	overflow: auto;
+  overflow: auto;
 
-	margin-top: 0;
-	margin-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 
-	background-color: $code-block-background-color;
-	border-top-left-radius: $code-block-border-radius;
-	border-top-right-radius: $code-block-border-radius;
+  background-color: $code-block-background-color;
+  border-top-left-radius: $code-block-border-radius;
+  border-top-right-radius: $code-block-border-radius;
 }
 
 .copy-snippet-block-under-section {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-	padding-top: 8px;
-	padding-left: 12px;
-	padding-bottom: 8px;
-	padding-right: 12px;
+  padding-top: 8px;
+  padding-left: 12px;
+  padding-bottom: 8px;
+  padding-right: 12px;
 }
 
 .copy-snippet-block-annotation {
-	color: #c4c4c2;
+  color: #c4c4c2;
 }
 
 .copy-snippet-block-copy-button {
-	display: block;
+  display: block;
 
-	padding-top: 4px;
-	padding-left: 8px;
-	padding-bottom: 4px;
-	padding-right: 8px;
+  padding-top: 4px;
+  padding-left: 16px;
+  padding-bottom: 4px;
+  padding-right: 16px;
 
-	background-color: #f4f2ed;
-	border: 1px solid #d6d5d3;
-	border-radius: 3px;
+  background-color: #f4f2ed;
+  border: 1px solid #d6d5d3;
+  border-radius: 3px;
 
-	color: $normal-primary-text-color;
-	text-transform: uppercase;
+  color: $normal-primary-text-color;
+  font-size: 0.9em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 
 
 
 .use-markdown {
-	/* We use this to size the headings to their environment
-	 * but we reset the font-size to `1rem` for normal paragraph text */
-	font-size: 0.90em;
+  /* We use this to size the headings to their environment
+   * but we reset the font-size to `1rem` for normal paragraph text */
+  font-size: 0.90em;
 
-	a {
-		color: #40de92;
-	}
+  a {
+    color: #40de92;
+  }
 
-	ul, ol {
-		padding-left: 2em;
+  ul, ol {
+    padding-left: 2em;
 
-		ul, ol {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
-	}
+    ul, ol {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
 
-	h1 { font-size: 2em; }
-	h2 { font-size: 1.5em; }
-	h3 { font-size: 1.17em; }
-	h4 { font-size: 1.12em; }
-	h5 { font-size: .83em; }
-	h6 { font-size: .75em; }
+  h1 { font-size: 2em; }
+  h2 { font-size: 1.5em; }
+  h3 { font-size: 1.17em; }
+  h4 { font-size: 1.12em; }
+  h5 { font-size: .83em; }
+  h6 { font-size: .75em; }
 
-	h1,
-	h2,
-	h3 {
-		margin-top: 0.25em;
-		margin-bottom: 0.25em;
-	}
+  h1,
+  h2,
+  h3 {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+  }
 
-	h4,
-	h5,
-	h6 {
-		margin-top: 0.15em;
-		margin-bottom: 0.15em;
-	}
+  h4,
+  h5,
+  h6 {
+    margin-top: 0.15em;
+    margin-bottom: 0.15em;
+  }
 
-	p,
-	ul,
-	ol,
-	pre {
-		margin-top: 1em;
-		margin-bottom: 1em;
+  p,
+  ul,
+  ol,
+  pre {
+    margin-top: 1em;
+    margin-bottom: 1em;
 
-		font-size: 1rem;
-	}
+    font-size: 1rem;
+  }
 
-	pre {
-		overflow: auto;
+  pre {
+    overflow: auto;
 
-		@mixin code-block-padding;
+    @mixin code-block-padding;
 
-		background-color: $code-block-background-color;
-		border-radius: $code-block-border-radius;
+    background-color: $code-block-background-color;
+    border-radius: $code-block-border-radius;
 
-		& > code {
-			padding: 0;
+    & > code {
+      padding: 0;
 
-			background: none;
-			border-radius: 0;
-		}
-	}
+      background: none;
+      border-radius: 0;
+    }
+  }
 
-	code {
-		padding: 3px;
+  code {
+    padding: 3px;
 
-		background-color: $code-block-background-color;
-		border-radius: 2px;
-	}
+    background-color: $code-block-background-color;
+    border-radius: 2px;
+  }
 }
