@@ -6,12 +6,12 @@ var USER = process.env.BS_USER;
 var KEY  = process.env.BS_KEY;
 
 var browsers = [
-  {
-    'os' : 'Windows',
-    'os_version' : '7',
-    'browser' : 'IE',
-    'browser_version' : '10.0'
-  },
+  //{
+  //  'os' : 'Windows',
+  //  'os_version' : '7',
+  //  'browser' : 'IE',
+  //  'browser_version' : '10.0'
+  //},
   {
     'os' : 'OS X',
     'os_version' : 'Yosemite',

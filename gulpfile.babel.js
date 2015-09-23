@@ -72,14 +72,14 @@ gulp.task('compress_assets', function() {
     .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('upload_to_s3', ['compress_assets'], function(done) {
+gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
   var major = manifest.version.split('.')[0];
 
   var params = {
     localFile: './dist/sidecar.js.gz',
     s3Params: {
       Bucket: 'sidecar.gitter.im',
-      Key: 'js/sidecar.v' + major + '.js',
+      Key: 'dist/sidecar.v' + major + '.js',
       CacheControl: 'public, max-age=0, no-cache',
       ContentType: 'application/javascript',
       ContentEncoding: 'gzip',
@@ -105,6 +105,37 @@ gulp.task('upload_to_s3', ['compress_assets'], function(done) {
     done();
   });
 });
+
+gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
+  var params = {
+    localDir: './microsite/dist',
+    s3Params: {
+      Bucket: 'sidecar.gitter.im',
+      Prefix: '',
+      CacheControl: 'public, max-age=0, no-cache',
+      ACL: 'public-read'
+    }
+  };
+
+  var S3Client = S3.createClient({
+    s3Options: {
+      accessKeyId: process.env.AWS_KEY,
+      secretAccessKey: process.env.AWS_SECRET
+    },
+  });
+
+  var uploader = S3Client.uploadDir(params);
+
+  uploader.on('error', function (err) {
+    gutil.log(err.stack);
+    done(err);
+  });
+
+  uploader.on('end', function(metadata) {
+    done();
+  });
+});
+
 
 
 
@@ -211,12 +242,9 @@ gulp.task('build-microsite', function(callback) {
   );
 });
 
-gulp.task('deploy', function(callback) {
-  runSequence(
-    ['compress_assets', 'upload_to_s3'],
-    callback
-  );
-});
+gulp.task('deploy-sidecar', ['upload_sidecar_to_s3']);
+gulp.task('deploy-microsite', ['upload_microsite_to_s3']);
+
 
 // Default Task
 gulp.task('default', function(callback) {

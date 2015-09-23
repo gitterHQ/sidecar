@@ -1,8 +1,11 @@
 {
   "name": "gitter-sidecar",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "An embeddable Gitter client.",
   "main": "index.js",
+  "engine": {
+    "node": "=4.0.0"
+  },
   "scripts": {
     "test": "mocha",
     "devbuild": "webpack --watch --progress",
@@ -10,7 +13,8 @@
     "build-microsite": "gulp build-microsite",
     "devbuild-microsite": "gulp build-microsite --dev",
     "start-microsite": "babel-node ./microsite/server/server.js",
-    "deploy": "gulp deploy"
+    "deploy-sidecar": "gulp deploy-sidecar",
+    "deploy-microsite": "gulp deploy-microsite"
   },
   "author": "The Gitter Team",
   "license": "MIT",

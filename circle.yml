@@ -13,8 +13,18 @@ test:
     - ci/browserstack_tunnel.sh stop
 
 deployment:
+  master:
+    branch: master
+    owner: gitterHQ
+    commands:
+      - npm run deploy-microsite
+
   release:
     tag: /v[0-9]+(\.[0-9]+)*/
     owner: gitterHQ
     commands:
-      - npm run deploy
+      - npm run deploy-sidecar
+
+machine:
+  node:
+    version: 4.0.0
