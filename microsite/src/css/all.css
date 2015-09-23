@@ -83,6 +83,9 @@ body {
 }
 
 .primary-panel {
+	/* To remove the scroll bar when the content there, doesn't really need it */
+	padding-bottom: 2%;
+
 	background-image: url('../images/primary-background.jpg');
 	background-size: cover;
 
@@ -111,26 +114,35 @@ body {
 }
 
 .primary-panel-secondary-header {
+	margin-top: 1em;
+	margin-bottom: 1em;
+
 	font-size: 1.5em;
+	font-weight: normal;
 }
 
 
 .sidecar-diagram {
 	width: 100%;
-	max-height: 35vh;
+	max-height: 30vh;
 
 	margin: 0 auto;
 }
 
 
 
-.see-action-text-wrapper {
-	display: flex;
-	justify-content: flex-end;
+.see-action-wrapper {
+	position: fixed;
+	right: 20px;
+	bottom: 70px;
+
+	width: 150px;
 }
-.see-action-text {
-	width: 30%;
+
+.see-action-diagram {
+	width: 100%
 }
+
 
 .arrow-wrapper {
     position: absolute;
@@ -188,12 +200,33 @@ body {
 	font-size: 1.5em;
 }
 
+.header-with-down-arrow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&:after {
+		content: '';
+		
+		display: block;
+		width: 50px;
+		height: 18.3188px;
+
+		margin-top: 1em;
+		margin-bottom: 1em;
+
+		background-image: url('../images/more-content-down-arrow.svg');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+}
+
 
 .documentation-panel-getting-started {
 	display: flex;
 	flex-direction: column;
 
-	min-height: calc(100vh - 150px);
+	min-height: calc(100vh - 190px);
 }
 
 .documentation-panel-getting-started-body {

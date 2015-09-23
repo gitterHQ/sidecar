@@ -18,7 +18,9 @@
 	display: inline-block;
 	vertical-align: middle;
 
+	/* weird bar equality width issue as you resize the window with just em */
 	width: 1.0625em;
+	width: 27px;
 
 	&:after {
 		content: '';

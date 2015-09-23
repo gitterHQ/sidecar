@@ -27,15 +27,11 @@ class MicrositeApp extends React.Component {
   }
 
   componentDidMount() {
-    domUtility.on(document, 'gitter-sidecar-instance-started', this.updateArrowPosition.bind(this));
-    domUtility.on(window, 'resize', this.updateArrowPosition.bind(this));
-    domUtility.on(React.findDOMNode(this.refs.primaryPanel), 'scroll DOMMouseScroll', this.updateArrowPosition.bind(this));
+
   }
 
   componentWillUnmount() {
-    domUtility.off(document, 'gitter-sidecar-instance-started', this.updateArrowPosition.bind(this));
-    domUtility.off(window, 'resize', this.updateArrowPosition.bind(this));
-    domUtility.off(React.findDOMNode(this.refs.primaryPanel), 'scroll DOMMouseScroll', this.updateArrowPosition.bind(this));
+
   }
 
   render() {
@@ -86,7 +82,7 @@ class MicrositeApp extends React.Component {
 
 
           <div className="documentation-panel-docs">
-            <h2 className="documentation-panel-secondary-header">
+            <h2 className="documentation-panel-secondary-header header-with-down-arrow">
               Documentation
             </h2>
 
@@ -126,19 +122,12 @@ class MicrositeApp extends React.Component {
             It works out of the box with no customization, or you can control its behaviour with some basic configuration.
           </p>
 
-          <div
-            className="see-action-text-wrapper"
-          >
+          <div className="see-action-wrapper">
             <img
-              ref="seeActionText"
-              className="see-action-text"
-              src="images/see-it-in-action-text.svg"
+              className="see-action-diagram"
+              src="images/see-it-in-action.svg"
             />
           </div>
-          <Arrow
-            startPoint={this.state.arrowStartPoint}
-            endPoint={this.state.arrowEndPoint}
-          />
         </section>
       </div>
     );
@@ -153,29 +142,7 @@ class MicrositeApp extends React.Component {
     dispatch(setRoomName(name));
   }
 
-  updateArrowPosition() {
-    console.log('asdf', arguments);
-    let seeActionTextElement = React.findDOMNode(this.refs.seeActionText);
-    let sidecarActivationElement = $('.gitter-open-chat-button')[0];
 
-    let seeActionTextBounds = seeActionTextElement.getBoundingClientRect();
-    let activationElementBounds = sidecarActivationElement.getBoundingClientRect();
-
-    //console.log(seeActionTextBounds, activationElementBounds);
-    console.log(seeActionTextBounds.bottom);
-
-    let padding = 15;
-    this.setState({
-      arrowStartPoint: {
-        x: seeActionTextBounds.left + (seeActionTextBounds.width / 2),
-        y: seeActionTextBounds.bottom + padding
-      },
-      arrowEndPoint: {
-        x: activationElementBounds.left + (activationElementBounds.width / 2),
-        y: activationElementBounds.top - padding
-      }
-   });
-  }
 
 
 }

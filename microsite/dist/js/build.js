@@ -22113,18 +22113,10 @@
 	
 	  _createClass(MicrositeApp, [{
 	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      domUtility.on(document, 'gitter-sidecar-instance-started', this.updateArrowPosition.bind(this));
-	      domUtility.on(window, 'resize', this.updateArrowPosition.bind(this));
-	      domUtility.on(_react2['default'].findDOMNode(this.refs.primaryPanel), 'scroll DOMMouseScroll', this.updateArrowPosition.bind(this));
-	    }
+	    value: function componentDidMount() {}
 	  }, {
 	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      domUtility.off(document, 'gitter-sidecar-instance-started', this.updateArrowPosition.bind(this));
-	      domUtility.off(window, 'resize', this.updateArrowPosition.bind(this));
-	      domUtility.off(_react2['default'].findDOMNode(this.refs.primaryPanel), 'scroll DOMMouseScroll', this.updateArrowPosition.bind(this));
-	    }
+	    value: function componentWillUnmount() {}
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -22181,7 +22173,7 @@
 	            { className: 'documentation-panel-docs' },
 	            _react2['default'].createElement(
 	              'h2',
-	              { className: 'documentation-panel-secondary-header' },
+	              { className: 'documentation-panel-secondary-header header-with-down-arrow' },
 	              'Documentation'
 	            ),
 	            _react2['default'].createElement('section', {
@@ -22234,19 +22226,12 @@
 	          ),
 	          _react2['default'].createElement(
 	            'div',
-	            {
-	              className: 'see-action-text-wrapper'
-	            },
+	            { className: 'see-action-wrapper' },
 	            _react2['default'].createElement('img', {
-	              ref: 'seeActionText',
-	              className: 'see-action-text',
-	              src: 'images/see-it-in-action-text.svg'
+	              className: 'see-action-diagram',
+	              src: 'images/see-it-in-action.svg'
 	            })
-	          ),
-	          _react2['default'].createElement(_Arrow2['default'], {
-	            startPoint: this.state.arrowStartPoint,
-	            endPoint: this.state.arrowEndPoint
-	          })
+	          )
 	        )
 	      );
 	    }
@@ -22258,31 +22243,6 @@
 	
 	      var name = e.target.value;
 	      dispatch((0, _actionsMicrositeActions.setRoomName)(name));
-	    }
-	  }, {
-	    key: 'updateArrowPosition',
-	    value: function updateArrowPosition() {
-	      console.log('asdf', arguments);
-	      var seeActionTextElement = _react2['default'].findDOMNode(this.refs.seeActionText);
-	      var sidecarActivationElement = (0, _utilityDomUtility2['default'])('.gitter-open-chat-button')[0];
-	
-	      var seeActionTextBounds = seeActionTextElement.getBoundingClientRect();
-	      var activationElementBounds = sidecarActivationElement.getBoundingClientRect();
-	
-	      //console.log(seeActionTextBounds, activationElementBounds);
-	      console.log(seeActionTextBounds.bottom);
-	
-	      var padding = 15;
-	      this.setState({
-	        arrowStartPoint: {
-	          x: seeActionTextBounds.left + seeActionTextBounds.width / 2,
-	          y: seeActionTextBounds.bottom + padding
-	        },
-	        arrowEndPoint: {
-	          x: activationElementBounds.left + activationElementBounds.width / 2,
-	          y: activationElementBounds.top - padding
-	        }
-	      });
 	    }
 	  }]);
 	
