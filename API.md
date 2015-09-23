@@ -5,7 +5,9 @@ Primarily sidecar has an activation element that will show sidecar and a target 
 
 ## UI Customisation
 
- - Activation element
+If you need a custom button or want to insert the chat in your own element, use the following setup:
+
+ - Activation element: The "Open Chat" button
  - Target element
 
 ```html

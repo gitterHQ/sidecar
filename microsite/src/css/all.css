@@ -35,6 +35,9 @@ body {
 
 
 
+
+
+
 .microsite-app-entry-point {
   height: 100%;
 }
@@ -132,10 +135,16 @@ body {
 
 
 
+.gitter-open-chat-button {
+  font-size: 0.8rem;
+  letter-spacing: 0.128rem;
+  text-transform: uppercase;
+}
+
 .see-action-wrapper {
   position: fixed;
   right: 20px;
-  bottom: 70px;
+  bottom: 60px;
 
   width: 150px;
 
