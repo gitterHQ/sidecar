@@ -22484,7 +22484,8 @@
 	          "pre",
 	          {
 	            ref: "snippetArea",
-	            className: "copy-snippet-block-body"
+	            className: "copy-snippet-block-body",
+	            onClick: this.trySelectSnippet.bind(this)
 	          },
 	          _react2["default"].createElement(
 	            "code",
@@ -22511,20 +22512,46 @@
 	        )
 	      );
 	    }
+	
+	    // A respectful select text method
+	    // Only select if they don't have another selection
+	  }, {
+	    key: "trySelectSnippet",
+	    value: function trySelectSnippet() {
+	      var selection = window.getSelection();
+	      var hasSelection = selection.toString() !== '';
+	      if (!hasSelection) {
+	        this.selectSnippet();
+	      }
+	    }
 	  }, {
 	    key: "copySnippet",
 	    value: function copySnippet() {
+	      this.selectSnippet();
+	      document.execCommand('copy');
+	    }
+	  }, {
+	    key: "selectSnippet",
+	    value: function selectSnippet() {
 	      var snippetElement = _react2["default"].findDOMNode(this.refs.snippetArea);
 	
-	      // Add the element to the copy range
-	      var range = document.createRange();
-	      range.selectNode(snippetElement);
-	      var windowRange = window.getSelection();
-	      // To avoid the non-contiguous range error
-	      windowRange.removeAllRanges();
-	      windowRange.addRange(range);
-	
-	      document.execCommand('copy');
+	      // via: http://stackoverflow.com/a/2044793/796832
+	      if (document.createRange && window.getSelection) {
+	        var range = document.createRange();
+	        var sel = window.getSelection();
+	        sel.removeAllRanges();
+	        try {
+	          range.selectNodeContents(snippetElement);
+	          sel.addRange(range);
+	        } catch (e) {
+	          range.selectNode(snippetElement);
+	          sel.addRange(range);
+	        }
+	      } else if (document.body.createTextRange) {
+	        var range = document.body.createTextRange();
+	        range.moveToElementText(snippetElement);
+	        range.select();
+	      }
 	    }
 	  }]);
 	

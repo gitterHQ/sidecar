@@ -16,6 +16,7 @@ export default class CopySnippetBlock extends React.Component {
         <pre
           ref="snippetArea"
           className="copy-snippet-block-body"
+          onClick={this.trySelectSnippet.bind(this)}
         >
           <code>{this.props.value}</code>
         </pre>
@@ -32,19 +33,43 @@ export default class CopySnippetBlock extends React.Component {
     );
   }
 
+  // A respectful select text method
+  // Only select if they don't have another selection
+  trySelectSnippet() {
+    let selection = window.getSelection();
+    let hasSelection = (selection.toString() !== '');
+    if(!hasSelection) {
+      this.selectSnippet();
+    }
+  }
+
   copySnippet() {
-    let snippetElement = React.findDOMNode(this.refs.snippetArea);
-
-    // Add the element to the copy range
-    var range = document.createRange();
-    range.selectNode(snippetElement);
-    var windowRange = window.getSelection();
-    // To avoid the non-contiguous range error
-    windowRange.removeAllRanges();
-    windowRange.addRange(range);
-
+    this.selectSnippet();
     document.execCommand('copy');
   }
+  
+  selectSnippet() {
+    let snippetElement = React.findDOMNode(this.refs.snippetArea);
+
+    // via: http://stackoverflow.com/a/2044793/796832
+    if(document.createRange && window.getSelection) {
+      let range = document.createRange();
+      let sel = window.getSelection();
+      sel.removeAllRanges();
+      try {
+        range.selectNodeContents(snippetElement);
+        sel.addRange(range);
+      } catch (e) {
+        range.selectNode(snippetElement);
+        sel.addRange(range);
+      }
+    } else if(document.body.createTextRange) {
+      let range = document.body.createTextRange();
+      range.moveToElementText(snippetElement);
+      range.select();
+    }
+  }
+
 
 }
 
