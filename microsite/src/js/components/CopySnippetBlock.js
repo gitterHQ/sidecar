@@ -1,9 +1,15 @@
 import React from 'react';
 
+import classNames from 'classnames';
+
 
 export default class CopySnippetBlock extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      annotation: this.props.annotation
+    };
   }
 
   componentDidMount() {
@@ -21,12 +27,21 @@ export default class CopySnippetBlock extends React.Component {
           <code>{this.props.value}</code>
         </pre>
         <div className="copy-snippet-block-under-section">
-          <summary className="copy-snippet-block-annotation">{this.props.annotation}</summary>
+          <summary className="copy-snippet-block-annotation">
+            {this.state.annotation}
+          </summary>
           <button
-            className="copy-snippet-block-copy-button"
-            onClick={this.copySnippet.bind(this)}
+            className={classNames({
+              'copy-snippet-block-copy-button': true,
+              'is-click-positive': this.state.copyClickPositiveState
+            })}
+            onClick={this.copyButtonClicked.bind(this)}
           >
-            Copy to Clipboard
+            <span
+              className="copy-snippet-block-copy-button-main-text"
+            >
+              Copy to Clipboard
+            </span>
           </button>
         </div>
       </div>
@@ -43,11 +58,26 @@ export default class CopySnippetBlock extends React.Component {
     }
   }
 
+  copyButtonClicked() {
+    this.setState({
+      annotation: 'Now go forth and paste',
+      copyClickPositiveState: true
+    });
+
+    setTimeout(() => {
+      this.setState({
+        copyClickPositiveState: false
+      });
+    }, this.props.copyButtonClickTimeout);
+
+    this.copySnippet();
+  }
+
   copySnippet() {
     this.selectSnippet();
     document.execCommand('copy');
   }
-  
+
   selectSnippet() {
     let snippetElement = React.findDOMNode(this.refs.snippetArea);
 
@@ -76,5 +106,9 @@ export default class CopySnippetBlock extends React.Component {
 CopySnippetBlock.propTypes = {
   className: React.PropTypes.string,
   value: React.PropTypes.string,
-  annotation: React.PropTypes.string
+  annotation: React.PropTypes.string,
+  copyButtonClickTimeout: React.PropTypes.number
+};
+CopySnippetBlock.defaultProps = {
+  copyButtonClickTimeout: 2000
 };

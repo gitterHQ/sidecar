@@ -75,7 +75,7 @@
 	
 	var _componentsMicrositeApp2 = _interopRequireDefault(_componentsMicrositeApp);
 	
-	var _reducersMicrositeReducer = __webpack_require__(187);
+	var _reducersMicrositeReducer = __webpack_require__(188);
 	
 	var _reducersMicrositeReducer2 = _interopRequireDefault(_reducersMicrositeReducer);
 	
@@ -22085,11 +22085,11 @@
 	
 	var _CopySnippetBlock2 = _interopRequireDefault(_CopySnippetBlock);
 	
-	var _Arrow = __webpack_require__(183);
+	var _Arrow = __webpack_require__(184);
 	
 	var _Arrow2 = _interopRequireDefault(_Arrow);
 	
-	var _actionsMicrositeActions = __webpack_require__(184);
+	var _actionsMicrositeActions = __webpack_require__(185);
 	
 	var MicrositeApp = (function (_React$Component) {
 	  _inherits(MicrositeApp, _React$Component);
@@ -22442,25 +22442,29 @@
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
 	
-	"use strict";
+	'use strict';
 	
-	Object.defineProperty(exports, "__esModule", {
+	Object.defineProperty(exports, '__esModule', {
 	  value: true
 	});
 	
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 	
-	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var _react = __webpack_require__(2);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _classnames = __webpack_require__(183);
+	
+	var _classnames2 = _interopRequireDefault(_classnames);
 	
 	var CopySnippetBlock = (function (_React$Component) {
 	  _inherits(CopySnippetBlock, _React$Component);
@@ -22468,46 +22472,59 @@
 	  function CopySnippetBlock(props) {
 	    _classCallCheck(this, CopySnippetBlock);
 	
-	    _get(Object.getPrototypeOf(CopySnippetBlock.prototype), "constructor", this).call(this, props);
+	    _get(Object.getPrototypeOf(CopySnippetBlock.prototype), 'constructor', this).call(this, props);
+	
+	    this.state = {
+	      annotation: this.props.annotation
+	    };
 	  }
 	
 	  _createClass(CopySnippetBlock, [{
-	    key: "componentDidMount",
+	    key: 'componentDidMount',
 	    value: function componentDidMount() {}
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
-	      return _react2["default"].createElement(
-	        "div",
-	        { className: "copy-snippet-block {this.props.className}" },
-	        _react2["default"].createElement(
-	          "pre",
+	      return _react2['default'].createElement(
+	        'div',
+	        { className: 'copy-snippet-block {this.props.className}' },
+	        _react2['default'].createElement(
+	          'pre',
 	          {
-	            ref: "snippetArea",
-	            className: "copy-snippet-block-body",
+	            ref: 'snippetArea',
+	            className: 'copy-snippet-block-body',
 	            onClick: this.trySelectSnippet.bind(this)
 	          },
-	          _react2["default"].createElement(
-	            "code",
+	          _react2['default'].createElement(
+	            'code',
 	            null,
 	            this.props.value
 	          )
 	        ),
-	        _react2["default"].createElement(
-	          "div",
-	          { className: "copy-snippet-block-under-section" },
-	          _react2["default"].createElement(
-	            "summary",
-	            { className: "copy-snippet-block-annotation" },
-	            this.props.annotation
+	        _react2['default'].createElement(
+	          'div',
+	          { className: 'copy-snippet-block-under-section' },
+	          _react2['default'].createElement(
+	            'summary',
+	            { className: 'copy-snippet-block-annotation' },
+	            this.state.annotation
 	          ),
-	          _react2["default"].createElement(
-	            "button",
+	          _react2['default'].createElement(
+	            'button',
 	            {
-	              className: "copy-snippet-block-copy-button",
-	              onClick: this.copySnippet.bind(this)
+	              className: (0, _classnames2['default'])({
+	                'copy-snippet-block-copy-button': true,
+	                'is-click-positive': this.state.copyClickPositiveState
+	              }),
+	              onClick: this.copyButtonClicked.bind(this)
 	            },
-	            "Copy to Clipboard"
+	            _react2['default'].createElement(
+	              'span',
+	              {
+	                className: 'copy-snippet-block-copy-button-main-text'
+	              },
+	              'Copy to Clipboard'
+	            )
 	          )
 	        )
 	      );
@@ -22516,7 +22533,7 @@
 	    // A respectful select text method
 	    // Only select if they don't have another selection
 	  }, {
-	    key: "trySelectSnippet",
+	    key: 'trySelectSnippet',
 	    value: function trySelectSnippet() {
 	      var selection = window.getSelection();
 	      var hasSelection = selection.toString() !== '';
@@ -22525,15 +22542,33 @@
 	      }
 	    }
 	  }, {
-	    key: "copySnippet",
+	    key: 'copyButtonClicked',
+	    value: function copyButtonClicked() {
+	      var _this = this;
+	
+	      this.setState({
+	        annotation: 'Now go forth and paste',
+	        copyClickPositiveState: true
+	      });
+	
+	      setTimeout(function () {
+	        _this.setState({
+	          copyClickPositiveState: false
+	        });
+	      }, this.props.copyButtonClickTimeout);
+	
+	      this.copySnippet();
+	    }
+	  }, {
+	    key: 'copySnippet',
 	    value: function copySnippet() {
 	      this.selectSnippet();
 	      document.execCommand('copy');
 	    }
 	  }, {
-	    key: "selectSnippet",
+	    key: 'selectSnippet',
 	    value: function selectSnippet() {
-	      var snippetElement = _react2["default"].findDOMNode(this.refs.snippetArea);
+	      var snippetElement = _react2['default'].findDOMNode(this.refs.snippetArea);
 	
 	      // via: http://stackoverflow.com/a/2044793/796832
 	      if (document.createRange && window.getSelection) {
@@ -22556,21 +22591,80 @@
 	  }]);
 	
 	  return CopySnippetBlock;
-	})(_react2["default"].Component);
+	})(_react2['default'].Component);
 	
-	exports["default"] = CopySnippetBlock;
+	exports['default'] = CopySnippetBlock;
 	
 	CopySnippetBlock.propTypes = {
-	  className: _react2["default"].PropTypes.string,
-	  value: _react2["default"].PropTypes.string,
-	  annotation: _react2["default"].PropTypes.string
+	  className: _react2['default'].PropTypes.string,
+	  value: _react2['default'].PropTypes.string,
+	  annotation: _react2['default'].PropTypes.string,
+	  copyButtonClickTimeout: _react2['default'].PropTypes.number
 	};
-	module.exports = exports["default"];
+	CopySnippetBlock.defaultProps = {
+	  copyButtonClickTimeout: 2000
+	};
+	module.exports = exports['default'];
 
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "CopySnippetBlock.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
 /* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	  Copyright (c) 2015 Jed Watson.
+	  Licensed under the MIT License (MIT), see
+	  http://jedwatson.github.io/classnames
+	*/
+	
+	(function () {
+		'use strict';
+	
+		function classNames () {
+	
+			var classes = '';
+	
+			for (var i = 0; i < arguments.length; i++) {
+				var arg = arguments[i];
+				if (!arg) continue;
+	
+				var argType = typeof arg;
+	
+				if ('string' === argType || 'number' === argType) {
+					classes += ' ' + arg;
+	
+				} else if (Array.isArray(arg)) {
+					classes += ' ' + classNames.apply(null, arg);
+	
+				} else if ('object' === argType) {
+					for (var key in arg) {
+						if (arg.hasOwnProperty(key) && arg[key]) {
+							classes += ' ' + key;
+						}
+					}
+				}
+			}
+	
+			return classes.substr(1);
+		}
+	
+		if (typeof module !== 'undefined' && module.exports) {
+			module.exports = classNames;
+		} else if (true){
+			// AMD. Register as an anonymous module.
+			!(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+				return classNames;
+			}.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else {
+			window.classNames = classNames;
+		}
+	
+	}());
+
+
+/***/ },
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22689,7 +22783,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Arrow.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 184 */
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22704,7 +22798,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _constantsMicrositeConstants = __webpack_require__(185);
+	var _constantsMicrositeConstants = __webpack_require__(186);
 	
 	/*
 	 * Action creators
@@ -22729,7 +22823,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "MicrositeActions.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22742,7 +22836,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _keymirror = __webpack_require__(186);
+	var _keymirror = __webpack_require__(187);
 	
 	var _keymirror2 = _interopRequireDefault(_keymirror);
 	
@@ -22755,7 +22849,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "MicrositeConstants.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 186 */
+/* 187 */
 /***/ function(module, exports) {
 
 	/**
@@ -22814,7 +22908,7 @@
 
 
 /***/ },
-/* 187 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22829,7 +22923,7 @@
 	
 	var _redux = __webpack_require__(158);
 	
-	var _reducers = __webpack_require__(188);
+	var _reducers = __webpack_require__(189);
 	
 	// http://rackt.github.io/redux/docs/basics/Reducers.html
 	
@@ -22843,7 +22937,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "MicrositeReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22856,18 +22950,18 @@
 	
 	function _interopRequire(obj) { return obj && obj.__esModule ? obj['default'] : obj; }
 	
-	var _RoomNameReducer = __webpack_require__(189);
+	var _RoomNameReducer = __webpack_require__(190);
 	
 	exports.roomName = _interopRequire(_RoomNameReducer);
 	
-	var _DocumentationReducer = __webpack_require__(190);
+	var _DocumentationReducer = __webpack_require__(191);
 	
 	exports.documentation = _interopRequire(_DocumentationReducer);
 	
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "reducers.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 189 */
+/* 190 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22881,7 +22975,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _constantsMicrositeConstants = __webpack_require__(185);
+	var _constantsMicrositeConstants = __webpack_require__(186);
 	
 	var _constantsMicrositeConstants2 = _interopRequireDefault(_constantsMicrositeConstants);
 	
@@ -22902,7 +22996,7 @@
 	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "RoomNameReducer.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 
 /***/ },
-/* 190 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\madli_000\\Documents\\GitHub\\sidecar\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
@@ -22916,7 +23010,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _constantsMicrositeConstants = __webpack_require__(185);
+	var _constantsMicrositeConstants = __webpack_require__(186);
 	
 	var _constantsMicrositeConstants2 = _interopRequireDefault(_constantsMicrositeConstants);
 	

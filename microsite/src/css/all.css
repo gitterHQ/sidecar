@@ -214,7 +214,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  min-height: calc(100vh - 190px);
+  min-height: calc(100vh - 130px);
 }
 
 .documentation-panel-getting-started-body {
@@ -285,6 +285,7 @@ body {
 }
 
 .copy-snippet-block-copy-button {
+  position: relative;
   display: block;
 
   padding-top: 4px;
@@ -300,6 +301,33 @@ body {
   font-size: 0.9em;
   letter-spacing: 0.05em;
   text-transform: uppercase;
+
+  &.is-click-positive {
+    &:after {
+      opacity: 1;
+    }
+  }
+
+  &:after {
+    content: 'Copied!';
+
+    opacity: 0;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+
+    transition: opacity 0.2s ease;
+  }
+}
+
+.copy-snippet-block-copy-button-main-text {
+
+  .is-click-positive > & {
+    opacity: 0;
+  }
+
+  transition: opacity 0.1s ease;
 }
 
 
