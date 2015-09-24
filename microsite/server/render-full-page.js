@@ -9,6 +9,8 @@ export default function renderFullPage(html, initialState = {}) {
       
       <title>Sidecar - Gitter</title>
 
+      <link id="favicon" rel="shortcut icon" href="images/favicon-normal.ico">
+
       <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,700italic,400italic" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
       <link href="css/all.css" rel="stylesheet">
