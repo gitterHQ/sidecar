@@ -1,4 +1,8 @@
 
+# v0.2.11 - 2015-9-28
+
+ - Microsite visual tweaks and updates
+
 # v0.2.9 - 2015-9-20
 
  - Add `microsite/` to showcase Sidecar and some getting started goodness
