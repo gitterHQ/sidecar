@@ -19,7 +19,7 @@ var postcss = require('gulp-postcss');
 var getPostcssPluginStack = require('./postcss-plugin-stack');
 
 
-var sidecarWebpackConfig = require('./webpack.config');
+//var sidecarWebpackConfig = require('./webpack.config');
 var micrositeWebpackConfig = require('./microsite/webpack.config');
 var micrositeProductionWebpackConfig = require('./microsite/webpack.production.config');
 
@@ -91,7 +91,7 @@ gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
     s3Options: {
       accessKeyId: process.env.AWS_KEY,
       secretAccessKey: process.env.AWS_SECRET
-    },
+    }
   });
 
   var uploader = S3Client.uploadFile(params);
@@ -101,7 +101,7 @@ gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
     done(err);
   });
 
-  uploader.on('end', function(metadata) {
+  uploader.on('end', function(/*metadata*/) {
     done();
   });
 });
@@ -121,7 +121,7 @@ gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
     s3Options: {
       accessKeyId: process.env.AWS_KEY,
       secretAccessKey: process.env.AWS_SECRET
-    },
+    }
   });
 
   var uploader = S3Client.uploadDir(params);
@@ -131,7 +131,7 @@ gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
     done(err);
   });
 
-  uploader.on('end', function(metadata) {
+  uploader.on('end', function(/*metadata*/) {
     done();
   });
 });

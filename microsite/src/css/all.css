@@ -115,6 +115,40 @@ body {
   }
 }
 
+
+.primary-panel-gitter-logo-diagram {
+  width: 17px;
+
+  transform: translateY(-200px);
+
+  animation-name: logo-dropdown;
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes logo-dropdown {
+  98% {
+    transform: translateY(2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.primary-panel-gitter-logo-text {
+  display: inline-block;
+  vertical-align: middle;
+
+  height: 12px;
+
+  margin-left: 20px;
+
+  fill: currentColor;
+}
+
+
+
 .primary-panel-secondary-header {
   margin-top: 1em;
   margin-bottom: 1em;

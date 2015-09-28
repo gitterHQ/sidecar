@@ -1,35 +1,4 @@
-.gitter-logo-name {
-  display: inline-block;
-  vertical-align: middle;
 
-  margin-top: 0;
-  margin-bottom: 0;
-
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  white-space: nowrap;
-}
-
-.primary-panel-gitter-logo-diagram {
-  transform: translateY(-200px);
-
-  animation-name: logo-dropdown;
-  animation-duration: 0.5s;
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
-}
-
-@keyframes logo-dropdown {
-  98% {
-    transform: translateY(2px);
-  }
-  100% {
-    transform: translateY(0);
-  }
-}
 
 .gitter-logo-holder {
   position: relative;
@@ -38,7 +7,6 @@
 
   /* weird bar equality width issue as you resize the window with just em */
   width: 1.0625em;
-  width: 24px;
 
   &:after {
     content: '';
@@ -57,6 +25,7 @@
 .logo-right-arm {
   position: absolute;
   width: 11.7647%;
+  width: 2px;
 
   background-color: currentColor;
 }
@@ -68,19 +37,30 @@
 .logo-body-right,
 .logo-body-left {
   top: 16.6667%;
+  top: 4px;
 
   height: 83.3334%;
 }
 .logo-body-left {
   left: 29.41176%;
+  left: 5px;
 }
 .logo-body-right {
   left: 58.8235%;
+  left: 10px;
 }
 
 .logo-right-arm {
   top: 16.6667%;
+  top: 4px;
   left: 88.23529%;
+  left: 15px;
 
   height: 55%;
 }
+
+
+
+
+
+

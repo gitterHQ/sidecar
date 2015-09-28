@@ -22199,11 +22199,10 @@
 	              _react2['default'].createElement('div', { className: 'logo-body-right' }),
 	              _react2['default'].createElement('div', { className: 'logo-right-arm' })
 	            ),
-	            _react2['default'].createElement(
-	              'h1',
-	              { className: 'gitter-logo-name' },
-	              'Gitter'
-	            )
+	            _react2['default'].createElement('img', {
+	              className: 'primary-panel-gitter-logo-text',
+	              src: 'images/gitter-logo-text.svg'
+	            })
 	          ),
 	          _react2['default'].createElement('img', {
 	            className: 'sidecar-diagram',
