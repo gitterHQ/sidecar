@@ -22193,7 +22193,7 @@
 	            { className: 'primary-panel-gitter-logo-title' },
 	            _react2['default'].createElement(
 	              'div',
-	              { className: 'gitter-logo-holder' },
+	              { className: 'gitter-logo-holder primary-panel-gitter-logo-diagram' },
 	              _react2['default'].createElement('div', { className: 'logo-left-arm' }),
 	              _react2['default'].createElement('div', { className: 'logo-body-left' }),
 	              _react2['default'].createElement('div', { className: 'logo-body-right' }),

@@ -98,7 +98,7 @@ class MicrositeApp extends React.Component {
           className="primary-panel"
         >
           <div className="primary-panel-gitter-logo-title">
-            <div className="gitter-logo-holder">
+            <div className="gitter-logo-holder primary-panel-gitter-logo-diagram">
               <div className="logo-left-arm" />
               <div className="logo-body-left" />
               <div className="logo-body-right" />
