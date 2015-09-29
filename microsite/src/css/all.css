@@ -201,6 +201,8 @@ body {
 .documentation-panel {
   position: relative;
 
+  padding-bottom: 0;
+
   color: $normal-primary-body-text-color;
 }
 
@@ -248,7 +250,7 @@ body {
   display: flex;
   flex-direction: column;
 
-  min-height: calc(100vh - 130px);
+  min-height: calc(100% - 90px);
 }
 
 .documentation-panel-getting-started-body {
