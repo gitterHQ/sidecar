@@ -10,6 +10,7 @@ var argv = require('yargs').argv;
 
 var path = require('path');
 
+var cache = require('gulp-cached');
 var webpack = require('webpack');
 var gzip = require('gulp-gzip');
 var S3 = require('s3');
@@ -185,6 +186,7 @@ gulp.task('build-microsite-templates', function() {
 // Move the images into dist
 gulp.task('move-microsite-images', function() {
   return gulp.src(config.paths.micrositeImages.src)
+    .pipe(cache('microsite-images'))
     .pipe(gulp.dest(config.paths.micrositeImages.dist));
 });
 

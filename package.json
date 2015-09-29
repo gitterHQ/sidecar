@@ -32,6 +32,7 @@
     "express": "^4.13.3",
     "file-loader": "^0.8.4",
     "gulp": "^3.9.0",
+    "gulp-cached": "^1.1.0",
     "gulp-gzip": "^1.2.0",
     "gulp-plumber": "^1.0.1",
     "gulp-postcss": "^6.0.0",
