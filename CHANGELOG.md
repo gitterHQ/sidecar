@@ -1,4 +1,10 @@
 
+# v0.2.12 - 2015-9-30
+
+ - Moved away from array-like `ElementStore`
+ - Ensured `destroy` method works and cleaned up `examples/create-destroy-chat/`
+ - Add comment header specifying the version
+
 # v0.2.11 - 2015-9-28
 
  - Microsite visual tweaks and updates

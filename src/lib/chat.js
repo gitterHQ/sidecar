@@ -108,7 +108,7 @@ let embedGitterSvgSprites = function() {
   let body = $('body')[0];
   domUtility.forEach(tempContainer.children, function(child) {
     body.appendChild(child);
-    elementStore.push(child);
+    elementStore.add(child);
   });
 
   return elementStore;
@@ -214,8 +214,8 @@ class chatEmbed {
     let opts = this[OPTIONS];
 
     if(opts.useStyles) {
-      this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedGitterStyles());
-      this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedGitterSvgSprites());
+      this[ELEMENTSTORE].add(embedGitterStyles());
+      this[ELEMENTSTORE].add(embedGitterSvgSprites());
     }
 
     let targetElements = opts.targetElement;
@@ -306,7 +306,7 @@ class chatEmbed {
       let opts = this[OPTIONS];
 
       let embedResult = embedGitterChat(this[OPTIONS]);
-      this[ELEMENTSTORE] = this[ELEMENTSTORE].concat(embedResult);
+      this[ELEMENTSTORE].add(embedResult);
 
       let targetElements = opts.targetElement;
       targetElements.forEach((targetElement) => {

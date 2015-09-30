@@ -8,7 +8,7 @@ Primarily sidecar has an activation element that will show sidecar and a target 
 If you need a custom button or want to insert the chat in your own element, use the following setup:
 
  - Activation element: The "Open Chat" button
- - Target element
+ - Target element: The wrapper element that the chat is embedded into
 
 ```html
 <script>
@@ -21,13 +21,6 @@ If you need a custom button or want to insert the chat in your own element, use 
 ```
 
 
-## Examples
-
- - [Basic](https://github.com/gitterHQ/sidecar/tree/master/examples/basic)
- - [Toggle chat, show/hide](https://github.com/gitterHQ/sidecar/tree/master/examples/toggle-chat-class-buttons)
- - [Create and Destroy chat](https://github.com/gitterHQ/sidecar/tree/master/examples/create-destroy-chat)
-
-
 ### Toggle Buttons
 
 You can define toggle/open/close buttons in your page using the `.js-gitter-toggle-chat-button` class and an optional `data-gitter-toggle-chat-state` attribute. If you do not provide a `data-gitter-toggle-chat-state`, it will default to `'toggle'`. See the `examples/toggle-chat-class-buttons` example.
@@ -37,6 +30,13 @@ You can define toggle/open/close buttons in your page using the `.js-gitter-togg
 <button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="true">Open Chat</button>
 <button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="false">Close Chat</button>
 ```
+
+
+## Examples
+
+ - [Basic](https://github.com/gitterHQ/sidecar/tree/master/examples/basic)
+ - [Toggle chat, show/hide](https://github.com/gitterHQ/sidecar/tree/master/examples/toggle-chat-class-buttons)
+ - [Create and Destroy chat](https://github.com/gitterHQ/sidecar/tree/master/examples/create-destroy-chat)
 
 
 # Options
@@ -82,9 +82,8 @@ You can also override these options individually on the target element:
 
 You can set any of the chat options above in this object as well
 
- - `window.gitter.chat.options.disableDefaultChat`: Stop the default chat from just loading on the page when including the Sidecar script. *So you can handle the Gitter chat creation yourself.*
-
-The default chat is stored on `window.gitter.chat.defaultChat`.
+ - `window.gitter.chat.options.disableDefaultChat`: Stop the default chat from loading on the page when including the Sidecar script. *So you can handle the Gitter chat creation yourself.*
+ 	 - The default chat is stored on `window.gitter.chat.defaultChat`.
 
 
 # API
@@ -124,3 +123,4 @@ document.querySelector('.gitter-chat-embed').addEventListener('gitter-chat-toggl
 	console.log(e.detail.state ? 'Chat Opened' : 'Chat Closed');
 });
 ```
+

@@ -23,8 +23,13 @@
     document.addEventListener('gitter-sidecar-ready', function(e) {
       var GitterChat = e.detail.Chat;
       document.querySelector('.js-sidecar-status').innerHTML = 'Sidecar ready';
-      var chat = new GitterChat({
-        room: 'marionettejs/backbone.marionette'
+
+      var chat;
+      document.querySelector('.js-create-chat-button').addEventListener('click', function(e) {
+        console.log('Create');
+        chat = new GitterChat({
+          room: 'gitterHQ/sidecar'
+        });
       });
 
       document.querySelector('.js-destroy-chat-button').addEventListener('click', function(e) {
