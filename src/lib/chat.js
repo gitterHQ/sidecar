@@ -11,8 +11,6 @@ import * as domUtility from './dom-utility.js';
 
 
 
-const gitterUrl = 'https://gitter.im/';
-
 
 let parseAttributeTruthiness = function(value) {
   if(value) {
@@ -125,8 +123,8 @@ let embedGitterChat = function(opts) {
     if(targetElementOpts.room) {
       let iframe = elementStore.createElement('iframe');
       iframe.setAttribute('frameborder', '0');
-      iframe.src = `${gitterUrl}${targetElementOpts.room}/~embed`;
-      //iframe.src = `${gitterUrl}${targetElementOpts.room}/~chat`;
+      iframe.src = `${opts.host}${targetElementOpts.room}/~embed`;
+      //iframe.src = `${opts.host}${targetElementOpts.room}/~chat`;
 
       targetElement.appendChild(iframe);
     }
@@ -165,9 +163,15 @@ const defaults = {
   //   - `fixed`
   //   - `off-canvas`
   //   - `flex-aside`
-  layout: 'fixed'
+  layout: 'fixed',
 
   //showLeftMenu: false
+
+  // Undocumented private options ;)
+  // Base URL of the gitter instance you are running
+  // We are not using a nice URL parser/formatter,
+  // so make sure to add the trailing slash so that concating goes smooth
+  host: 'https://gitter.im/'
 };
 
 
@@ -243,7 +247,7 @@ class chatEmbed {
           activationElement = $(activationElement || (() => {
             let button = this[ELEMENTSTORE].createElement('a');
             // We use the option for the room (not pertaining to a particular targetElement attribute if set)
-            button.href = `${gitterUrl}${opts.room}`;
+            button.href = `${opts.host}${opts.room}`;
             button.innerHTML = 'Open Chat';
             button.classList.add('gitter-open-chat-button');
             document.body.appendChild(button);
@@ -328,7 +332,7 @@ class chatEmbed {
           this.toggleChat(false);
 
           // Open in new tab
-          let win = window.open(`${gitterUrl}${this[OPTIONS].room}`, '_blank');
+          let win = window.open(`${opts.host}${this[OPTIONS].room}`, '_blank');
           win.focus();
 
           e.preventDefault();
