@@ -1,8 +1,10 @@
 
-# v0.2.13 - 2015-9-30
+# v0.2.13 - 2015-10-1
 
  - Update open chat button hover/focus styles
  - Change microsite room to [`gitterHQ/sidecar-demo`](https://gitter.im/gitterHQ/sidecar-demo)
+ - Adjust action bar item vertical alignment (update icon viewbox bounds)
+
 
 # v0.2.12 - 2015-9-30
 
@@ -10,15 +12,18 @@
  - Ensured `destroy` method works and cleaned up `examples/create-destroy-chat/`
  - Add comment header specifying the version
 
+
 # v0.2.11 - 2015-9-28
 
  - Microsite visual tweaks and updates
+
 
 # v0.2.9 - 2015-9-20
 
  - Add `microsite/` to showcase Sidecar and some getting started goodness
  - Change `options.container` to `options.targetElement`
  - Change `optionts.activation` to `options.activationElement`
+
 
 # v0.2.5 - 2015-9-2
 
