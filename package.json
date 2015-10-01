@@ -1,6 +1,6 @@
 {
   "name": "gitter-sidecar",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "description": "An embeddable Gitter client.",
   "main": "index.js",
   "engine": {
