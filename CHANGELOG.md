@@ -1,4 +1,9 @@
 
+# v0.2.13 - 2015-9-30
+
+ - Update open chat button hover/focus styles
+ - Change microsite room to [`gitterHQ/sidecar-demo`](https://gitter.im/gitterHQ/sidecar-demo)
+
 # v0.2.12 - 2015-9-30
 
  - Moved away from array-like `ElementStore`

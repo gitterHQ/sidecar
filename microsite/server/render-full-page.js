@@ -27,7 +27,7 @@ export default function renderFullPage(html, initialState = {}) {
 
       <script>
         ((window.gitter = {}).chat = {}).options = {
-          room: 'gitterHQ/sidecar'
+          room: 'gitterHQ/sidecar-demo'
         };
       </script>
       <script src="https://sidecar.gitter.im/dist/sidecar.v0.js" async defer></script>

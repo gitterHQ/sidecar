@@ -197,6 +197,10 @@
     border-top-right-radius: 0.5em;
     
     color: #ffffff;
+    font-family: sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
     text-align: center;
     text-decoration: none;
 
@@ -214,6 +218,7 @@
     &:hover,
     &:focus {
       background-color: #3ea07f;
+      color: #ffffff;
     }
     &:focus {
       box-shadow: 0 0 8px rgba(62, 160, 127, 0.6);

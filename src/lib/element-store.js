@@ -13,7 +13,6 @@ class ElementStore {
   }
 
   createElement(...args) {
-    //console.log('create', args[0]);
     let element = document.createElement.apply(document, args);
     this.add(element);
     return element;
@@ -38,7 +37,6 @@ class ElementStore {
 
   destroy() {
     this.elements.forEach((element) => remove(element));
-
     this.elements = [];
   }
 }
