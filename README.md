@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.12
+# Latest version: 0.2.14
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -30,22 +30,40 @@ Same as `devbuild` but also watches the directory and rebuilds on any file chang
 
 `npm run devbuild`
 
-### Microsite
+
+# Build Microsite
 
 `npm run build-microsite`
+
+### Dev
 
 This is currently a work in progress. But I hope to have `react-hot-loader` and `webpack-dev-server` working for this:
 
 `npm run devbuild-microsite`
 
-### Testing
 
-You'll need a BrowserStack username and key, exported as `BS_USER` and `BS_KEY` respectively.
+# Deploy: Push Release
 
-`npm test`
+We have CircleCI setup, the config is in `circle.yml`.
 
-### Deployment
+To push a new version of the sidecar script, run the following:
+
+ - `npm version patch`: bump version and tag it
+ - `git push --tags`: Trigger CircleCI build
+
+To push a new release of microsite, just push to the `master` branch
+
+
+## Manual Deployment
 
 You'll need AWS credentials exported as `AWS_KEY` and `AWS_SECRET`. This command is not meant to be run locally, only by the CircleCI deployment step (on every tag).
 
 `npm run deploy`
+
+
+
+# Testing
+
+You'll need a BrowserStack username and key, exported as `BS_USER` and `BS_KEY` respectively.
+
+`npm test`

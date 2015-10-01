@@ -1,5 +1,5 @@
 
-# v0.2.13 - 2015-10-1
+# v0.2.14 - 2015-10-1
 
  - Update open chat button hover/focus styles
  - Change microsite room to [`gitterHQ/sidecar-demo`](https://gitter.im/gitterHQ/sidecar-demo)
