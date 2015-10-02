@@ -2,7 +2,7 @@
 
 Gitter embed widget
 
-# Latest version: 0.2.14
+# Latest version: 0.2.16
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 

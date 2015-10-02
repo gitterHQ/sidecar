@@ -1,4 +1,10 @@
 
+# v0.2.16 - 2015-10-1
+
+ - [Disabled tests temporarily](https://github.com/gitterHQ/sidecar/commit/287f648348e1d31caca0dbc6246523feb8307982)
+ - Update action bar item hover/focus styles
+ - Add `options.host` so you can provide any Gitter instance(`https://beta.gitter.im/` or `https://gitter.im/`)
+
 # v0.2.14 - 2015-10-1
 
  - Update open chat button hover/focus styles
