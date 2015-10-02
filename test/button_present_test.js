@@ -1,6 +1,7 @@
 var assert = require('assert');
 var webdriver = require('browserstack-webdriver');
 var test = require('browserstack-webdriver/testing');
+var Promise = require('bluebird');
 
 var USER = process.env.BS_USER;
 var KEY  = process.env.BS_KEY;
@@ -13,10 +14,10 @@ var browsers = [
   //  'browser_version' : '10.0'
   //},
   {
-    'os' : 'OS X',
-    'os_version' : 'Yosemite',
-    'browser' : 'Chrome',
-    'browser_version' : '44.0'
+    'os': 'OS X',
+    'os_version': 'Yosemite',
+    'browser': 'Chrome',
+    'browser_version': '44.0'
   }
 ];
 
@@ -42,19 +43,30 @@ test.describe('Sidecar', function() {
       build();
     });
     
-    test.it('should be an open chat button', function(done) {
-      driver.get('http://'+ USER +'.browserstack.com/example.html');
-      driver.wait(function() {
-        return driver.findElement(webdriver.By.className('gitter-open-chat-button'))
+    test.it('should be an open chat button', function() {
+      var locator = webdriver.By.className('gitter-open-chat-button');
+
+      driver.get('http://' + USER + '.browserstack.com/example.html');
+      var openChatButtonExists = Promise.resolve(driver.wait(function() {
+        return driver.isElementPresent(locator);
+      }, 10000));
+
+
+      return openChatButtonExists
+        .then(function() {
+          return driver.findElement();
+        })
         .then(function(item) {
-          return item.getText().then(function(text) {
-            return 'Open Chat' === text;
-          });
+          return Promise.resolve(item.getText());
+        })
+        .then(function(text) {
+          return text === 'Open Chat';
         });
-      }, 1000);
     });
 
-    test.after(function() { driver.quit(); });
+    test.after(function() {
+      driver.quit();
+    });
 
   });
 

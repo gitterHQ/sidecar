@@ -34,8 +34,8 @@ var config = {
         tasks: 'build-microsite-templates',
         globs: [
           path.join(micrositeBasePath, 'src/index.html'),
-          // We use the readme in the documentation section
-          path.join('./README.md')
+          // We use the api doc in the documentation section
+          path.join('./API.md')
         ]
       }
     },
