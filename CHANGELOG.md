@@ -1,5 +1,10 @@
 
-# v0.2.16 - 2015-10-1
+# v0.2.17 - 2015-10-2
+
+ - Update unit tests
+ - Reduce action white occlusion gradient background
+
+# v0.2.16 - 2015-10-2
 
  - [Disabled tests temporarily](https://github.com/gitterHQ/sidecar/commit/287f648348e1d31caca0dbc6246523feb8307982)
  - Update action bar item hover/focus styles

@@ -120,9 +120,9 @@
     display: flex;
     justify-content: flex-end;
 
-    padding-bottom: 1.2em;
+    padding-bottom: 0.7em;
 
-    background: linear-gradient(to bottom, #ffffff 0%, #ffffff 70%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to bottom, #ffffff 0%, #ffffff 50%, rgba(255, 255, 255, 0) 100%);
 
   }
 
@@ -140,7 +140,7 @@
     padding-bottom: 0;
     padding-right: 12px;
 
-    background: rgba(255, 255, 255, 0.5);
+    background: none;
     border: 0;
 
     color: #3a3133;
