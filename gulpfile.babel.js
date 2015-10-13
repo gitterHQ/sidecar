@@ -220,6 +220,13 @@ gulp.task('build-microsite-scripts', function() {
 
 
 
+gulp.task('move-sidecar-dist-to-fixtures', function() {
+  return gulp.src('dist/sidecar.js')
+    .pipe(gulp.dest('test/fixtures/'));
+});
+
+
+
 // Rerun tasks when a file changes
 gulp.task('watch', function() {
   Object.keys(config.paths).forEach(function(key) {
