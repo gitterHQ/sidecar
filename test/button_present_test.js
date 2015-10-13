@@ -6,6 +6,17 @@
 //
 // How can I use selenium-webdriver package with SauceLabs?: http://stackoverflow.com/q/21170734/796832
 
+// # Setup
+//
+// ### Set environment variables with your browserstack credentials
+// See: http://stackoverflow.com/a/13333312/796832
+//
+// Windows:
+// ```
+// set BS_USER=xxx
+// set BS_KEY=xxx
+// ```
+
 
 //var webdriver = require('browserstack-webdriver');
 import webdriver from 'selenium-webdriver';
@@ -20,17 +31,17 @@ let KEY  = process.env.BS_KEY;
 // See: https://www.browserstack.com/automate/capabilities
 const defaultEnvironmentCapabilities = {
   // Browser you want to test.
-  // firefox, chrome, internet explorer, safari, opera, iPad, iPhone, android 
+  // firefox, chrome, internet explorer, safari, opera, iPad, iPhone, android
   browserName: 'chrome',
   // Browser version you want to test.
   version: 45.0,
   // OS you want to test.
   // ANY, WINDOWS, WIN8, MAC, and XP.
   platform: 'ANY',
-  // OS you want to test.
+  // OS you want to test. (BrowserStack-specific)
   // WINDOWS, OS X
   os: 'Windows',
-  // OS version you want to test.
+  // OS version you want to test. (BrowserStack-specific)
   // Windows: XP, 7, 8 and 8.1
   // OS X: Snow Leopard, Lion, Mountain Lion, Mavericks, Yosemite
   os_version: '8.1',
