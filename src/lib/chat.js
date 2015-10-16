@@ -228,11 +228,10 @@ class chatEmbed {
     }
     // The activationElement is only setup if `opts.showChatByDefault` is false
     else {
-      // You can pass `false` or `null` to disable the activation element
-      if(opts.activationElement !== false && opts.activationElement !== null) {
-        // Coerce into array of dom elements on what they pass in
-        // Otherwise create our own default activationElement
-        opts.activationElement = $(opts.activationElement || (() => {
+      // Create our own default activationElement if one was not defined
+      // Note: You can pass `false` or `null` to disable the activation element
+      if(opts.activationElement === undefined || opts.activationElement === true) {
+        opts.activationElement = $((() => {
           let button = this[ELEMENTSTORE].createElement('a');
           // We use the option for the room (not pertaining to a particular targetElement attribute if set)
           button.href = `${opts.host}${opts.room}`;
@@ -242,19 +241,24 @@ class chatEmbed {
 
           return button;
         })());
+      }
+      // Otherwise coerce into array of dom elements on what they pass in
+      else if(opts.activationElement) {
+        opts.activationElement = $(opts.activationElement);
+      }
 
+
+      if(opts.activationElement) {
+        // Hook up the button to show the chat on activation
         elementOnActivate(opts.activationElement, (e) => {
           // Show the chat
           this.toggleChat(true);
 
           e.preventDefault();
         });
-      }
 
-
-      // Toggle the visibility of the activation element
-      // so it is only there when the the chat is closed
-      if(opts.activationElement) {
+        // Toggle the visibility of the activation element
+        // so it is only there when the the chat is closed
         opts.targetElement.forEach((targetElement) => {
           domUtility.on(targetElement, 'gitter-chat-toggle', (e) => {
             let isChatOpen = e.detail.state;

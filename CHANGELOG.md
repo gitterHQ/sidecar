@@ -1,5 +1,9 @@
 
-# v0.3.0 - 2015-10-15
+# v0.3.2 - 2015-10-16
+
+ - Update `options.activationElement` so you can pass `true` and it will automatically create an element. This is to round off the API because we added `false` to disable the activation element.
+
+# v0.3.1 - 2015-10-15
 
  - You can now pass `false` or `null` into `options.activationElement` to disable it
  - Add acceptable value types to options in `API.md`

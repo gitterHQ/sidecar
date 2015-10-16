@@ -67,10 +67,11 @@ You can also override these options individually on the target element:
  - `options.targetElement`: Where you want to embed the chat.
  	 - Acceptable values: Dom node, array of dom nodes, or a string selector
  	 - Default: Elements that match `'.gitter-chat-embed'`
- - `options.activationElement`: If `options.showChatByDefault` is `false`, this is the element you have to click/interact with to get the chat to actually embed.
- 	 - Acceptable values: Dom node, array of dom nodes, or a string selector
+ - `options.activationElement`: When `options.showChatByDefault` is `false`, this is the element you have to click/interact with to get the chat to actually embed, "Open Chat" button.
+ 	 - Acceptable values: Dom node, array of dom nodes, a string selector, or boolean
  	 - Default: `undefined`
- 	 - Note: This will automatically get generated if you don't specify it
+ 	 - Note: This will automatically get generated if you don't specify it (`undefined`, or `true`)
+	 - Note: Passing in `false` or `null` will disable the activation element
  - `options.showChatByDefault`: Whether to embed the chat on page load(true) or wait until the `options.activation` is resolved/clicked/interacted with(false).
  	 - Acceptable values: boolean
  	 - Default: `false`
