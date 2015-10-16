@@ -1,4 +1,16 @@
 
+# v0.3.0 - 2015-10-15
+
+ - You can now pass `false` or `null` into `options.activationElement` to disable it
+ - Add acceptable value types to options in `API.md`
+ - Remove SVG sprite embed. Now using [`postcss-write-svg`](https://github.com/jonathantneal/postcss-write-svg) to write `background-image` SVG declarations right inside the CSS
+ - Update unit tests. Now using Tape and [`selenium-webdriver`](https://www.npmjs.com/package/selenium-webdriver) instead of [`browserstack-webdriver`](https://www.npmjs.com/package/browserstack-webdriver). Cleaned up and separated out environments from tests itself.
+ - Fixes for IE
+    - Shim Symbol
+    - Shim custom event constructors `new CustomEvent`
+    - Shim `toggleClass` for second parameter(`force`) support: `element.classList.toggle('is-awesome', true || false)`
+
+
 # v0.2.17 - 2015-10-2
 
  - Update unit tests
@@ -96,4 +108,3 @@
 # v0.1.0 - 2015-8-5
 
  - Initial release
-

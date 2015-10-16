@@ -15,7 +15,7 @@ let concat = function(...args) {
     ) {
       item = Array.prototype.slice.call(item);
     }
-    
+
     return result.concat(item);
   }, []);
 };
@@ -41,7 +41,7 @@ export function forEach(arrayLike, cb) {
       cb(...args);
     }
   });
-  
+
   // Keep the chaining going
   return this;
 }
@@ -74,6 +74,16 @@ export function off(elements, names, cb) {
 }
 
 
+export function prependElementTo(element, target) {
+	let firstTargetChild = target.children[0];
+  if(firstTargetChild) {
+    target.insertBefore(element, firstTargetChild);
+  }
+  else {
+    target.appendChild(element)
+  }
+}
+
 
 let $ = function(...args) {
   return coerceIntoElementsArray(...args);
@@ -82,4 +92,3 @@ let $ = function(...args) {
 
 
 export default $;
-

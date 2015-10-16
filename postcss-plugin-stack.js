@@ -31,6 +31,7 @@ module.exports = function() {
     mixins(),
     simpleVariables(),
     writeSvg({
+      // For IE support
       encoding: 'base64'
     }),
     nested(),

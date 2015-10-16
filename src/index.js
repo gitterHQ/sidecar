@@ -1,4 +1,5 @@
 import objectAssign from 'object-assign';
+import CustomEvent from './lib/custom-event-ponyfill';
 
 import Chat from './lib/chat.js';
 

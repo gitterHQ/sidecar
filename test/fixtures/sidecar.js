@@ -251,25 +251,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	var embedGitterStyles = function embedGitterStyles() {
 	  var elementStore = new _elementStoreJs2['default']();
 	
+	  //$('head')[0].insertAdjacentHTML('afterbegin', '<div></div>');
+	
 	  var style = elementStore.createElement('style');
 	  style.innerHTML = _cssChatCss2['default'];
-	  (0, _domUtilityJs2['default'])('head')[0].appendChild(style);
 	
-	  return elementStore;
-	};
-	
-	var gitterSvgSprites = '\n  <svg class="gitter-hidden">\n    <defs>\n      <symbol id="gitter-shape-times-circle" viewBox="0 0 171.429 171.429">\n        <path d="M122.433,106.138l-16.295,16.295c-0.744,0.744-1.6,1.116-2.566,1.116c-0.968,0-1.823-0.372-2.567-1.116l-15.29-15.29 l-15.29,15.29c-0.744,0.744-1.6,1.116-2.567,1.116s-1.823-0.372-2.567-1.116l-16.294-16.295c-0.744-0.744-1.116-1.6-1.116-2.566 c0-0.968,0.372-1.823,1.116-2.567l15.29-15.29l-15.29-15.29c-0.744-0.744-1.116-1.6-1.116-2.567s0.372-1.823,1.116-2.567 L65.29,48.996c0.744-0.744,1.6-1.116,2.567-1.116s1.823,0.372,2.567,1.116l15.29,15.29l15.29-15.29 c0.744-0.744,1.6-1.116,2.567-1.116c0.967,0,1.822,0.372,2.566,1.116l16.295,16.294c0.744,0.744,1.116,1.6,1.116,2.567 s-0.372,1.823-1.116,2.567l-15.29,15.29l15.29,15.29c0.744,0.744,1.116,1.6,1.116,2.567 C123.549,104.539,123.177,105.394,122.433,106.138z M146.429,85.714c0-11.012-2.717-21.168-8.148-30.469 s-12.797-16.667-22.098-22.098S96.726,25,85.714,25s-21.168,2.716-30.469,8.147S38.579,45.945,33.147,55.246S25,74.703,25,85.714 s2.716,21.168,8.147,30.469s12.797,16.666,22.098,22.098s19.457,8.148,30.469,8.148s21.168-2.717,30.469-8.148 s16.666-12.797,22.098-22.098S146.429,96.726,146.429,85.714z M171.429,85.714c0,15.551-3.832,29.893-11.496,43.024 c-7.664,13.133-18.062,23.53-31.194,31.194c-13.132,7.664-27.474,11.496-43.024,11.496s-29.892-3.832-43.024-11.496 c-13.133-7.664-23.531-18.062-31.194-31.194C3.832,115.607,0,101.265,0,85.714S3.832,55.822,11.496,42.69 c7.664-13.133,18.062-23.531,31.194-31.194C55.822,3.832,70.164,0,85.714,0s29.893,3.832,43.024,11.496 c13.133,7.664,23.53,18.062,31.194,31.194C167.597,55.822,171.429,70.164,171.429,85.714z"/>\n      </symbol>\n      <symbol id="gitter-shape-external-link" viewBox="0 0 200 171.429">\n        <path d="M157.143,103.571v35.714c0,8.854-3.144,16.426-9.431,22.713s-13.858,9.431-22.712,9.431H32.143 c-8.854,0-16.425-3.144-22.712-9.431S0,148.14,0,139.285V46.429c0-8.854,3.144-16.425,9.431-22.712 c6.287-6.287,13.858-9.431,22.712-9.431h78.572c1.041,0,1.896,0.335,2.566,1.004c0.67,0.67,1.004,1.525,1.004,2.567V25 c0,1.042-0.334,1.897-1.004,2.567c-0.67,0.67-1.525,1.004-2.566,1.004H32.143c-4.911,0-9.115,1.749-12.612,5.246 s-5.246,7.701-5.246,12.612v92.856c0,4.911,1.749,9.115,5.246,12.612s7.701,5.245,12.612,5.245H125c4.91,0,9.115-1.748,12.611-5.245 c3.497-3.497,5.246-7.701,5.246-12.612v-35.714c0-1.042,0.334-1.897,1.004-2.567c0.67-0.669,1.525-1.004,2.567-1.004h7.143 c1.042,0,1.897,0.335,2.567,1.004C156.809,101.674,157.143,102.529,157.143,103.571z M200,7.143v57.143 c0,1.935-0.707,3.609-2.121,5.022c-1.413,1.414-3.088,2.121-5.021,2.121c-1.935,0-3.609-0.707-5.022-2.121l-19.644-19.643 l-72.767,72.769c-0.744,0.744-1.6,1.115-2.567,1.115s-1.823-0.371-2.567-1.115L77.567,109.71c-0.744-0.744-1.116-1.6-1.116-2.567 c0-0.967,0.372-1.822,1.116-2.566l72.768-72.768l-19.644-19.643c-1.413-1.414-2.12-3.088-2.12-5.022c0-1.935,0.707-3.609,2.12-5.022 C132.105,0.707,133.779,0,135.715,0h57.143c1.934,0,3.608,0.707,5.021,2.121C199.293,3.534,200,5.208,200,7.143z"/>\n      </symbol>\n      <symbol id="gitter-shape-spinner" viewBox="0 0 1792 1792">\n        <path d="M526 1394q0 53-37.5 90.5t-90.5 37.5q-52 0-90-38t-38-90q0-53 37.5-90.5t90.5-37.5 90.5 37.5 37.5 90.5zm498 206q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-704-704q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm1202 498q0 52-38 90t-90 38q-53 0-90.5-37.5t-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-964-996q0 66-47 113t-113 47-113-47-47-113 47-113 113-47 113 47 47 113zm1170 498q0 53-37.5 90.5t-90.5 37.5-90.5-37.5-37.5-90.5 37.5-90.5 90.5-37.5 90.5 37.5 37.5 90.5zm-640-704q0 80-56 136t-136 56-136-56-56-136 56-136 136-56 136 56 56 136zm530 206q0 93-66 158.5t-158 65.5q-93 0-158.5-65.5t-65.5-158.5q0-92 65.5-158t158.5-66q92 0 158 66t66 158z"/>\n      </symbol>\n    </defs>\n  </svg>\n';
-	
-	var embedGitterSvgSprites = function embedGitterSvgSprites() {
-	  var elementStore = new _elementStoreJs2['default']();
-	
-	  var tempContainer = document.createElement('div');
-	  tempContainer.insertAdjacentHTML('beforeend', gitterSvgSprites);
-	  var body = (0, _domUtilityJs2['default'])('body')[0];
-	  domUtility.forEach(tempContainer.children, function (child) {
-	    body.appendChild(child);
-	    elementStore.add(child);
-	  });
+	  // Put it at the top of the head so others can override
+	  domUtility.prependElementTo(style, (0, _domUtilityJs2['default'])('head')[0]);
 	
 	  return elementStore;
 	};
@@ -300,9 +288,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var defaults = {
 	  room: undefined,
 	  // Single or array of dom elements, or string selector to embed chat in
-	  targetElement: null,
+	  // Where you want to embed the chat
+	  targetElement: undefined,
+	  // Single or array of dom elements, or string selector to embed chat in
 	  // The button element used to activate when the chat gets shown on the page
-	  // Can be a dom node or a promise that optionally resolves to a dom node
 	  // Note: Only applies if `options.showChatByDefault` is `false`
 	  activationElement: undefined,
 	
@@ -343,8 +332,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var chatEmbed = (function () {
 	  function chatEmbed() {
-	    var _this = this;
-	
 	    var options = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 	
 	    _classCallCheck(this, chatEmbed);
@@ -353,24 +340,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this[EVENTHANDLESTORE] = [];
 	
 	    this[DEFAULTS] = (0, _objectAssign2['default'])({}, defaults);
-	
-	    // Coerce into array of dom elements on what they pass in
-	    if (options.targetElement) {
-	      options.targetElementr = (0, _domUtilityJs2['default'])(options.targetElement);
-	    }
-	    // Otherwise create our own default targetElement
-	    else {
-	        this[DEFAULTS].targetElement = (0, _domUtilityJs2['default'])((function () {
-	          var targetElement = _this[ELEMENTSTORE].createElement('aside');
-	          targetElement.classList.add('gitter-chat-embed');
-	          // Start out collapsed
-	          targetElement.classList.add('is-collapsed');
-	          document.body.appendChild(targetElement);
-	
-	          return targetElement;
-	        })());
-	      }
-	
 	    this[OPTIONS] = (0, _objectAssign2['default'])({}, this[DEFAULTS], options);
 	
 	    this[INIT]();
@@ -379,20 +348,30 @@ return /******/ (function(modules) { // webpackBootstrap
 	  _createClass(chatEmbed, [{
 	    key: INIT,
 	    value: function value() {
-	      var _this2 = this;
+	      var _this = this;
 	
 	      var opts = this[OPTIONS];
 	
 	      if (opts.useStyles) {
 	        this[ELEMENTSTORE].add(embedGitterStyles());
-	        this[ELEMENTSTORE].add(embedGitterSvgSprites());
 	      }
 	
-	      var targetElements = opts.targetElement;
-	      targetElements.forEach(function (targetElement) {
-	        var loadingIndicatorElement = _this2[ELEMENTSTORE].createElement('div');
+	      // Coerce into array of dom elements on what they pass in
+	      // Otherwise create our own default targetElement
+	      opts.targetElement = (0, _domUtilityJs2['default'])(opts.targetElement || (function () {
+	        var targetElement = _this[ELEMENTSTORE].createElement('aside');
+	        targetElement.classList.add('gitter-chat-embed');
+	        // Start out collapsed
+	        targetElement.classList.add('is-collapsed');
+	        document.body.appendChild(targetElement);
+	
+	        return targetElement;
+	      })());
+	
+	      opts.targetElement.forEach(function (targetElement) {
+	        var loadingIndicatorElement = _this[ELEMENTSTORE].createElement('div');
 	        loadingIndicatorElement.classList.add('gitter-chat-embed-loading-wrapper');
-	        loadingIndicatorElement.innerHTML = '\n        <svg class="gitter-chat-embed-loading-indicator gitter-icon"><use xlink:href="#gitter-shape-spinner"></use></svg>\n      ';
+	        loadingIndicatorElement.innerHTML = '\n        <div class="gitter-chat-embed-loading-indicator gitter-icon"></div>\n      ';
 	
 	        // Prepend
 	        targetElement.insertBefore(loadingIndicatorElement, targetElement.firstChild);
@@ -404,60 +383,66 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      if (opts.showChatByDefault) {
 	        this.toggleChat(true);
-	      } else {
-	        _es6Promise.Promise.resolve(opts.activationElement).then(function (activationElement) {
-	          activationElement = (0, _domUtilityJs2['default'])(activationElement || (function () {
-	            var button = _this2[ELEMENTSTORE].createElement('a');
-	            // We use the option for the room (not pertaining to a particular targetElement attribute if set)
-	            button.href = '' + opts.host + opts.room;
-	            button.innerHTML = 'Open Chat';
-	            button.classList.add('gitter-open-chat-button');
-	            document.body.appendChild(button);
+	      }
+	      // The activationElement is only setup if `opts.showChatByDefault` is false
+	      else {
+	          // You can pass `false` or `null` to disable the activation element
+	          if (opts.activationElement !== false && opts.activationElement !== null) {
+	            // Coerce into array of dom elements on what they pass in
+	            // Otherwise create our own default activationElement
+	            opts.activationElement = (0, _domUtilityJs2['default'])(opts.activationElement || (function () {
+	              var button = _this[ELEMENTSTORE].createElement('a');
+	              // We use the option for the room (not pertaining to a particular targetElement attribute if set)
+	              button.href = '' + opts.host + opts.room;
+	              button.innerHTML = 'Open Chat';
+	              button.classList.add('gitter-open-chat-button');
+	              document.body.appendChild(button);
 	
-	            return button;
-	          })());
+	              return button;
+	            })());
 	
-	          elementOnActivate(activationElement, function (e) {
-	            // Show the chat
-	            _this2.toggleChat(true);
+	            elementOnActivate(opts.activationElement, function (e) {
+	              // Show the chat
+	              _this.toggleChat(true);
 	
-	            e.preventDefault();
-	          });
+	              e.preventDefault();
+	            });
+	          }
 	
+	          // Toggle the visibility of the activation element
+	          // so it is only there when the the chat is closed
 	          opts.targetElement.forEach(function (targetElement) {
 	            domUtility.on(targetElement, 'gitter-chat-toggle', function (e) {
 	              var isChatOpen = e.detail.state;
-	              // Toggle the visibiltiy of the activation element
-	              // so it is only there when the the chat is closed
-	              domUtility.forEach(activationElement, function (element) {
-	                element.classList.toggle('is-collapsed', isChatOpen);
+	
+	              opts.activationElement.forEach(function (activationElement) {
+	                activationElement.classList.toggle('is-collapsed', isChatOpen);
 	              });
 	            });
 	          });
-	        });
-	      }
+	        }
 	
 	      // Listen to buttons with a class of `.js-gitter-toggle-chat-button`
 	      // We also look for an options `data-gitter-toggle-chat-state` attribute
 	      var classToggleButtonOff = elementOnActivate((0, _domUtilityJs2['default'])('.js-gitter-toggle-chat-button'), function (e) {
 	        var state = parseAttributeTruthiness(e.target.getAttribute('data-gitter-toggle-chat-state'));
-	        _this2.toggleChat(state !== null ? state : 'toggle');
+	        _this.toggleChat(state !== null ? state : 'toggle');
 	
 	        e.preventDefault();
 	      });
 	      this[EVENTHANDLESTORE].push(classToggleButtonOff);
 	
-	      // Emit for each targetElement
+	      // Emit that we started on each targetElement
 	      opts.targetElement.forEach(function (targetElement) {
 	        var event = new CustomEvent('gitter-chat-started', {
 	          detail: {
-	            chat: _this2
+	            chat: _this
 	          }
 	        });
 	        targetElement.dispatchEvent(event);
 	      });
 	
-	      // Emit for document
+	      // Emit that we started on the document
 	      var documentEvent = new CustomEvent('gitter-sidecar-instance-started', {
 	        detail: {
 	          chat: this
@@ -468,34 +453,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: EMBEDCHATONCE,
 	    value: function value() {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      if (!this[ISEMBEDDED]) {
 	        (function () {
-	          var opts = _this3[OPTIONS];
+	          var opts = _this2[OPTIONS];
 	
-	          var embedResult = embedGitterChat(_this3[OPTIONS]);
-	          _this3[ELEMENTSTORE].add(embedResult);
+	          var embedResult = embedGitterChat(_this2[OPTIONS]);
+	          _this2[ELEMENTSTORE].add(embedResult);
 	
 	          var targetElements = opts.targetElement;
 	          targetElements.forEach(function (targetElement) {
-	            var actionBar = _this3[ELEMENTSTORE].createElement('div');
+	            var actionBar = _this2[ELEMENTSTORE].createElement('div');
 	            actionBar.classList.add('gitter-chat-embed-action-bar');
 	
 	            // Prepend
 	            targetElement.insertBefore(actionBar, targetElement.firstChild);
 	
-	            var popOutActionElement = _this3[ELEMENTSTORE].createElement('button');
+	            var popOutActionElement = _this2[ELEMENTSTORE].createElement('button');
 	            popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
 	            popOutActionElement.classList.add('gitter-chat-embed-action-bar-item-pop-out');
 	            popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
-	            popOutActionElement.innerHTML = '<svg class="gitter-icon"><use xlink:href="#gitter-shape-external-link"></use></svg>';
 	            elementOnActivate(popOutActionElement, function (e) {
 	              // Hide the chat
-	              _this3.toggleChat(false);
+	              _this2.toggleChat(false);
 	
 	              // Open in new tab
-	              var win = window.open('' + opts.host + _this3[OPTIONS].room, '_blank');
+	              var win = window.open('' + opts.host + _this2[OPTIONS].room, '_blank');
 	              win.focus();
 	
 	              e.preventDefault();
@@ -503,13 +487,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	            actionBar.appendChild(popOutActionElement);
 	
-	            var collapseActionElement = _this3[ELEMENTSTORE].createElement('button');
+	            var collapseActionElement = _this2[ELEMENTSTORE].createElement('button');
 	            collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
+	            collapseActionElement.classList.add('gitter-chat-embed-action-bar-item-collapse-chat');
 	            collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
-	            collapseActionElement.innerHTML = '<svg class="gitter-icon"><use xlink:href="#gitter-shape-times-circle"></use></svg>';
 	            elementOnActivate(collapseActionElement, function (e) {
 	              // Hide the chat
-	              _this3.toggleChat(false);
+	              _this2.toggleChat(false);
 	
 	              e.preventDefault();
 	            });
@@ -558,7 +542,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: 'toggleChat',
 	    value: function toggleChat(state) {
-	      var _this4 = this;
+	      var _this3 = this;
 	
 	      var opts = this[OPTIONS];
 	
@@ -573,8 +557,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	
 	          setTimeout(function () {
-	            _this4[EMBEDCHATONCE]();
-	            _this4[TOGGLETARGETELEMENTS](state);
+	            _this3[EMBEDCHATONCE]();
+	            _this3[TOGGLETARGETELEMENTS](state);
 	
 	            // Remove the loading spinner
 	            targetElements.forEach(function (targetElement) {
@@ -1801,7 +1785,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	// module
-	exports.push([module.id, ".gitter-hidden{box-sizing:border-box;display:none}.gitter-icon{box-sizing:border-box;width:22px;height:22px;fill:currentColor}.gitter-chat-embed{box-sizing:border-box;z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;background-color:#fff;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}@context border-box{.gitter-chat-embed{box-sizing:border-box;background-color:#fff}}.gitter-chat-embed.is-collapsed:not(.is-loading){box-sizing:border-box;-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed:after{box-sizing:border-box;content:'';z-index:-1;position:absolute;top:0;left:100%;bottom:0;right:-100%;background-color:#fff}@context border-box{.gitter-chat-embed:after{box-sizing:border-box;background-color:#fff}}@media(max-width:1150px){.gitter-chat-embed{box-sizing:border-box;left:45%}}@media(max-width:944px){.gitter-chat-embed{box-sizing:border-box;left:30%}}@media(max-width:600px){.gitter-chat-embed{box-sizing:border-box;left:15%}}@media(max-width:500px){.gitter-chat-embed{box-sizing:border-box;left:0}}.gitter-chat-embed>iframe{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-loading-wrapper{box-sizing:border-box;position:absolute;top:0;left:0;bottom:0;right:0;display:none;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}.is-loading .gitter-chat-embed-loading-wrapper{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.gitter-chat-embed-loading-indicator{box-sizing:border-box;color:rgba(0,0,0,.75);-webkit-animation:spin 2s infinite linear;animation:spin 2s infinite linear}@-webkit-keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}@keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}.gitter-chat-embed-action-bar{box-sizing:border-box;position:absolute;top:0;left:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;padding-bottom:.7em;background:-webkit-linear-gradient(top,#fff 0,#fff 50%,rgba(255,255,255,0) 100%);background:linear-gradient(to bottom,#fff 0,#fff 50%,rgba(255,255,255,0) 100%)}.gitter-chat-embed-action-bar-item{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;height:40px;padding-top:0;padding-left:12px;padding-bottom:0;padding-right:12px;background:none;border:0;color:#3a3133;color:rgba(58,49,51,.65);font-size:48px;font-weight:700;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{box-sizing:border-box;outline:none;color:#3a3133}.gitter-chat-embed-action-bar-item:active{box-sizing:border-box;color:#f68d42}.gitter-chat-embed-action-bar-item-pop-out .gitter-icon{box-sizing:border-box;margin-right:-4px}.gitter-open-chat-button{box-sizing:border-box;z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;font-family:sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:all .3s ease;transition:all .3s ease}.gitter-open-chat-button:visited{box-sizing:border-box;color:#fff}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{box-sizing:border-box;background-color:#3ea07f;color:#fff}.gitter-open-chat-button:focus{box-sizing:border-box;box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button:active{box-sizing:border-box;color:#eee}.gitter-open-chat-button.is-collapsed{box-sizing:border-box;-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
+	exports.push([module.id, ".gitter-hidden{box-sizing:border-box;display:none}.gitter-icon{box-sizing:border-box;width:22px;height:22px;fill:currentColor}.gitter-chat-embed{box-sizing:border-box;z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;background-color:#fff;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}@context border-box{.gitter-chat-embed{box-sizing:border-box;background-color:#fff}}.gitter-chat-embed.is-collapsed:not(.is-loading){box-sizing:border-box;-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed:after{box-sizing:border-box;content:'';z-index:-1;position:absolute;top:0;left:100%;bottom:0;right:-100%;background-color:#fff}@context border-box{.gitter-chat-embed:after{box-sizing:border-box;background-color:#fff}}@media(max-width:1150px){.gitter-chat-embed{box-sizing:border-box;left:45%}}@media(max-width:944px){.gitter-chat-embed{box-sizing:border-box;left:30%}}@media(max-width:600px){.gitter-chat-embed{box-sizing:border-box;left:15%}}@media(max-width:500px){.gitter-chat-embed{box-sizing:border-box;left:0}}.gitter-chat-embed>iframe{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-loading-wrapper{box-sizing:border-box;position:absolute;top:0;left:0;bottom:0;right:0;display:none;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}.is-loading .gitter-chat-embed-loading-wrapper{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.gitter-chat-embed-loading-indicator{box-sizing:border-box;opacity:.75;background-image:url(\"data:image/svg+xml;charset=utf8,<svg%20xmlns%3D\\\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\\\"%20viewBox%3D\\\"0%200%201792%201792\\\"%20fill%3D\\\"%233a3133\\\"><path%20d%3D\\\"M526%201394q0%2053-37.5%2090.5t-90.5%2037.5q-52%200-90-38t-38-90q0-53%2037.5-90.5t90.5-37.5%2090.5%2037.5%2037.5%2090.5zm498%20206q0%2053-37.5%2090.5t-90.5%2037.5-90.5-37.5-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm-704-704q0%2053-37.5%2090.5t-90.5%2037.5-90.5-37.5-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm1202%20498q0%2052-38%2090t-90%2038q-53%200-90.5-37.5t-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm-964-996q0%2066-47%20113t-113%2047-113-47-47-113%2047-113%20113-47%20113%2047%2047%20113zm1170%20498q0%2053-37.5%2090.5t-90.5%2037.5-90.5-37.5-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm-640-704q0%2080-56%20136t-136%2056-136-56-56-136%2056-136%20136-56%20136%2056%2056%20136zm530%20206q0%2093-66%20158.5t-158%2065.5q-93%200-158.5-65.5t-65.5-158.5q0-92%2065.5-158t158.5-66q92%200%20158%2066t66%20158z\\\"%2F><%2Fsvg>\");-webkit-animation:spin 2s infinite linear;animation:spin 2s infinite linear}@-webkit-keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}@keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}.gitter-chat-embed-action-bar{box-sizing:border-box;position:absolute;top:0;left:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;padding-bottom:.7em;background:-webkit-linear-gradient(top,#fff 0,#fff 50%,rgba(255,255,255,0) 100%);background:linear-gradient(to bottom,#fff 0,#fff 50%,rgba(255,255,255,0) 100%)}.gitter-chat-embed-action-bar-item{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:40px;height:40px;padding-left:0;padding-right:0;opacity:.65;background:none;background-position:center center;background-repeat:no-repeat;background-size:22px 22px;border:0;outline:none;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{box-sizing:border-box;opacity:1}.gitter-chat-embed-action-bar-item:active{box-sizing:border-box;-webkit-filter:hue-rotate(80deg) saturate(150);filter:hue-rotate(80deg) saturate(150)}.gitter-chat-embed-action-bar-item-pop-out{box-sizing:border-box;margin-right:-4px;background-image:url(\"data:image/svg+xml;charset=utf8,<svg%20xmlns%3D\\\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\\\"%20viewBox%3D\\\"0%200%20200%20171.429\\\"%20fill%3D\\\"%233a3133\\\"><path%20d%3D\\\"M157.143%2C103.571v35.714c0%2C8.854-3.144%2C16.426-9.431%2C22.713s-13.858%2C9.431-22.712%2C9.431H32.143%20c-8.854%2C0-16.425-3.144-22.712-9.431S0%2C148.14%2C0%2C139.285V46.429c0-8.854%2C3.144-16.425%2C9.431-22.712%20c6.287-6.287%2C13.858-9.431%2C22.712-9.431h78.572c1.041%2C0%2C1.896%2C0.335%2C2.566%2C1.004c0.67%2C0.67%2C1.004%2C1.525%2C1.004%2C2.567V25%20c0%2C1.042-0.334%2C1.897-1.004%2C2.567c-0.67%2C0.67-1.525%2C1.004-2.566%2C1.004H32.143c-4.911%2C0-9.115%2C1.749-12.612%2C5.246%20s-5.246%2C7.701-5.246%2C12.612v92.856c0%2C4.911%2C1.749%2C9.115%2C5.246%2C12.612s7.701%2C5.245%2C12.612%2C5.245H125c4.91%2C0%2C9.115-1.748%2C12.611-5.245%20c3.497-3.497%2C5.246-7.701%2C5.246-12.612v-35.714c0-1.042%2C0.334-1.897%2C1.004-2.567c0.67-0.669%2C1.525-1.004%2C2.567-1.004h7.143%20c1.042%2C0%2C1.897%2C0.335%2C2.567%2C1.004C156.809%2C101.674%2C157.143%2C102.529%2C157.143%2C103.571z%20M200%2C7.143v57.143%20c0%2C1.935-0.707%2C3.609-2.121%2C5.022c-1.413%2C1.414-3.088%2C2.121-5.021%2C2.121c-1.935%2C0-3.609-0.707-5.022-2.121l-19.644-19.643%20l-72.767%2C72.769c-0.744%2C0.744-1.6%2C1.115-2.567%2C1.115s-1.823-0.371-2.567-1.115L77.567%2C109.71c-0.744-0.744-1.116-1.6-1.116-2.567%20c0-0.967%2C0.372-1.822%2C1.116-2.566l72.768-72.768l-19.644-19.643c-1.413-1.414-2.12-3.088-2.12-5.022c0-1.935%2C0.707-3.609%2C2.12-5.022%20C132.105%2C0.707%2C133.779%2C0%2C135.715%2C0h57.143c1.934%2C0%2C3.608%2C0.707%2C5.021%2C2.121C199.293%2C3.534%2C200%2C5.208%2C200%2C7.143z\\\"%2F><%2Fsvg>\")}.gitter-chat-embed-action-bar-item-collapse-chat{box-sizing:border-box;background-image:url(\"data:image/svg+xml;charset=utf8,<svg%20xmlns%3D\\\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\\\"%20viewBox%3D\\\"0%200%20171.429%20171.429\\\"%20fill%3D\\\"%233a3133\\\"><path%20d%3D\\\"M122.433%2C106.138l-16.295%2C16.295c-0.744%2C0.744-1.6%2C1.116-2.566%2C1.116c-0.968%2C0-1.823-0.372-2.567-1.116l-15.29-15.29%20l-15.29%2C15.29c-0.744%2C0.744-1.6%2C1.116-2.567%2C1.116s-1.823-0.372-2.567-1.116l-16.294-16.295c-0.744-0.744-1.116-1.6-1.116-2.566%20c0-0.968%2C0.372-1.823%2C1.116-2.567l15.29-15.29l-15.29-15.29c-0.744-0.744-1.116-1.6-1.116-2.567s0.372-1.823%2C1.116-2.567%20L65.29%2C48.996c0.744-0.744%2C1.6-1.116%2C2.567-1.116s1.823%2C0.372%2C2.567%2C1.116l15.29%2C15.29l15.29-15.29%20c0.744-0.744%2C1.6-1.116%2C2.567-1.116c0.967%2C0%2C1.822%2C0.372%2C2.566%2C1.116l16.295%2C16.294c0.744%2C0.744%2C1.116%2C1.6%2C1.116%2C2.567%20s-0.372%2C1.823-1.116%2C2.567l-15.29%2C15.29l15.29%2C15.29c0.744%2C0.744%2C1.116%2C1.6%2C1.116%2C2.567%20C123.549%2C104.539%2C123.177%2C105.394%2C122.433%2C106.138z%20M146.429%2C85.714c0-11.012-2.717-21.168-8.148-30.469%20s-12.797-16.667-22.098-22.098S96.726%2C25%2C85.714%2C25s-21.168%2C2.716-30.469%2C8.147S38.579%2C45.945%2C33.147%2C55.246S25%2C74.703%2C25%2C85.714%20s2.716%2C21.168%2C8.147%2C30.469s12.797%2C16.666%2C22.098%2C22.098s19.457%2C8.148%2C30.469%2C8.148s21.168-2.717%2C30.469-8.148%20s16.666-12.797%2C22.098-22.098S146.429%2C96.726%2C146.429%2C85.714z%20M171.429%2C85.714c0%2C15.551-3.832%2C29.893-11.496%2C43.024%20c-7.664%2C13.133-18.062%2C23.53-31.194%2C31.194c-13.132%2C7.664-27.474%2C11.496-43.024%2C11.496s-29.892-3.832-43.024-11.496%20c-13.133-7.664-23.531-18.062-31.194-31.194C3.832%2C115.607%2C0%2C101.265%2C0%2C85.714S3.832%2C55.822%2C11.496%2C42.69%20c7.664-13.133%2C18.062-23.531%2C31.194-31.194C55.822%2C3.832%2C70.164%2C0%2C85.714%2C0s29.893%2C3.832%2C43.024%2C11.496%20c13.133%2C7.664%2C23.53%2C18.062%2C31.194%2C31.194C167.597%2C55.822%2C171.429%2C70.164%2C171.429%2C85.714z\\\"%2F><%2Fsvg>\")}.gitter-open-chat-button{box-sizing:border-box;z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;font-family:sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:all .3s ease;transition:all .3s ease}.gitter-open-chat-button:visited{box-sizing:border-box;color:#fff}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{box-sizing:border-box;background-color:#3ea07f;color:#fff}.gitter-open-chat-button:focus{box-sizing:border-box;box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button:active{box-sizing:border-box;color:#eee}.gitter-open-chat-button.is-collapsed{box-sizing:border-box;-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
 	
 	// exports
 
@@ -1881,6 +1865,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.forEach = forEach;
 	exports.on = on;
 	exports.off = off;
+	exports.prependElementTo = prependElementTo;
 	var concat = function concat() {
 	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	    args[_key] = arguments[_key];
@@ -1956,6 +1941,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	  // Keep the chaining going
 	  return this;
+	}
+	
+	function prependElementTo(element, target) {
+	  var firstTargetChild = target.children[0];
+	  if (firstTargetChild) {
+	    target.insertBefore(element, firstTargetChild);
+	  } else {
+	    target.appendChild(element);
+	  }
 	}
 	
 	var $ = function $() {

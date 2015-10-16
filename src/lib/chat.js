@@ -1,16 +1,33 @@
 import objectAssign from 'object-assign';
 import {Promise} from 'es6-promise';
+import Symbol from './basic-symbol-ponyfill';
+import CustomEvent from './custom-event-ponyfill';
 //import Promise from 'bluebird';
 
 import ElementStore from './element-store.js';
 import chatCss from '../css/chat.css';
 
-
 import { default as $ } from './dom-utility.js';
 import * as domUtility from './dom-utility.js';
 
 
+// Can't use `classList.toggle` with the second parameter (force)
+// Because IE11 does not support it
+let toggleClass = function(element, class1, force) {
+  if(force !== undefined) {
+    if(force) {
+      element.classList.add(class1);
+    }
+    else {
+      element.classList.remove(class1);
+    }
+  }
+  else {
+    element.classList.toggle(class1);
+  }
 
+  return force;
+};
 
 let parseAttributeTruthiness = function(value) {
   if(value) {
@@ -75,17 +92,17 @@ let elementOnActivate = function(elements, cb) {
 let embedGitterStyles = function() {
   let elementStore = new ElementStore();
 
+  //$('head')[0].insertAdjacentHTML('afterbegin', '<div></div>');
+
   let style = elementStore.createElement('style');
   style.innerHTML = chatCss;
-  $('head')[0].appendChild(style);
+
+	// Put it at the top of the head so others can override
+  domUtility.prependElementTo(style, $('head')[0]);
 
   return elementStore;
 };
 
-
-
-  return elementStore;
-};
 
 let embedGitterChat = function(opts) {
   let elementStore = new ElementStore();
@@ -118,16 +135,17 @@ let embedGitterChat = function(opts) {
 const defaults = {
   room: undefined,
   // Single or array of dom elements, or string selector to embed chat in
-  targetElement: null,
+  // Where you want to embed the chat
+  targetElement: undefined,
+  // Single or array of dom elements, or string selector to embed chat in
   // The button element used to activate when the chat gets shown on the page
-  // Can be a dom node or a promise that optionally resolves to a dom node
   // Note: Only applies if `options.showChatByDefault` is `false`
   activationElement: undefined,
 
   // Whether to show the chat embed when the page loads
   // Note: Use with caution, useful for use cases where you have a page dedicated to chat.
   showChatByDefault: false,
-  
+
   // Whether to preload the gitter chat iframe.
   // We preload the chat so there isn't any jank when the chat opens
   preload: false,
@@ -151,39 +169,21 @@ const defaults = {
 
 
 // Keep some stuff behind symbols so people "can't" access the private data
-const DEFAULTS = Symbol();
-const OPTIONS = Symbol();
-const ELEMENTSTORE = Symbol();
-const EVENTHANDLESTORE = Symbol();
-const INIT = Symbol();
-const ISEMBEDDED = Symbol();
-const EMBEDCHATONCE = Symbol();
-const TOGGLETARGETELEMENTS = Symbol();
+const DEFAULTS = Symbol('DEFAULTS');
+const OPTIONS = Symbol('OPTIONS');
+const ELEMENTSTORE = Symbol('ELEMENTSTORE');
+const EVENTHANDLESTORE = Symbol('EVENTHANDLESTORE');
+const INIT = Symbol('INIT');
+const ISEMBEDDED = Symbol('ISEMBEDDED');
+const EMBEDCHATONCE = Symbol('EMBEDCHATONCE');
+const TOGGLETARGETELEMENTS = Symbol('TOGGLETARGETELEMENTS');
 
 class chatEmbed {
   constructor(options = {}) {
     this[ELEMENTSTORE] = new ElementStore();
     this[EVENTHANDLESTORE] = [];
-    
+
     this[DEFAULTS] = objectAssign({}, defaults);
-
-    // Coerce into array of dom elements on what they pass in
-    if(options.targetElement) {
-      options.targetElementr = $(options.targetElement);
-    }
-    // Otherwise create our own default targetElement
-    else {
-      this[DEFAULTS].targetElement = $((() => {
-        let targetElement = this[ELEMENTSTORE].createElement('aside');
-        targetElement.classList.add('gitter-chat-embed');
-        // Start out collapsed
-        targetElement.classList.add('is-collapsed');
-        document.body.appendChild(targetElement);
-
-        return targetElement;
-      })());
-    }
-
     this[OPTIONS] = objectAssign({}, this[DEFAULTS], options);
 
     this[INIT]();
@@ -194,11 +194,21 @@ class chatEmbed {
 
     if(opts.useStyles) {
       this[ELEMENTSTORE].add(embedGitterStyles());
-      this[ELEMENTSTORE].add(embedGitterSvgSprites());
     }
 
-    let targetElements = opts.targetElement;
-    targetElements.forEach((targetElement) => {
+    // Coerce into array of dom elements on what they pass in
+    // Otherwise create our own default targetElement
+    opts.targetElement = $(opts.targetElement || (() => {
+      let targetElement = this[ELEMENTSTORE].createElement('aside');
+      targetElement.classList.add('gitter-chat-embed');
+      // Start out collapsed
+      targetElement.classList.add('is-collapsed');
+      document.body.appendChild(targetElement);
+
+      return targetElement;
+    })());
+
+    opts.targetElement.forEach((targetElement) => {
       let loadingIndicatorElement = this[ELEMENTSTORE].createElement('div');
       loadingIndicatorElement.classList.add('gitter-chat-embed-loading-wrapper');
       loadingIndicatorElement.innerHTML = `
@@ -216,39 +226,49 @@ class chatEmbed {
     if(opts.showChatByDefault) {
       this.toggleChat(true);
     }
+    // The activationElement is only setup if `opts.showChatByDefault` is false
     else {
-      Promise.resolve(opts.activationElement)
-        .then((activationElement) => {
-          activationElement = $(activationElement || (() => {
-            let button = this[ELEMENTSTORE].createElement('a');
-            // We use the option for the room (not pertaining to a particular targetElement attribute if set)
-            button.href = `${opts.host}${opts.room}`;
-            button.innerHTML = 'Open Chat';
-            button.classList.add('gitter-open-chat-button');
-            document.body.appendChild(button);
+      // You can pass `false` or `null` to disable the activation element
+      if(opts.activationElement !== false && opts.activationElement !== null) {
+        // Coerce into array of dom elements on what they pass in
+        // Otherwise create our own default activationElement
+        opts.activationElement = $(opts.activationElement || (() => {
+          let button = this[ELEMENTSTORE].createElement('a');
+          // We use the option for the room (not pertaining to a particular targetElement attribute if set)
+          button.href = `${opts.host}${opts.room}`;
+          button.innerHTML = 'Open Chat';
+          button.classList.add('gitter-open-chat-button');
+          document.body.appendChild(button);
 
-            return button;
-          })());
-          
-          elementOnActivate(activationElement, (e) => {
-            // Show the chat
-            this.toggleChat(true);
+          return button;
+        })());
 
-            e.preventDefault();
-          });
+        elementOnActivate(opts.activationElement, (e) => {
+          // Show the chat
+          this.toggleChat(true);
 
-          opts.targetElement.forEach((targetElement) => {
-            domUtility.on(targetElement, 'gitter-chat-toggle', (e) => {
-              let isChatOpen = e.detail.state;
-              // Toggle the visibiltiy of the activation element
-              // so it is only there when the the chat is closed
-              domUtility.forEach(activationElement, (element) => {
-                element.classList.toggle('is-collapsed', isChatOpen);
-              });
+          e.preventDefault();
+        });
+      }
+
+
+      // Toggle the visibility of the activation element
+      // so it is only there when the the chat is closed
+      if(opts.activationElement) {
+        opts.targetElement.forEach((targetElement) => {
+          domUtility.on(targetElement, 'gitter-chat-toggle', (e) => {
+            let isChatOpen = e.detail.state;
+
+            opts.activationElement.forEach((activationElement) => {
+              toggleClass(activationElement, 'is-collapsed', isChatOpen);
             });
           });
         });
+      }
+
     }
+
+
 
     // Listen to buttons with a class of `.js-gitter-toggle-chat-button`
     // We also look for an options `data-gitter-toggle-chat-state` attribute
@@ -261,7 +281,7 @@ class chatEmbed {
     this[EVENTHANDLESTORE].push(classToggleButtonOff);
 
 
-    // Emit for each targetElement
+    // Emit that we started on each targetElement
     opts.targetElement.forEach((targetElement) => {
       let event = new CustomEvent('gitter-chat-started', {
         detail: {
@@ -271,7 +291,7 @@ class chatEmbed {
       targetElement.dispatchEvent(event);
     });
 
-    // Emit for document
+    // Emit that we started on the document
     let documentEvent = new CustomEvent('gitter-sidecar-instance-started', {
       detail: {
         chat: this
@@ -295,7 +315,7 @@ class chatEmbed {
         // Prepend
         targetElement.insertBefore(actionBar, targetElement.firstChild);
 
-       
+
 
         let popOutActionElement = this[ELEMENTSTORE].createElement('button');
         popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
@@ -307,7 +327,10 @@ class chatEmbed {
 
           // Open in new tab
           let win = window.open(`${opts.host}${this[OPTIONS].room}`, '_blank');
-          win.focus();
+          // IE can return undefined :/
+          if(win) {
+            win.focus();
+          }
 
           e.preventDefault();
         });
@@ -317,8 +340,8 @@ class chatEmbed {
 
         let collapseActionElement = this[ELEMENTSTORE].createElement('button');
         collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
-        collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
         collapseActionElement.classList.add('gitter-chat-embed-action-bar-item-collapse-chat');
+        collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
         elementOnActivate(collapseActionElement, (e) => {
           // Hide the chat
           this.toggleChat(false);
@@ -327,7 +350,7 @@ class chatEmbed {
         });
 
         actionBar.appendChild(collapseActionElement);
-        
+
 
       });
     }
@@ -345,20 +368,16 @@ class chatEmbed {
 
     let targetElements = opts.targetElement;
     targetElements.forEach((targetElement) => {
-      let wasCollapseClassAdded;
       if(state === 'toggle') {
-        wasCollapseClassAdded = targetElement.classList.toggle('is-collapsed');
+        toggleClass(targetElement, 'is-collapsed');
       }
       else {
-        wasCollapseClassAdded = targetElement.classList.toggle('is-collapsed', !state);
+        toggleClass(targetElement, 'is-collapsed', !state);
       }
-
-      // This is what happened after toggling the classes from the `state` input passed in
-      let actualState = !wasCollapseClassAdded;
 
       let event = new CustomEvent('gitter-chat-toggle', {
         detail: {
-          state: actualState
+          state
         }
       });
       targetElement.dispatchEvent(event);
@@ -416,7 +435,3 @@ class chatEmbed {
 
 
 export default chatEmbed;
-
-
-
-
