@@ -1,4 +1,9 @@
 
+# v1.0.1 - 2015-10-16
+
+ - Update microsite copy snippet block script version to reference `package.json` so it is always up to date
+ - Add Gitter badge to readme
+
 # v1.0.0 - 2015-10-16
 
  - First production release
