@@ -6,7 +6,7 @@ export default function renderFullPage(html, initialState = {}) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      
+
       <title>Sidecar - Gitter</title>
 
       <link id="favicon" rel="shortcut icon" href="images/favicon-normal.ico">
@@ -30,7 +30,7 @@ export default function renderFullPage(html, initialState = {}) {
           room: 'gitterHQ/sidecar-demo'
         };
       </script>
-      <script src="https://sidecar.gitter.im/dist/sidecar.v0.js" async defer></script>
+      <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
 
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
