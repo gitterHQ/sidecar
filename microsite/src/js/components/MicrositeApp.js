@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import semver from 'semver';
 
 import stripIndent from '../utility/strip-indent-tag';
 import $ from '../utility/dom-utility';
@@ -9,6 +10,7 @@ import CopySnippetBlock from './CopySnippetBlock';
 import Arrow from './Arrow';
 import { setRoomName } from '../actions/MicrositeActions';
 
+import manifest from 'json!../../../package.json';
 
 class MicrositeApp extends React.Component {
   constructor(props) {
@@ -44,7 +46,7 @@ class MicrositeApp extends React.Component {
           room: '${roomName}'
         };
       </script>
-      <script src="https://sidecar.gitter.im/dist/sidecar.v0.js" async defer></script>
+      <script src="https://sidecar.gitter.im/dist/sidecar.v${semver.major(manifest.version)}.js" async defer></script>
     `;
 
     return (
