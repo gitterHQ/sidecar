@@ -14,7 +14,7 @@ If you need a custom button or want to insert the chat in your own element, use 
 <script>
 	((window.gitter = {}).chat = {}).options = {
 		room: 'gitterHQ/sidecar',
-		activation: '.my-special-button',
+		activationElement: '.my-special-button',
 		targetElement: '.my-special-target-element'
 	};
 </script>
@@ -61,21 +61,26 @@ You can also override these options individually on the target element:
 ```
 
 
- - `options.room`: This is the Gitter room that sidecar will load (`gitterHQ/sidecar`)
+ - `options.room`: string - This is the Gitter room that sidecar will load (`gitterHQ/sidecar`)
+ 	 - Acceptable values: string
  	 - Default: `undefined`
- - `options.targetElement`: Where you want to embed the chat. Can accept a dom node, array of dom nodes, or a selector
+ - `options.targetElement`: Where you want to embed the chat.
+ 	 - Acceptable values: Dom node, array of dom nodes, or a string selector
  	 - Default: Elements that match `'.gitter-chat-embed'`
- - `options.activationElement`: If `options.showChatByDefault` is `false`, this is the element you have to click/interact with to get the chat to actually embed. You can also pass in a promise which can optionally resolve to a dom node
+ - `options.activationElement`: If `options.showChatByDefault` is `false`, this is the element you have to click/interact with to get the chat to actually embed.
+ 	 - Acceptable values: Dom node, array of dom nodes, or a string selector
  	 - Default: `undefined`
  	 - Note: This will automatically get generated if you don't specify it
  - `options.showChatByDefault`: Whether to embed the chat on page load(true) or wait until the `options.activation` is resolved/clicked/interacted with(false).
+ 	 - Acceptable values: boolean
  	 - Default: `false`
  	 - Note: **Use with caution,** useful for use cases where you have a page dedicated to chat.
-
  - `options.useStyles`: This will embed CSS into your document to style the activation and target element. If you want to customise these, set this option to `false` and specify your own CSS.
+ 	 - Acceptable values: boolean
  	 - Default: `true`
  - `preload`: Whether the Gitter chat iframe should be loaded in when the chat embed instance is created(this is the page load for default embed)
- 	 - Defaut: `false`
+ 	 - Acceptable values: boolean
+ 	 - Default: `false`
 
 
 ### Window Options:
@@ -123,4 +128,3 @@ document.querySelector('.gitter-chat-embed').addEventListener('gitter-chat-toggl
 	console.log(e.detail.state ? 'Chat Opened' : 'Chat Closed');
 });
 ```
-
