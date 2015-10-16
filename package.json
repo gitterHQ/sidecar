@@ -7,7 +7,8 @@
     "node": "=4.0.0"
   },
   "scripts": {
-    "test": "gulp move-sidecar-dist-to-fixtures && npm run test-unformatted | tap-spec",
+    "test": "babel-tape-runner test/button_present_test.js",
+    "test-formatted": "gulp move-sidecar-dist-to-fixtures && npm run test-unformatted | tap-spec",
     "test-unformatted": "safe-tape-runner test/button_present_test.js",
     "devbuild": "webpack --watch --progress",
     "build": "webpack -p",
