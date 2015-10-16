@@ -30,7 +30,9 @@ module.exports = function() {
     atImport(),
     mixins(),
     simpleVariables(),
-    writeSvg(),
+    writeSvg({
+      encoding: 'base64'
+    }),
     nested(),
     cssvariables(),
     calc(),
