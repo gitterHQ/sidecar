@@ -1,4 +1,6 @@
 
+import getLatestSidecarVersion from './get-latest-sidecar-version';
+
 export default function renderFullPage(html, initialState = {}) {
   return `
     <!DOCTYPE html>
@@ -30,7 +32,7 @@ export default function renderFullPage(html, initialState = {}) {
           room: 'gitterHQ/sidecar-demo'
         };
       </script>
-      <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+      <script src="https://sidecar.gitter.im/dist/sidecar.v${getLatestSidecarVersion()}.js" async defer></script>
 
       <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

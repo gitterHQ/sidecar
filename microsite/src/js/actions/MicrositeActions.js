@@ -10,6 +10,13 @@ export function setRoomName(name) {
   };
 }
 
+export function setSidecarVersion(version) {
+  return {
+    type: types.SIDECAR_VERSION_SET,
+    version
+  };
+}
+
 export function setDocumentation(text) {
   return {
     type: types.DOCUMENTATION_SET,

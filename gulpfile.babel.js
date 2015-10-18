@@ -33,9 +33,10 @@ var config = {
       watch: {
         tasks: 'build-microsite-templates',
         globs: [
-          path.join(micrositeBasePath, 'src/index.html'),
           // We use the api doc in the documentation section
-          path.join('./API.md')
+          path.join('./API.md'),
+          // We can't do this unless we invalidate the require cache for `./microsite/server/generate-render-response`
+          //path.join(micrositeBasePath, 'server/**/*'),
         ]
       }
     },
@@ -160,7 +161,7 @@ gulp.task('build-microsite-templates', function() {
       this.push(chunk);
       return callback();
     });
-    
+
     config.paths.micrositeTemplates.generateRenderResponse().then((page) => {
       var file = new gutil.File({
         cwd: '',
@@ -168,7 +169,7 @@ gulp.task('build-microsite-templates', function() {
         path: 'index.html',
         contents: new Buffer(page)
       });
-   
+
       stream.write(file);
 
       stream.end();
@@ -263,5 +264,3 @@ gulp.task('default', function(callback) {
     callback
   );
 });
-
-

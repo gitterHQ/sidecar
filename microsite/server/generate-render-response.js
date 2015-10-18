@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import marked from 'marked';
 
 import renderFullPage from './render-full-page';
+import getLatestSidecarVersion from './get-latest-sidecar-version';
 
 import App from '../src/js/components/MicrositeApp';
 import appReducer from '../src/js/reducers/MicrositeReducer';
@@ -33,7 +34,8 @@ export default function generateRenderResponse(req) {
 
     // Create a new Redux store instance
     const store = createStore(appReducer, {
-      documentation: marked(readmeMarkdown)
+      documentation: marked(readmeMarkdown),
+      sidecarVersion: getLatestSidecarVersion()
     });
 
     // Render the component to a string
@@ -49,5 +51,3 @@ export default function generateRenderResponse(req) {
     return renderFullPage(html, initialState);
   });
 }
-
-

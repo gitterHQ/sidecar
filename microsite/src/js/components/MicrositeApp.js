@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import semver from 'semver';
 
 import stripIndent from '../utility/strip-indent-tag';
 import $ from '../utility/dom-utility';
@@ -10,7 +9,6 @@ import CopySnippetBlock from './CopySnippetBlock';
 import Arrow from './Arrow';
 import { setRoomName } from '../actions/MicrositeActions';
 
-import manifest from 'json!../../../package.json';
 
 class MicrositeApp extends React.Component {
   constructor(props) {
@@ -38,7 +36,12 @@ class MicrositeApp extends React.Component {
 
   render() {
     // Injected by connect() call:
-    const { dispatch, roomName, documentation } = this.props;
+    const {
+      dispatch,
+      roomName,
+      sidecarVersion,
+      documentation
+    } = this.props;
 
     let sidecarBootstrapOptionsCopySnippet = stripIndent`
       <script>
@@ -46,7 +49,7 @@ class MicrositeApp extends React.Component {
           room: '${roomName}'
         };
       </script>
-      <script src="https://sidecar.gitter.im/dist/sidecar.v${semver.major(manifest.version)}.js" async defer></script>
+      <script src="https://sidecar.gitter.im/dist/sidecar.v${sidecarVersion}.js" async defer></script>
     `;
 
     return (
@@ -156,7 +159,9 @@ MicrositeApp.propTypes = {
   // react-redux injected
   dispatch: React.PropTypes.func,
 
-  roomName: React.PropTypes.string
+  roomName: React.PropTypes.string,
+  sidecarVersion: React.PropTypes.number,
+  documentation: React.PropTypes.string
 };
 
 
@@ -165,6 +170,7 @@ MicrositeApp.propTypes = {
 function mapStateToProps(state) {
   return {
     roomName: state.roomName,
+    sidecarVersion: state.sidecarVersion,
     documentation: state.documentation
   };
 }
