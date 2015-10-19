@@ -1,4 +1,8 @@
 
+# HEAD
+
+ - Add `custom-class-on-target` demo to address [#25](https://github.com/gitterHQ/sidecar/issues/25)
+
 # v1.0.1 - 2015-10-16
 
  - Update microsite copy snippet block script version to reference `package.json` so it is always up to date
