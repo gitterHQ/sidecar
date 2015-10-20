@@ -10,24 +10,10 @@ import chatCss from '../css/chat.css';
 import { default as $ } from './dom-utility.js';
 import * as domUtility from './dom-utility.js';
 
+import makeReadableCopy from './make-readable-copy';
 
-// Can't use `classList.toggle` with the second parameter (force)
-// Because IE11 does not support it
-let toggleClass = function(element, class1, force) {
-  if(force !== undefined) {
-    if(force) {
-      element.classList.add(class1);
-    }
-    else {
-      element.classList.remove(class1);
-    }
-  }
-  else {
-    element.classList.toggle(class1);
-  }
 
-  return force;
-};
+
 
 let parseAttributeTruthiness = function(value) {
   if(value) {
@@ -130,6 +116,53 @@ let embedGitterChat = function(opts) {
 };
 
 
+// chat: sidecar chat instance
+let addActionBar = function(chat) {
+  let opts = chat.options;
+
+  let elementStore = new ElementStore();
+
+  opts.targetElement.forEach((targetElement) => {
+    let actionBar = elementStore.createElement('div');
+    actionBar.classList.add('gitter-chat-embed-action-bar');
+    // Prepend to the target
+    targetElement.insertBefore(actionBar, targetElement.firstChild);
+
+    // Add a couple buttons to the bar
+    // ------------------------------------
+
+    let popOutActionElement = elementStore.createElement('a');
+    popOutActionElement.classList.add(
+      'gitter-chat-embed-action-bar-item',
+      'gitter-chat-embed-action-bar-item-pop-out'
+    );
+    popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
+    popOutActionElement.setAttribute('href', `${opts.host}${opts.room}`);
+    popOutActionElement.setAttribute('target', `_blank`);
+
+    actionBar.appendChild(popOutActionElement);
+
+
+    let collapseActionElement = elementStore.createElement('button');
+    collapseActionElement.classList.add(
+      'gitter-chat-embed-action-bar-item',
+      'gitter-chat-embed-action-bar-item-collapse-chat'
+    );
+    collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
+    elementOnActivate(collapseActionElement, (e) => {
+      // Hide the chat
+      chat.toggleChat(false);
+
+      e.preventDefault();
+    });
+
+    actionBar.appendChild(collapseActionElement);
+
+  });
+
+  return elementStore;
+};
+
 
 
 const defaults = {
@@ -219,6 +252,11 @@ class chatEmbed {
       targetElement.insertBefore(loadingIndicatorElement, targetElement.firstChild);
     });
 
+    // Add the action bar to the target
+    // after it was put in place just above
+    addActionBar(this);
+
+
     if(opts.preload) {
       this.toggleChat(false);
     }
@@ -264,7 +302,7 @@ class chatEmbed {
             let isChatOpen = e.detail.state;
 
             opts.activationElement.forEach((activationElement) => {
-              toggleClass(activationElement, 'is-collapsed', isChatOpen);
+              domUtility.toggleClass(activationElement, 'is-collapsed', isChatOpen);
             });
           });
         });
@@ -294,7 +332,6 @@ class chatEmbed {
       });
       targetElement.dispatchEvent(event);
     });
-
     // Emit that we started on the document
     let documentEvent = new CustomEvent('gitter-sidecar-instance-started', {
       detail: {
@@ -311,52 +348,7 @@ class chatEmbed {
       let embedResult = embedGitterChat(this[OPTIONS]);
       this[ELEMENTSTORE].add(embedResult);
 
-      let targetElements = opts.targetElement;
-      targetElements.forEach((targetElement) => {
-        let actionBar = this[ELEMENTSTORE].createElement('div');
-        actionBar.classList.add('gitter-chat-embed-action-bar');
 
-        // Prepend
-        targetElement.insertBefore(actionBar, targetElement.firstChild);
-
-
-
-        let popOutActionElement = this[ELEMENTSTORE].createElement('button');
-        popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
-        popOutActionElement.classList.add('gitter-chat-embed-action-bar-item-pop-out');
-        popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
-        elementOnActivate(popOutActionElement, (e) => {
-          // Hide the chat
-          this.toggleChat(false);
-
-          // Open in new tab
-          let win = window.open(`${opts.host}${this[OPTIONS].room}`, '_blank');
-          // IE can return undefined :/
-          if(win) {
-            win.focus();
-          }
-
-          e.preventDefault();
-        });
-
-        actionBar.appendChild(popOutActionElement);
-
-
-        let collapseActionElement = this[ELEMENTSTORE].createElement('button');
-        collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
-        collapseActionElement.classList.add('gitter-chat-embed-action-bar-item-collapse-chat');
-        collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
-        elementOnActivate(collapseActionElement, (e) => {
-          // Hide the chat
-          this.toggleChat(false);
-
-          e.preventDefault();
-        });
-
-        actionBar.appendChild(collapseActionElement);
-
-
-      });
     }
 
     this[ISEMBEDDED] = true;
@@ -370,13 +362,14 @@ class chatEmbed {
       console.warn('Gitter Sidecar: No chat embed elements to toggle visibility on');
     }
 
+
     let targetElements = opts.targetElement;
     targetElements.forEach((targetElement) => {
       if(state === 'toggle') {
-        toggleClass(targetElement, 'is-collapsed');
+        domUtility.toggleClass(targetElement, 'is-collapsed');
       }
       else {
-        toggleClass(targetElement, 'is-collapsed', !state);
+        domUtility.toggleClass(targetElement, 'is-collapsed', !state);
       }
 
       let event = new CustomEvent('gitter-chat-toggle', {
@@ -390,6 +383,13 @@ class chatEmbed {
 
 
   // Public API
+
+  get options() {
+    // We don't want anyone to modify our options
+    // So copy and make it non-writable
+    return makeReadableCopy(this[OPTIONS]);
+  }
+
   // state: true, false, 'toggle'
   toggleChat(state) {
     let opts = this[OPTIONS];

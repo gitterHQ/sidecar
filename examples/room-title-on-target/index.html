@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidecar Basic Example</title>
+
+  <link href="../common.css" rel="stylesheet">
+</head>
+<body>
+
+  <style>
+    .chat-embed-title {
+      flex: 1;
+      align-self: center;
+
+      padding-left: 1rem;
+
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  </style>
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      room: 'gitterHQ/sidecar-demo'
+    };
+
+    document.addEventListener('gitter-sidecar-instance-started', function(e) {
+      var chat = e.detail.chat;
+      chat.options.targetElement.forEach(function(targetElement) {
+        var actionBarElement = targetElement.querySelector('.gitter-chat-embed-action-bar');
+        actionBarElement.insertAdjacentHTML('afterbegin', '<div class="chat-embed-title">' + chat.options.room + '</div>');
+      });
+    });
+  </script>
+  <script src="../../dist/sidecar.js" async defer></script>
+</body>
+</html>

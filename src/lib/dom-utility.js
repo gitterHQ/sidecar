@@ -84,6 +84,26 @@ export function prependElementTo(element, target) {
   }
 }
 
+// Can't use `classList.toggle` with the second parameter (force)
+// Because IE11 does not support it
+export function toggleClass(element, class1, force) {
+	if(force !== undefined) {
+    if(force) {
+      element.classList.add(class1);
+    }
+    else {
+      element.classList.remove(class1);
+    }
+  }
+  else {
+    element.classList.toggle(class1);
+  }
+
+  return force;
+};
+
+
+
 
 let $ = function(...args) {
   return coerceIntoElementsArray(...args);

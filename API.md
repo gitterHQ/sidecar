@@ -101,6 +101,7 @@ You can set any of the chat options above in this object as well
 var chat = new window.gitter.Chat(/* options */);`
 ```
 
+ - `options` (getter): Get a readable copy of the options used for this chat instance
  - `toggleChat(isChatOpen)`: Function/method - Takes a boolean which toggles the visibility of the chat panel
  	 - This can be used an explicit show/hide method by passing in a explict show(true) or hide(false) boolean.
  - `destroy()`: Function/method - Clean-up and remove any elements created by the embed

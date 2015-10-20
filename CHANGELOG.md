@@ -1,7 +1,11 @@
 
 # HEAD
 
+ - Add `options` getter to public API
  - Add `custom-class-on-target` demo to address [#25](https://github.com/gitterHQ/sidecar/issues/25)
+ - Action bar(`.gitter-chat-embed-action-bar`) is now in place when `gitter-sidecar-instance-started` and `gitter-chat-started` events are fired.
+ - Update popout action bar item to standard `<a>` link
+ - Add `examples/room-title-on-target` and `examples/custom-class-on-target`
 
 # v1.0.1 - 2015-10-16
 
