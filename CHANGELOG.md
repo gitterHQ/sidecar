@@ -1,5 +1,5 @@
 
-# HEAD
+# v1.1.0 - 2015-10-19
 
  - Add `options` getter to public API
  - Add `custom-class-on-target` demo to address [#25](https://github.com/gitterHQ/sidecar/issues/25)
