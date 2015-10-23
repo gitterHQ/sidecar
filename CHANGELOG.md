@@ -1,4 +1,10 @@
 
+# v1.1.1 - 2015-10-22
+
+ - Fix `options.targetElement` and `options.activationElement` to be able to accept a selector string. What this really means is that we fixed the underlying Fix `domUtility -> $` to return actual array(vs NodeList or HTMLCollection) when a selector string is passed in.
+
+
+
 # v1.1.0 - 2015-10-19
 
  - Add `options` getter to public API
@@ -7,18 +13,22 @@
  - Update popout action bar item to standard `<a>` link
  - Add `examples/room-title-on-target` and `examples/custom-class-on-target`
 
+
 # v1.0.1 - 2015-10-16
 
  - Update microsite copy snippet block script version to reference `package.json` so it is always up to date
  - Add Gitter badge to readme
 
+
 # v1.0.0 - 2015-10-16
 
  - First production release
 
+
 # v0.3.2 - 2015-10-16
 
  - Update `options.activationElement` so you can pass `true` and it will automatically create an element. This is to round off the API because we added `false` to disable the activation element.
+
 
 # v0.3.1 - 2015-10-15
 
@@ -37,11 +47,13 @@
  - Update unit tests
  - Reduce action white occlusion gradient background
 
+
 # v0.2.16 - 2015-10-2
 
  - [Disabled tests temporarily](https://github.com/gitterHQ/sidecar/commit/287f648348e1d31caca0dbc6246523feb8307982)
  - Update action bar item hover/focus styles
  - Add `options.host` so you can provide any Gitter instance(`https://beta.gitter.im/` or `https://gitter.im/`)
+
 
 # v0.2.14 - 2015-10-1
 
@@ -94,7 +106,7 @@
 # v0.2.2 - 2015-8-27
 
  - `options.room` defaults to `undefined` and will throw an error if no room is specified
- - Using a custom PostCSS plugin and [`postcss-plugin-context`](https://github.com/postcss/postcss-plugin-context) to add `box-sizing: border-box;` to each rule: `@context border-box { /* ... */ }
+ - Using a custom PostCSS plugin and [`postcss-plugin-context`](https://github.com/postcss/postcss-plugin-context) to add `box-sizing: border-box;` to each rule: `@context border-box { /* ... */ }`
  - Use `<a>` element as the default generated activation element so that if the JS fails to execute, we still have it link through to the actual room.
 
 

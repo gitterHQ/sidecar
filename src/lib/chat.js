@@ -83,7 +83,7 @@ let embedGitterStyles = function() {
   let style = elementStore.createElement('style');
   style.innerHTML = chatCss;
 
-	// Put it at the top of the head so others can override
+  // Put it at the top of the head so others can override
   domUtility.prependElementTo(style, $('head')[0]);
 
   return elementStore;
@@ -284,7 +284,6 @@ class chatEmbed {
       else if(opts.activationElement) {
         opts.activationElement = $(opts.activationElement);
       }
-
 
       if(opts.activationElement) {
         // Hook up the button to show the chat on activation

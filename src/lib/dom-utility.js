@@ -22,15 +22,12 @@ let concat = function(...args) {
 
 // Pass in a selector string, dom node, or array of dom nodes
 let coerceIntoElementsArray = function(...args) {
-  let elements = [];
+  let elements = args;
   if(typeof args[0] === 'string') {
     elements = document.querySelectorAll.call(document, ...args);
   }
-  else {
-    elements = concat(...args);
-  }
 
-  return elements;
+  return concat(...elements);
 };
 
 
@@ -75,19 +72,19 @@ export function off(elements, names, cb) {
 
 
 export function prependElementTo(element, target) {
-	let firstTargetChild = target.children[0];
+  let firstTargetChild = (target.children || [])[0];
   if(firstTargetChild) {
     target.insertBefore(element, firstTargetChild);
   }
   else {
-    target.appendChild(element)
+    target.appendChild(element);
   }
 }
 
 // Can't use `classList.toggle` with the second parameter (force)
 // Because IE11 does not support it
 export function toggleClass(element, class1, force) {
-	if(force !== undefined) {
+  if(force !== undefined) {
     if(force) {
       element.classList.add(class1);
     }
@@ -100,7 +97,7 @@ export function toggleClass(element, class1, force) {
   }
 
   return force;
-};
+}
 
 
 

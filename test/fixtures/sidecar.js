@@ -1,5 +1,5 @@
 /*!
- * Gitter Sidecar v0.2.17
+ * Gitter Sidecar v1.1.0
  * https://sidecar.gitter.im/
  */
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -70,7 +70,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _libChatJs = __webpack_require__(2);
+	var _libCustomEventPonyfill = __webpack_require__(2);
+	
+	var _libCustomEventPonyfill2 = _interopRequireDefault(_libCustomEventPonyfill);
+	
+	var _libChatJs = __webpack_require__(3);
 	
 	var _libChatJs2 = _interopRequireDefault(_libChatJs);
 	
@@ -91,7 +95,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	(0, _objectAssign2['default'])(windowGitter, sidecar);
 	
 	// Tell them that `sidecar` is loaded and ready
-	var event = new CustomEvent('gitter-sidecar-ready', {
+	var event = new _libCustomEventPonyfill2['default']('gitter-sidecar-ready', {
 	  detail: sidecar
 	});
 	document.dispatchEvent(event);
@@ -152,6 +156,45 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	// via https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+	  value: true
+	});
+	exports['default'] = CustomEvent;
+	
+	function CustomEvent(event, _ref) {
+	  var _ref$bubbles = _ref.bubbles;
+	  var bubbles = _ref$bubbles === undefined ? false : _ref$bubbles;
+	  var _ref$cancelable = _ref.cancelable;
+	  var cancelable = _ref$cancelable === undefined ? false : _ref$cancelable;
+	  var _ref$detail = _ref.detail;
+	  var detail = _ref$detail === undefined ? undefined : _ref$detail;
+	
+	  var evt = undefined;
+	  try {
+	    evt = new window.CustomEvent(event, {
+	      bubbles: bubbles,
+	      cancelable: cancelable,
+	      detail: detail
+	    });
+	  } catch (e) {
+	    // For IE11-
+	    evt = document.createEvent('CustomEvent');
+	    evt.initCustomEvent(event, bubbles, cancelable, detail);
+	  }
+	
+	  return evt;
+	}
+	
+	CustomEvent.prototype = window.Event.prototype;
+	module.exports = exports['default'];
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -172,23 +215,35 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _es6Promise = __webpack_require__(3);
+	var _es6Promise = __webpack_require__(4);
+	
+	var _basicSymbolPonyfill = __webpack_require__(9);
+	
+	var _basicSymbolPonyfill2 = _interopRequireDefault(_basicSymbolPonyfill);
+	
+	var _customEventPonyfill = __webpack_require__(2);
+	
+	var _customEventPonyfill2 = _interopRequireDefault(_customEventPonyfill);
 	
 	//import Promise from 'bluebird';
 	
-	var _elementStoreJs = __webpack_require__(8);
+	var _elementStoreJs = __webpack_require__(10);
 	
 	var _elementStoreJs2 = _interopRequireDefault(_elementStoreJs);
 	
-	var _cssChatCss = __webpack_require__(9);
+	var _cssChatCss = __webpack_require__(11);
 	
 	var _cssChatCss2 = _interopRequireDefault(_cssChatCss);
 	
-	var _domUtilityJs = __webpack_require__(11);
+	var _domUtilityJs = __webpack_require__(13);
 	
 	var _domUtilityJs2 = _interopRequireDefault(_domUtilityJs);
 	
 	var domUtility = _interopRequireWildcard(_domUtilityJs);
+	
+	var _makeReadableCopy = __webpack_require__(14);
+	
+	var _makeReadableCopy2 = _interopRequireDefault(_makeReadableCopy);
 	
 	var parseAttributeTruthiness = function parseAttributeTruthiness(value) {
 	  if (value) {
@@ -285,6 +340,45 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return elementStore;
 	};
 	
+	// chat: sidecar chat instance
+	var addActionBar = function addActionBar(chat) {
+	  var opts = chat.options;
+	
+	  var elementStore = new _elementStoreJs2['default']();
+	
+	  opts.targetElement.forEach(function (targetElement) {
+	    var actionBar = elementStore.createElement('div');
+	    actionBar.classList.add('gitter-chat-embed-action-bar');
+	    // Prepend to the target
+	    targetElement.insertBefore(actionBar, targetElement.firstChild);
+	
+	    // Add a couple buttons to the bar
+	    // ------------------------------------
+	
+	    var popOutActionElement = elementStore.createElement('a');
+	    popOutActionElement.classList.add('gitter-chat-embed-action-bar-item', 'gitter-chat-embed-action-bar-item-pop-out');
+	    popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
+	    popOutActionElement.setAttribute('href', '' + opts.host + opts.room);
+	    popOutActionElement.setAttribute('target', '_blank');
+	
+	    actionBar.appendChild(popOutActionElement);
+	
+	    var collapseActionElement = elementStore.createElement('button');
+	    collapseActionElement.classList.add('gitter-chat-embed-action-bar-item', 'gitter-chat-embed-action-bar-item-collapse-chat');
+	    collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
+	    elementOnActivate(collapseActionElement, function (e) {
+	      // Hide the chat
+	      chat.toggleChat(false);
+	
+	      e.preventDefault();
+	    });
+	
+	    actionBar.appendChild(collapseActionElement);
+	  });
+	
+	  return elementStore;
+	};
+	
 	var defaults = {
 	  room: undefined,
 	  // Single or array of dom elements, or string selector to embed chat in
@@ -321,14 +415,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	// Keep some stuff behind symbols so people "can't" access the private data
-	var DEFAULTS = Symbol();
-	var OPTIONS = Symbol();
-	var ELEMENTSTORE = Symbol();
-	var EVENTHANDLESTORE = Symbol();
-	var INIT = Symbol();
-	var ISEMBEDDED = Symbol();
-	var EMBEDCHATONCE = Symbol();
-	var TOGGLETARGETELEMENTS = Symbol();
+	var DEFAULTS = (0, _basicSymbolPonyfill2['default'])('DEFAULTS');
+	var OPTIONS = (0, _basicSymbolPonyfill2['default'])('OPTIONS');
+	var ELEMENTSTORE = (0, _basicSymbolPonyfill2['default'])('ELEMENTSTORE');
+	var EVENTHANDLESTORE = (0, _basicSymbolPonyfill2['default'])('EVENTHANDLESTORE');
+	var INIT = (0, _basicSymbolPonyfill2['default'])('INIT');
+	var ISEMBEDDED = (0, _basicSymbolPonyfill2['default'])('ISEMBEDDED');
+	var EMBEDCHATONCE = (0, _basicSymbolPonyfill2['default'])('EMBEDCHATONCE');
+	var TOGGLETARGETELEMENTS = (0, _basicSymbolPonyfill2['default'])('TOGGLETARGETELEMENTS');
 	
 	var chatEmbed = (function () {
 	  function chatEmbed() {
@@ -377,6 +471,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        targetElement.insertBefore(loadingIndicatorElement, targetElement.firstChild);
 	      });
 	
+	      // Add the action bar to the target
+	      // after it was put in place just above
+	      addActionBar(this);
+	
 	      if (opts.preload) {
 	        this.toggleChat(false);
 	      }
@@ -386,11 +484,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 	      // The activationElement is only setup if `opts.showChatByDefault` is false
 	      else {
-	          // You can pass `false` or `null` to disable the activation element
-	          if (opts.activationElement !== false && opts.activationElement !== null) {
-	            // Coerce into array of dom elements on what they pass in
-	            // Otherwise create our own default activationElement
-	            opts.activationElement = (0, _domUtilityJs2['default'])(opts.activationElement || (function () {
+	          // Create our own default activationElement if one was not defined
+	          // Note: You can pass `false` or `null` to disable the activation element
+	          if (opts.activationElement === undefined || opts.activationElement === true) {
+	            opts.activationElement = (0, _domUtilityJs2['default'])((function () {
 	              var button = _this[ELEMENTSTORE].createElement('a');
 	              // We use the option for the room (not pertaining to a particular targetElement attribute if set)
 	              button.href = '' + opts.host + opts.room;
@@ -400,26 +497,33 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	              return button;
 	            })());
+	          }
+	          // Otherwise coerce into array of dom elements on what they pass in
+	          else if (opts.activationElement) {
+	              opts.activationElement = (0, _domUtilityJs2['default'])(opts.activationElement);
+	            }
 	
+	          if (opts.activationElement) {
+	            // Hook up the button to show the chat on activation
 	            elementOnActivate(opts.activationElement, function (e) {
 	              // Show the chat
 	              _this.toggleChat(true);
 	
 	              e.preventDefault();
 	            });
-	          }
 	
-	          // Toggle the visibility of the activation element
-	          // so it is only there when the the chat is closed
-	          opts.targetElement.forEach(function (targetElement) {
-	            domUtility.on(targetElement, 'gitter-chat-toggle', function (e) {
-	              var isChatOpen = e.detail.state;
+	            // Toggle the visibility of the activation element
+	            // so it is only there when the the chat is closed
+	            opts.targetElement.forEach(function (targetElement) {
+	              domUtility.on(targetElement, 'gitter-chat-toggle', function (e) {
+	                var isChatOpen = e.detail.state;
 	
-	              opts.activationElement.forEach(function (activationElement) {
-	                activationElement.classList.toggle('is-collapsed', isChatOpen);
+	                opts.activationElement.forEach(function (activationElement) {
+	                  domUtility.toggleClass(activationElement, 'is-collapsed', isChatOpen);
+	                });
 	              });
 	            });
-	          });
+	          }
 	        }
 	
 	      // Listen to buttons with a class of `.js-gitter-toggle-chat-button`
@@ -434,16 +538,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      // Emit that we started on each targetElement
 	      opts.targetElement.forEach(function (targetElement) {
-	        var event = new CustomEvent('gitter-chat-started', {
+	        var event = new _customEventPonyfill2['default']('gitter-chat-started', {
 	          detail: {
 	            chat: _this
 	          }
 	        });
 	        targetElement.dispatchEvent(event);
 	      });
-	
 	      // Emit that we started on the document
-	      var documentEvent = new CustomEvent('gitter-sidecar-instance-started', {
+	      var documentEvent = new _customEventPonyfill2['default']('gitter-sidecar-instance-started', {
 	        detail: {
 	          chat: this
 	        }
@@ -453,54 +556,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }, {
 	    key: EMBEDCHATONCE,
 	    value: function value() {
-	      var _this2 = this;
-	
 	      if (!this[ISEMBEDDED]) {
-	        (function () {
-	          var opts = _this2[OPTIONS];
+	        var opts = this[OPTIONS];
 	
-	          var embedResult = embedGitterChat(_this2[OPTIONS]);
-	          _this2[ELEMENTSTORE].add(embedResult);
-	
-	          var targetElements = opts.targetElement;
-	          targetElements.forEach(function (targetElement) {
-	            var actionBar = _this2[ELEMENTSTORE].createElement('div');
-	            actionBar.classList.add('gitter-chat-embed-action-bar');
-	
-	            // Prepend
-	            targetElement.insertBefore(actionBar, targetElement.firstChild);
-	
-	            var popOutActionElement = _this2[ELEMENTSTORE].createElement('button');
-	            popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
-	            popOutActionElement.classList.add('gitter-chat-embed-action-bar-item-pop-out');
-	            popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
-	            elementOnActivate(popOutActionElement, function (e) {
-	              // Hide the chat
-	              _this2.toggleChat(false);
-	
-	              // Open in new tab
-	              var win = window.open('' + opts.host + _this2[OPTIONS].room, '_blank');
-	              win.focus();
-	
-	              e.preventDefault();
-	            });
-	
-	            actionBar.appendChild(popOutActionElement);
-	
-	            var collapseActionElement = _this2[ELEMENTSTORE].createElement('button');
-	            collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
-	            collapseActionElement.classList.add('gitter-chat-embed-action-bar-item-collapse-chat');
-	            collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
-	            elementOnActivate(collapseActionElement, function (e) {
-	              // Hide the chat
-	              _this2.toggleChat(false);
-	
-	              e.preventDefault();
-	            });
-	
-	            actionBar.appendChild(collapseActionElement);
-	          });
-	        })();
+	        var embedResult = embedGitterChat(this[OPTIONS]);
+	        this[ELEMENTSTORE].add(embedResult);
 	      }
 	
 	      this[ISEMBEDDED] = true;
@@ -518,19 +578,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	      var targetElements = opts.targetElement;
 	      targetElements.forEach(function (targetElement) {
-	        var wasCollapseClassAdded = undefined;
 	        if (state === 'toggle') {
-	          wasCollapseClassAdded = targetElement.classList.toggle('is-collapsed');
+	          domUtility.toggleClass(targetElement, 'is-collapsed');
 	        } else {
-	          wasCollapseClassAdded = targetElement.classList.toggle('is-collapsed', !state);
+	          domUtility.toggleClass(targetElement, 'is-collapsed', !state);
 	        }
 	
-	        // This is what happened after toggling the classes from the `state` input passed in
-	        var actualState = !wasCollapseClassAdded;
-	
-	        var event = new CustomEvent('gitter-chat-toggle', {
+	        var event = new _customEventPonyfill2['default']('gitter-chat-toggle', {
 	          detail: {
-	            state: actualState
+	            state: state
 	          }
 	        });
 	        targetElement.dispatchEvent(event);
@@ -538,11 +594,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	
 	    // Public API
-	    // state: true, false, 'toggle'
+	
 	  }, {
 	    key: 'toggleChat',
+	
+	    // state: true, false, 'toggle'
 	    value: function toggleChat(state) {
-	      var _this3 = this;
+	      var _this2 = this;
 	
 	      var opts = this[OPTIONS];
 	
@@ -557,8 +615,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          });
 	
 	          setTimeout(function () {
-	            _this3[EMBEDCHATONCE]();
-	            _this3[TOGGLETARGETELEMENTS](state);
+	            _this2[EMBEDCHATONCE]();
+	            _this2[TOGGLETARGETELEMENTS](state);
 	
 	            // Remove the loading spinner
 	            targetElements.forEach(function (targetElement) {
@@ -586,6 +644,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // Remove and DOM elements, we made
 	      this[ELEMENTSTORE].destroy();
 	    }
+	  }, {
+	    key: 'options',
+	    get: function get() {
+	      // We don't want anyone to modify our options
+	      // So copy and make it non-writable
+	      return (0, _makeReadableCopy2['default'])(this[OPTIONS]);
+	    }
 	  }]);
 	
 	  return chatEmbed;
@@ -595,7 +660,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 3 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
@@ -729,7 +794,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    function lib$es6$promise$asap$$attemptVertx() {
 	      try {
 	        var r = require;
-	        var vertx = __webpack_require__(6);
+	        var vertx = __webpack_require__(7);
 	        lib$es6$promise$asap$$vertxNext = vertx.runOnLoop || vertx.runOnContext;
 	        return lib$es6$promise$asap$$useVertxTimer();
 	      } catch(e) {
@@ -1554,7 +1619,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    };
 	
 	    /* global define:true module:true window: true */
-	    if ("function" === 'function' && __webpack_require__(7)['amd']) {
+	    if ("function" === 'function' && __webpack_require__(8)['amd']) {
 	      !(__WEBPACK_AMD_DEFINE_RESULT__ = function() { return lib$es6$promise$umd$$ES6Promise; }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else if (typeof module !== 'undefined' && module['exports']) {
 	      module['exports'] = lib$es6$promise$umd$$ES6Promise;
@@ -1566,10 +1631,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	}).call(this);
 	
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4), (function() { return this; }()), __webpack_require__(5)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), (function() { return this; }()), __webpack_require__(6)(module)))
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -1666,7 +1731,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	module.exports = function(module) {
@@ -1682,20 +1747,46 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
 
 
 /***/ },
-/* 8 */
+/* 9 */
+/***/ function(module, exports) {
+
+	
+	// We return the native Symbol if available
+	// Otherwise just give them a random string
+	'use strict';
+	
+	Object.defineProperty(exports, '__esModule', {
+		value: true
+	});
+	exports['default'] = BasicSymbol;
+	
+	function BasicSymbol(description) {
+		if (typeof Symbol === 'function') {
+			return Symbol(description);
+		}
+	
+		var randomString = Math.random().toString(36).substr(2, 8);
+		return description + randomString;
+	}
+	
+	;
+	module.exports = exports['default'];
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1777,21 +1868,21 @@ return /******/ (function(modules) { // webpackBootstrap
 	module.exports = exports['default'];
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(10)();
+	exports = module.exports = __webpack_require__(12)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".gitter-hidden{box-sizing:border-box;display:none}.gitter-icon{box-sizing:border-box;width:22px;height:22px;fill:currentColor}.gitter-chat-embed{box-sizing:border-box;z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;background-color:#fff;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}@context border-box{.gitter-chat-embed{box-sizing:border-box;background-color:#fff}}.gitter-chat-embed.is-collapsed:not(.is-loading){box-sizing:border-box;-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed:after{box-sizing:border-box;content:'';z-index:-1;position:absolute;top:0;left:100%;bottom:0;right:-100%;background-color:#fff}@context border-box{.gitter-chat-embed:after{box-sizing:border-box;background-color:#fff}}@media(max-width:1150px){.gitter-chat-embed{box-sizing:border-box;left:45%}}@media(max-width:944px){.gitter-chat-embed{box-sizing:border-box;left:30%}}@media(max-width:600px){.gitter-chat-embed{box-sizing:border-box;left:15%}}@media(max-width:500px){.gitter-chat-embed{box-sizing:border-box;left:0}}.gitter-chat-embed>iframe{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-loading-wrapper{box-sizing:border-box;position:absolute;top:0;left:0;bottom:0;right:0;display:none;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}.is-loading .gitter-chat-embed-loading-wrapper{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.gitter-chat-embed-loading-indicator{box-sizing:border-box;opacity:.75;background-image:url(\"data:image/svg+xml;charset=utf8,<svg%20xmlns%3D\\\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\\\"%20viewBox%3D\\\"0%200%201792%201792\\\"%20fill%3D\\\"%233a3133\\\"><path%20d%3D\\\"M526%201394q0%2053-37.5%2090.5t-90.5%2037.5q-52%200-90-38t-38-90q0-53%2037.5-90.5t90.5-37.5%2090.5%2037.5%2037.5%2090.5zm498%20206q0%2053-37.5%2090.5t-90.5%2037.5-90.5-37.5-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm-704-704q0%2053-37.5%2090.5t-90.5%2037.5-90.5-37.5-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm1202%20498q0%2052-38%2090t-90%2038q-53%200-90.5-37.5t-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm-964-996q0%2066-47%20113t-113%2047-113-47-47-113%2047-113%20113-47%20113%2047%2047%20113zm1170%20498q0%2053-37.5%2090.5t-90.5%2037.5-90.5-37.5-37.5-90.5%2037.5-90.5%2090.5-37.5%2090.5%2037.5%2037.5%2090.5zm-640-704q0%2080-56%20136t-136%2056-136-56-56-136%2056-136%20136-56%20136%2056%2056%20136zm530%20206q0%2093-66%20158.5t-158%2065.5q-93%200-158.5-65.5t-65.5-158.5q0-92%2065.5-158t158.5-66q92%200%20158%2066t66%20158z\\\"%2F><%2Fsvg>\");-webkit-animation:spin 2s infinite linear;animation:spin 2s infinite linear}@-webkit-keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}@keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}.gitter-chat-embed-action-bar{box-sizing:border-box;position:absolute;top:0;left:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;padding-bottom:.7em;background:-webkit-linear-gradient(top,#fff 0,#fff 50%,rgba(255,255,255,0) 100%);background:linear-gradient(to bottom,#fff 0,#fff 50%,rgba(255,255,255,0) 100%)}.gitter-chat-embed-action-bar-item{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:40px;height:40px;padding-left:0;padding-right:0;opacity:.65;background:none;background-position:center center;background-repeat:no-repeat;background-size:22px 22px;border:0;outline:none;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{box-sizing:border-box;opacity:1}.gitter-chat-embed-action-bar-item:active{box-sizing:border-box;-webkit-filter:hue-rotate(80deg) saturate(150);filter:hue-rotate(80deg) saturate(150)}.gitter-chat-embed-action-bar-item-pop-out{box-sizing:border-box;margin-right:-4px;background-image:url(\"data:image/svg+xml;charset=utf8,<svg%20xmlns%3D\\\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\\\"%20viewBox%3D\\\"0%200%20200%20171.429\\\"%20fill%3D\\\"%233a3133\\\"><path%20d%3D\\\"M157.143%2C103.571v35.714c0%2C8.854-3.144%2C16.426-9.431%2C22.713s-13.858%2C9.431-22.712%2C9.431H32.143%20c-8.854%2C0-16.425-3.144-22.712-9.431S0%2C148.14%2C0%2C139.285V46.429c0-8.854%2C3.144-16.425%2C9.431-22.712%20c6.287-6.287%2C13.858-9.431%2C22.712-9.431h78.572c1.041%2C0%2C1.896%2C0.335%2C2.566%2C1.004c0.67%2C0.67%2C1.004%2C1.525%2C1.004%2C2.567V25%20c0%2C1.042-0.334%2C1.897-1.004%2C2.567c-0.67%2C0.67-1.525%2C1.004-2.566%2C1.004H32.143c-4.911%2C0-9.115%2C1.749-12.612%2C5.246%20s-5.246%2C7.701-5.246%2C12.612v92.856c0%2C4.911%2C1.749%2C9.115%2C5.246%2C12.612s7.701%2C5.245%2C12.612%2C5.245H125c4.91%2C0%2C9.115-1.748%2C12.611-5.245%20c3.497-3.497%2C5.246-7.701%2C5.246-12.612v-35.714c0-1.042%2C0.334-1.897%2C1.004-2.567c0.67-0.669%2C1.525-1.004%2C2.567-1.004h7.143%20c1.042%2C0%2C1.897%2C0.335%2C2.567%2C1.004C156.809%2C101.674%2C157.143%2C102.529%2C157.143%2C103.571z%20M200%2C7.143v57.143%20c0%2C1.935-0.707%2C3.609-2.121%2C5.022c-1.413%2C1.414-3.088%2C2.121-5.021%2C2.121c-1.935%2C0-3.609-0.707-5.022-2.121l-19.644-19.643%20l-72.767%2C72.769c-0.744%2C0.744-1.6%2C1.115-2.567%2C1.115s-1.823-0.371-2.567-1.115L77.567%2C109.71c-0.744-0.744-1.116-1.6-1.116-2.567%20c0-0.967%2C0.372-1.822%2C1.116-2.566l72.768-72.768l-19.644-19.643c-1.413-1.414-2.12-3.088-2.12-5.022c0-1.935%2C0.707-3.609%2C2.12-5.022%20C132.105%2C0.707%2C133.779%2C0%2C135.715%2C0h57.143c1.934%2C0%2C3.608%2C0.707%2C5.021%2C2.121C199.293%2C3.534%2C200%2C5.208%2C200%2C7.143z\\\"%2F><%2Fsvg>\")}.gitter-chat-embed-action-bar-item-collapse-chat{box-sizing:border-box;background-image:url(\"data:image/svg+xml;charset=utf8,<svg%20xmlns%3D\\\"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg\\\"%20viewBox%3D\\\"0%200%20171.429%20171.429\\\"%20fill%3D\\\"%233a3133\\\"><path%20d%3D\\\"M122.433%2C106.138l-16.295%2C16.295c-0.744%2C0.744-1.6%2C1.116-2.566%2C1.116c-0.968%2C0-1.823-0.372-2.567-1.116l-15.29-15.29%20l-15.29%2C15.29c-0.744%2C0.744-1.6%2C1.116-2.567%2C1.116s-1.823-0.372-2.567-1.116l-16.294-16.295c-0.744-0.744-1.116-1.6-1.116-2.566%20c0-0.968%2C0.372-1.823%2C1.116-2.567l15.29-15.29l-15.29-15.29c-0.744-0.744-1.116-1.6-1.116-2.567s0.372-1.823%2C1.116-2.567%20L65.29%2C48.996c0.744-0.744%2C1.6-1.116%2C2.567-1.116s1.823%2C0.372%2C2.567%2C1.116l15.29%2C15.29l15.29-15.29%20c0.744-0.744%2C1.6-1.116%2C2.567-1.116c0.967%2C0%2C1.822%2C0.372%2C2.566%2C1.116l16.295%2C16.294c0.744%2C0.744%2C1.116%2C1.6%2C1.116%2C2.567%20s-0.372%2C1.823-1.116%2C2.567l-15.29%2C15.29l15.29%2C15.29c0.744%2C0.744%2C1.116%2C1.6%2C1.116%2C2.567%20C123.549%2C104.539%2C123.177%2C105.394%2C122.433%2C106.138z%20M146.429%2C85.714c0-11.012-2.717-21.168-8.148-30.469%20s-12.797-16.667-22.098-22.098S96.726%2C25%2C85.714%2C25s-21.168%2C2.716-30.469%2C8.147S38.579%2C45.945%2C33.147%2C55.246S25%2C74.703%2C25%2C85.714%20s2.716%2C21.168%2C8.147%2C30.469s12.797%2C16.666%2C22.098%2C22.098s19.457%2C8.148%2C30.469%2C8.148s21.168-2.717%2C30.469-8.148%20s16.666-12.797%2C22.098-22.098S146.429%2C96.726%2C146.429%2C85.714z%20M171.429%2C85.714c0%2C15.551-3.832%2C29.893-11.496%2C43.024%20c-7.664%2C13.133-18.062%2C23.53-31.194%2C31.194c-13.132%2C7.664-27.474%2C11.496-43.024%2C11.496s-29.892-3.832-43.024-11.496%20c-13.133-7.664-23.531-18.062-31.194-31.194C3.832%2C115.607%2C0%2C101.265%2C0%2C85.714S3.832%2C55.822%2C11.496%2C42.69%20c7.664-13.133%2C18.062-23.531%2C31.194-31.194C55.822%2C3.832%2C70.164%2C0%2C85.714%2C0s29.893%2C3.832%2C43.024%2C11.496%20c13.133%2C7.664%2C23.53%2C18.062%2C31.194%2C31.194C167.597%2C55.822%2C171.429%2C70.164%2C171.429%2C85.714z\\\"%2F><%2Fsvg>\")}.gitter-open-chat-button{box-sizing:border-box;z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;font-family:sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:all .3s ease;transition:all .3s ease}.gitter-open-chat-button:visited{box-sizing:border-box;color:#fff}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{box-sizing:border-box;background-color:#3ea07f;color:#fff}.gitter-open-chat-button:focus{box-sizing:border-box;box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button:active{box-sizing:border-box;color:#eee}.gitter-open-chat-button.is-collapsed{box-sizing:border-box;-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
+	exports.push([module.id, ".gitter-hidden{box-sizing:border-box;display:none}.gitter-icon{box-sizing:border-box;width:22px;height:22px;fill:currentColor}.gitter-chat-embed{box-sizing:border-box;z-index:100;position:fixed;top:0;left:60%;bottom:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:normal;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;background-color:#fff;border-left:1px solid #333;box-shadow:-12px 0 18px 0 rgba(50,50,50,.3);-webkit-transition:-webkit-transform .3s cubic-bezier(.16,.22,.22,1.7);transition:transform .3s cubic-bezier(.16,.22,.22,1.7)}@context border-box{.gitter-chat-embed{box-sizing:border-box;background-color:#fff}}.gitter-chat-embed.is-collapsed:not(.is-loading){box-sizing:border-box;-webkit-transform:translateX(110%);-ms-transform:translateX(110%);transform:translateX(110%)}.gitter-chat-embed:after{box-sizing:border-box;content:'';z-index:-1;position:absolute;top:0;left:100%;bottom:0;right:-100%;background-color:#fff}@context border-box{.gitter-chat-embed:after{box-sizing:border-box;background-color:#fff}}@media(max-width:1150px){.gitter-chat-embed{box-sizing:border-box;left:45%}}@media(max-width:944px){.gitter-chat-embed{box-sizing:border-box;left:30%}}@media(max-width:600px){.gitter-chat-embed{box-sizing:border-box;left:15%}}@media(max-width:500px){.gitter-chat-embed{box-sizing:border-box;left:0}}.gitter-chat-embed>iframe{box-sizing:border-box;-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;width:100%;height:100%;border:0}.gitter-chat-embed-loading-wrapper{box-sizing:border-box;position:absolute;top:0;left:0;bottom:0;right:0;display:none;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center}.is-loading .gitter-chat-embed-loading-wrapper{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.gitter-chat-embed-loading-indicator{box-sizing:border-box;opacity:.75;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzkyIDE3OTIiIGZpbGw9IiMzYTMxMzMiPjxwYXRoIGQ9Ik01MjYgMTM5NHEwIDUzLTM3LjUgOTAuNXQtOTAuNSAzNy41cS01MiAwLTkwLTM4dC0zOC05MHEwLTUzIDM3LjUtOTAuNXQ5MC41LTM3LjUgOTAuNSAzNy41IDM3LjUgOTAuNXptNDk4IDIwNnEwIDUzLTM3LjUgOTAuNXQtOTAuNSAzNy41LTkwLjUtMzcuNS0zNy41LTkwLjUgMzcuNS05MC41IDkwLjUtMzcuNSA5MC41IDM3LjUgMzcuNSA5MC41em0tNzA0LTcwNHEwIDUzLTM3LjUgOTAuNXQtOTAuNSAzNy41LTkwLjUtMzcuNS0zNy41LTkwLjUgMzcuNS05MC41IDkwLjUtMzcuNSA5MC41IDM3LjUgMzcuNSA5MC41em0xMjAyIDQ5OHEwIDUyLTM4IDkwdC05MCAzOHEtNTMgMC05MC41LTM3LjV0LTM3LjUtOTAuNSAzNy41LTkwLjUgOTAuNS0zNy41IDkwLjUgMzcuNSAzNy41IDkwLjV6bS05NjQtOTk2cTAgNjYtNDcgMTEzdC0xMTMgNDctMTEzLTQ3LTQ3LTExMyA0Ny0xMTMgMTEzLTQ3IDExMyA0NyA0NyAxMTN6bTExNzAgNDk4cTAgNTMtMzcuNSA5MC41dC05MC41IDM3LjUtOTAuNS0zNy41LTM3LjUtOTAuNSAzNy41LTkwLjUgOTAuNS0zNy41IDkwLjUgMzcuNSAzNy41IDkwLjV6bS02NDAtNzA0cTAgODAtNTYgMTM2dC0xMzYgNTYtMTM2LTU2LTU2LTEzNiA1Ni0xMzYgMTM2LTU2IDEzNiA1NiA1NiAxMzZ6bTUzMCAyMDZxMCA5My02NiAxNTguNXQtMTU4IDY1LjVxLTkzIDAtMTU4LjUtNjUuNXQtNjUuNS0xNTguNXEwLTkyIDY1LjUtMTU4dDE1OC41LTY2cTkyIDAgMTU4IDY2dDY2IDE1OHoiLz48L3N2Zz4=);-webkit-animation:spin 2s infinite linear;animation:spin 2s infinite linear}@-webkit-keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}@keyframes spin{from{box-sizing:border-box;-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{box-sizing:border-box;-webkit-transform:rotate(359.9deg);transform:rotate(359.9deg)}}.gitter-chat-embed-action-bar{box-sizing:border-box;position:absolute;top:0;left:0;right:0;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;-ms-flex-pack:end;justify-content:flex-end;padding-bottom:.7em;background:-webkit-linear-gradient(top,#fff 0,#fff 50%,rgba(255,255,255,0) 100%);background:linear-gradient(to bottom,#fff 0,#fff 50%,rgba(255,255,255,0) 100%)}.gitter-chat-embed-action-bar-item{box-sizing:border-box;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;-webkit-box-align:center;-webkit-align-items:center;-ms-flex-align:center;align-items:center;width:40px;height:40px;padding-left:0;padding-right:0;opacity:.65;background:none;background-position:center center;background-repeat:no-repeat;background-size:22px 22px;border:0;outline:none;cursor:pointer;cursor:hand;-webkit-transition:all .2s ease;transition:all .2s ease}.gitter-chat-embed-action-bar-item:hover,.gitter-chat-embed-action-bar-item:focus{box-sizing:border-box;opacity:1}.gitter-chat-embed-action-bar-item:active{box-sizing:border-box;-webkit-filter:hue-rotate(80deg) saturate(150);filter:hue-rotate(80deg) saturate(150)}.gitter-chat-embed-action-bar-item-pop-out{box-sizing:border-box;margin-right:-4px;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTcxLjQyOSIgZmlsbD0iIzNhMzEzMyI+PHBhdGggZD0iTTE1Ny4xNDMsMTAzLjU3MXYzNS43MTRjMCw4Ljg1NC0zLjE0NCwxNi40MjYtOS40MzEsMjIuNzEzcy0xMy44NTgsOS40MzEtMjIuNzEyLDkuNDMxSDMyLjE0MyBjLTguODU0LDAtMTYuNDI1LTMuMTQ0LTIyLjcxMi05LjQzMVMwLDE0OC4xNCwwLDEzOS4yODVWNDYuNDI5YzAtOC44NTQsMy4xNDQtMTYuNDI1LDkuNDMxLTIyLjcxMiBjNi4yODctNi4yODcsMTMuODU4LTkuNDMxLDIyLjcxMi05LjQzMWg3OC41NzJjMS4wNDEsMCwxLjg5NiwwLjMzNSwyLjU2NiwxLjAwNGMwLjY3LDAuNjcsMS4wMDQsMS41MjUsMS4wMDQsMi41NjdWMjUgYzAsMS4wNDItMC4zMzQsMS44OTctMS4wMDQsMi41NjdjLTAuNjcsMC42Ny0xLjUyNSwxLjAwNC0yLjU2NiwxLjAwNEgzMi4xNDNjLTQuOTExLDAtOS4xMTUsMS43NDktMTIuNjEyLDUuMjQ2IHMtNS4yNDYsNy43MDEtNS4yNDYsMTIuNjEydjkyLjg1NmMwLDQuOTExLDEuNzQ5LDkuMTE1LDUuMjQ2LDEyLjYxMnM3LjcwMSw1LjI0NSwxMi42MTIsNS4yNDVIMTI1YzQuOTEsMCw5LjExNS0xLjc0OCwxMi42MTEtNS4yNDUgYzMuNDk3LTMuNDk3LDUuMjQ2LTcuNzAxLDUuMjQ2LTEyLjYxMnYtMzUuNzE0YzAtMS4wNDIsMC4zMzQtMS44OTcsMS4wMDQtMi41NjdjMC42Ny0wLjY2OSwxLjUyNS0xLjAwNCwyLjU2Ny0xLjAwNGg3LjE0MyBjMS4wNDIsMCwxLjg5NywwLjMzNSwyLjU2NywxLjAwNEMxNTYuODA5LDEwMS42NzQsMTU3LjE0MywxMDIuNTI5LDE1Ny4xNDMsMTAzLjU3MXogTTIwMCw3LjE0M3Y1Ny4xNDMgYzAsMS45MzUtMC43MDcsMy42MDktMi4xMjEsNS4wMjJjLTEuNDEzLDEuNDE0LTMuMDg4LDIuMTIxLTUuMDIxLDIuMTIxYy0xLjkzNSwwLTMuNjA5LTAuNzA3LTUuMDIyLTIuMTIxbC0xOS42NDQtMTkuNjQzIGwtNzIuNzY3LDcyLjc2OWMtMC43NDQsMC43NDQtMS42LDEuMTE1LTIuNTY3LDEuMTE1cy0xLjgyMy0wLjM3MS0yLjU2Ny0xLjExNUw3Ny41NjcsMTA5LjcxYy0wLjc0NC0wLjc0NC0xLjExNi0xLjYtMS4xMTYtMi41NjcgYzAtMC45NjcsMC4zNzItMS44MjIsMS4xMTYtMi41NjZsNzIuNzY4LTcyLjc2OGwtMTkuNjQ0LTE5LjY0M2MtMS40MTMtMS40MTQtMi4xMi0zLjA4OC0yLjEyLTUuMDIyYzAtMS45MzUsMC43MDctMy42MDksMi4xMi01LjAyMiBDMTMyLjEwNSwwLjcwNywxMzMuNzc5LDAsMTM1LjcxNSwwaDU3LjE0M2MxLjkzNCwwLDMuNjA4LDAuNzA3LDUuMDIxLDIuMTIxQzE5OS4yOTMsMy41MzQsMjAwLDUuMjA4LDIwMCw3LjE0M3oiLz48L3N2Zz4=)}.gitter-chat-embed-action-bar-item-collapse-chat{box-sizing:border-box;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNzEuNDI5IDE3MS40MjkiIGZpbGw9IiMzYTMxMzMiPjxwYXRoIGQ9Ik0xMjIuNDMzLDEwNi4xMzhsLTE2LjI5NSwxNi4yOTVjLTAuNzQ0LDAuNzQ0LTEuNiwxLjExNi0yLjU2NiwxLjExNmMtMC45NjgsMC0xLjgyMy0wLjM3Mi0yLjU2Ny0xLjExNmwtMTUuMjktMTUuMjkgbC0xNS4yOSwxNS4yOWMtMC43NDQsMC43NDQtMS42LDEuMTE2LTIuNTY3LDEuMTE2cy0xLjgyMy0wLjM3Mi0yLjU2Ny0xLjExNmwtMTYuMjk0LTE2LjI5NWMtMC43NDQtMC43NDQtMS4xMTYtMS42LTEuMTE2LTIuNTY2IGMwLTAuOTY4LDAuMzcyLTEuODIzLDEuMTE2LTIuNTY3bDE1LjI5LTE1LjI5bC0xNS4yOS0xNS4yOWMtMC43NDQtMC43NDQtMS4xMTYtMS42LTEuMTE2LTIuNTY3czAuMzcyLTEuODIzLDEuMTE2LTIuNTY3IEw2NS4yOSw0OC45OTZjMC43NDQtMC43NDQsMS42LTEuMTE2LDIuNTY3LTEuMTE2czEuODIzLDAuMzcyLDIuNTY3LDEuMTE2bDE1LjI5LDE1LjI5bDE1LjI5LTE1LjI5IGMwLjc0NC0wLjc0NCwxLjYtMS4xMTYsMi41NjctMS4xMTZjMC45NjcsMCwxLjgyMiwwLjM3MiwyLjU2NiwxLjExNmwxNi4yOTUsMTYuMjk0YzAuNzQ0LDAuNzQ0LDEuMTE2LDEuNiwxLjExNiwyLjU2NyBzLTAuMzcyLDEuODIzLTEuMTE2LDIuNTY3bC0xNS4yOSwxNS4yOWwxNS4yOSwxNS4yOWMwLjc0NCwwLjc0NCwxLjExNiwxLjYsMS4xMTYsMi41NjcgQzEyMy41NDksMTA0LjUzOSwxMjMuMTc3LDEwNS4zOTQsMTIyLjQzMywxMDYuMTM4eiBNMTQ2LjQyOSw4NS43MTRjMC0xMS4wMTItMi43MTctMjEuMTY4LTguMTQ4LTMwLjQ2OSBzLTEyLjc5Ny0xNi42NjctMjIuMDk4LTIyLjA5OFM5Ni43MjYsMjUsODUuNzE0LDI1cy0yMS4xNjgsMi43MTYtMzAuNDY5LDguMTQ3UzM4LjU3OSw0NS45NDUsMzMuMTQ3LDU1LjI0NlMyNSw3NC43MDMsMjUsODUuNzE0IHMyLjcxNiwyMS4xNjgsOC4xNDcsMzAuNDY5czEyLjc5NywxNi42NjYsMjIuMDk4LDIyLjA5OHMxOS40NTcsOC4xNDgsMzAuNDY5LDguMTQ4czIxLjE2OC0yLjcxNywzMC40NjktOC4xNDggczE2LjY2Ni0xMi43OTcsMjIuMDk4LTIyLjA5OFMxNDYuNDI5LDk2LjcyNiwxNDYuNDI5LDg1LjcxNHogTTE3MS40MjksODUuNzE0YzAsMTUuNTUxLTMuODMyLDI5Ljg5My0xMS40OTYsNDMuMDI0IGMtNy42NjQsMTMuMTMzLTE4LjA2MiwyMy41My0zMS4xOTQsMzEuMTk0Yy0xMy4xMzIsNy42NjQtMjcuNDc0LDExLjQ5Ni00My4wMjQsMTEuNDk2cy0yOS44OTItMy44MzItNDMuMDI0LTExLjQ5NiBjLTEzLjEzMy03LjY2NC0yMy41MzEtMTguMDYyLTMxLjE5NC0zMS4xOTRDMy44MzIsMTE1LjYwNywwLDEwMS4yNjUsMCw4NS43MTRTMy44MzIsNTUuODIyLDExLjQ5Niw0Mi42OSBjNy42NjQtMTMuMTMzLDE4LjA2Mi0yMy41MzEsMzEuMTk0LTMxLjE5NEM1NS44MjIsMy44MzIsNzAuMTY0LDAsODUuNzE0LDBzMjkuODkzLDMuODMyLDQzLjAyNCwxMS40OTYgYzEzLjEzMyw3LjY2NCwyMy41MywxOC4wNjIsMzEuMTk0LDMxLjE5NEMxNjcuNTk3LDU1LjgyMiwxNzEuNDI5LDcwLjE2NCwxNzEuNDI5LDg1LjcxNHoiLz48L3N2Zz4=)}.gitter-open-chat-button{box-sizing:border-box;z-index:100;position:fixed;bottom:0;right:10px;padding:1em 3em;background-color:#36bc98;border:0;border-top-left-radius:.5em;border-top-right-radius:.5em;color:#fff;font-family:sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;text-align:center;text-decoration:none;cursor:pointer;cursor:hand;-webkit-transition:all .3s ease;transition:all .3s ease}.gitter-open-chat-button:visited{box-sizing:border-box;color:#fff}.gitter-open-chat-button:hover,.gitter-open-chat-button:focus{box-sizing:border-box;background-color:#3ea07f;color:#fff}.gitter-open-chat-button:focus{box-sizing:border-box;box-shadow:0 0 8px rgba(62,160,127,.6);outline:none}.gitter-open-chat-button:active{box-sizing:border-box;color:#eee}.gitter-open-chat-button.is-collapsed{box-sizing:border-box;-webkit-transform:translateY(120%);-ms-transform:translateY(120%);transform:translateY(120%)}", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports) {
 
 	/*
@@ -1847,7 +1938,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports) {
 
 	// DOM Utility
@@ -1866,6 +1957,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.on = on;
 	exports.off = off;
 	exports.prependElementTo = prependElementTo;
+	exports.toggleClass = toggleClass;
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) arr2[i] = arr[i]; return arr2; } else { return Array.from(arr); } }
+	
 	var concat = function concat() {
 	  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
 	    args[_key] = arguments[_key];
@@ -1885,21 +1980,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	// Pass in a selector string, dom node, or array of dom nodes
 	var coerceIntoElementsArray = function coerceIntoElementsArray() {
-	  var elements = [];
-	
 	  for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
 	    args[_key2] = arguments[_key2];
 	  }
 	
+	  var elements = args;
 	  if (typeof args[0] === 'string') {
 	    var _document$querySelectorAll;
 	
 	    elements = (_document$querySelectorAll = document.querySelectorAll).call.apply(_document$querySelectorAll, [document].concat(args));
-	  } else {
-	    elements = concat.apply(undefined, args);
 	  }
 	
-	  return elements;
+	  return concat.apply(undefined, _toConsumableArray(elements));
 	};
 	
 	// `arrayLike` can be a single object, array, or array-like (NodeList, HTMLCollection)
@@ -1944,7 +2036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 	
 	function prependElementTo(element, target) {
-	  var firstTargetChild = target.children[0];
+	  var firstTargetChild = (target.children || [])[0];
 	  if (firstTargetChild) {
 	    target.insertBefore(element, firstTargetChild);
 	  } else {
@@ -1952,11 +2044,55 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	}
 	
+	// Can't use `classList.toggle` with the second parameter (force)
+	// Because IE11 does not support it
+	
+	function toggleClass(element, class1, force) {
+	  if (force !== undefined) {
+	    if (force) {
+	      element.classList.add(class1);
+	    } else {
+	      element.classList.remove(class1);
+	    }
+	  } else {
+	    element.classList.toggle(class1);
+	  }
+	
+	  return force;
+	}
+	
 	var $ = function $() {
 	  return coerceIntoElementsArray.apply(undefined, arguments);
 	};
 	
 	exports['default'] = $;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	// Copy a JS object and make it read-only
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports["default"] = makeReadableCopy;
+	
+	function makeReadableCopy(obj) {
+	  var clone = {};
+	  Object.keys(obj).forEach(function (key) {
+	    Object.defineProperty(clone, key, {
+	      value: obj[key],
+	      writable: false,
+	      configurable: false
+	    });
+	  });
+	
+	  return clone;
+	}
+	
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ])
