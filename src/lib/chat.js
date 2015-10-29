@@ -1,3 +1,4 @@
+import 'array.from';
 import objectAssign from 'object-assign';
 import {Promise} from 'es6-promise';
 import Symbol from './basic-symbol-ponyfill';
