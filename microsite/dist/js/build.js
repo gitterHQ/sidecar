@@ -22150,7 +22150,7 @@
 	              _react2['default'].createElement(
 	                'p',
 	                null,
-	                'Please type the name of the room you want to load into your sidecar. E.g. gitterHQ/sidecar'
+	                'Please type the name of the public, existing room that you want to load into your sidecar. E.g. gitterHQ/sidecar'
 	              ),
 	              _react2['default'].createElement('input', {
 	                className: 'primary-input',

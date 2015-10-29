@@ -2,13 +2,12 @@
 # v1.1.2 - 2015-10-28
 
  - Add `Array.from` polyfill to support the output from babel with comprehensions. See [`gitterHQ/sidecar#28`](https://github.com/gitterHQ/sidecar/issues/28)
-
+ - Update microsite docs
 
 
 # v1.1.1 - 2015-10-22
 
  - Fix `options.targetElement` and `options.activationElement` to be able to accept a selector string. What this really means is that we fixed the underlying Fix `domUtility -> $` to return actual array(vs NodeList or HTMLCollection) when a selector string is passed in.
-
 
 
 # v1.1.0 - 2015-10-19

@@ -55,7 +55,7 @@ You can also override these options individually on the target element:
 
 ```html
 <div
-	class="gitter-chat-embed
+	class="gitter-chat-embed"
 	data-room="gitterHQ/sidecar"
 ></div>
 ```
