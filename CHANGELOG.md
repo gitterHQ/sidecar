@@ -1,4 +1,9 @@
 
+# v1.1.3 - 2015-11-5
+
+ - Remove `border-left` when the target element is 100% width at mobile sized breakpoint.
+
+
 # v1.1.2 - 2015-10-28
 
  - Add `Array.from` polyfill to support the output from babel with comprehensions. See [`gitterHQ/sidecar#28`](https://github.com/gitterHQ/sidecar/issues/28)

@@ -64,6 +64,7 @@
     }
     @media (max-width: 500px) {
       left: 0;
+      border-left: none;
     }
 
     & > iframe {
