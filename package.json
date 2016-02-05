@@ -6,6 +6,10 @@
   "browserify": {
     "transform": [
       [
+        "cssy", {
+          "processor": ["./cssy"]
+        }
+      ], [
         "babelify",
         {
           "presets": ["es2015"]
