@@ -4,6 +4,7 @@ import fs from 'fs';
 let readFile = Promise.promisify(fs.readFile);
 
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import marked from 'marked';
@@ -39,9 +40,9 @@ export default function generateRenderResponse(req) {
     });
 
     // Render the component to a string
-    const html = React.renderToString(
+    const html = ReactDOMServer.renderToString(
       <Provider store={store}>
-        {() => <App />}
+        <App />
       </Provider>
     );
 

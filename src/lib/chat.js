@@ -345,10 +345,8 @@ class chatEmbed {
     if(!this[ISEMBEDDED]) {
       let opts = this[OPTIONS];
 
-      let embedResult = embedGitterChat(this[OPTIONS]);
+      let embedResult = embedGitterChat(opts);
       this[ELEMENTSTORE].add(embedResult);
-
-
     }
 
     this[ISEMBEDDED] = true;
