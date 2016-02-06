@@ -9,7 +9,6 @@
   },
   "scripts": {
     "prepublish": "npm run build-module && npm run build",
-    "postinstall": "[ \"$NODE_ENV\" == development ] && npm run build-module && npm run build",
     "test": "gulp move-sidecar-dist-to-fixtures && npm run test-unformatted | tap-spec",
     "test-unformatted": "babel-tape-runner test/button_present_test.js",
     "devbuild": "webpack --watch --progress",
