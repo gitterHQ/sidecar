@@ -35,7 +35,7 @@ app.listen(port);
 /* */
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import config from './webpack.config';
+import config from '../webpack.config';
 
 var port = parseInt(process.env.PORT, 10) + 1 || 3001;
 var contentBase = __dirname;
