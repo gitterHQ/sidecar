@@ -4,4 +4,5 @@ node_modules
 ci
 examples
 microsite
+test
 todo.md

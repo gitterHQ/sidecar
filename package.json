@@ -2,12 +2,14 @@
   "name": "gitter-sidecar",
   "version": "1.1.3",
   "description": "An embeddable Gitter client.",
-  "main": "index.js",
+  "main": "./dist/sidecar-module.js",
   "repository": "https://github.com/gitterHQ/sidecar",
   "engine": {
     "node": "=4.0.0"
   },
   "scripts": {
+    "prepublish": "npm run build-module && npm run build",
+    "postinstall": "[ \"$NODE_ENV\" == development ] && npm run build-module && npm run build",
     "test": "gulp move-sidecar-dist-to-fixtures && npm run test-unformatted | tap-spec",
     "test-unformatted": "babel-tape-runner test/button_present_test.js",
     "devbuild": "webpack --watch --progress",
