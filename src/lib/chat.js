@@ -166,6 +166,10 @@ let addActionBar = function(chat) {
 
 
 
+var documentRootElement = document.body || document.documentElement;
+
+
+
 const defaults = {
   room: undefined,
   // Single or array of dom elements, or string selector to embed chat in
@@ -237,7 +241,7 @@ class chatEmbed {
       targetElement.classList.add('gitter-chat-embed');
       // Start out collapsed
       targetElement.classList.add('is-collapsed');
-      document.body.appendChild(targetElement);
+      documentRootElement.appendChild(targetElement);
 
       return targetElement;
     })());
@@ -276,7 +280,7 @@ class chatEmbed {
           button.href = `${opts.host}${opts.room}`;
           button.innerHTML = 'Open Chat';
           button.classList.add('gitter-open-chat-button');
-          document.body.appendChild(button);
+          documentRootElement.appendChild(button);
 
           return button;
         })());

@@ -1,3 +1,4 @@
+// This is the entry point for the <script> tag window global friendly version: https://sidecar.gitter.im/
 import objectAssign from 'object-assign';
 import CustomEvent from './lib/custom-event-ponyfill';
 
