@@ -1,8 +1,8 @@
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gitterHQ/sidecar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/gitterHQ/sidecar?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Sidecar on npm](https://img.shields.io/npm/v/gitter-sidecar.svg)](https://www.npmjs.com/gitter-sidecar)
 
 # Sidecar
 
-Gitter embed widget
+Gitter embed widget, [sidecar.gitter.im](https://sidecar.gitter.im/)
 
 ### [Changelog](https://github.com/gitterHQ/sidecar/blob/master/CHANGELOG.md)
 
@@ -10,8 +10,24 @@ Gitter embed widget
 # Usage
 
 ```html
-<div class="gitter-chat-embed"></div>
+<script>
+    ((window.gitter = {}).chat = {}).options = {
+        room: 'gitterHQ/sidecar-demo'
+    };
+</script>
 <script src="sidecar.js"></script>
+```
+
+## Module Usage
+
+This is a standalone package available on npm [`gitter-sidecar`](https://www.npmjs.com/gitter-sidecar) that doesn't pollute the global scope.
+
+```js
+var Sidecar = require('gitter-sidecar');
+
+var myChat = new Sidecar({
+	room: 'gitterHQ/sidecar-demo'
+});
 ```
 
 # [API](https://github.com/gitterHQ/sidecar/blob/master/API.md)
@@ -20,9 +36,8 @@ Gitter embed widget
 
 # Build
 
-Build the sidecar library, output path: `./dist/sidecar.js`
-
-`npm run build`
+ - Build the Sidecar library: `npm run build`, output: `./dist/sidecar.js`
+ - Build Sidecar module/package: `npm run build-module`, output: `./dist/sidecar-module.js`
 
 ### Dev
 
