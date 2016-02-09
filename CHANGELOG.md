@@ -1,4 +1,12 @@
 
+# v1.2.2 - 2016-2-8
+
+ - Update dependencies
+ - Add package to npm [`gitter-sidecar`](https://www.npmjs.com/gitter-sidecar)
+    - Add build for module/package version of Sidecar `npm run build-module`
+ - Use root element fallback in case there isn't a `<body>` element
+
+
 # v1.1.3 - 2015-11-5
 
  - Remove `border-left` when the target element is 100% width at mobile sized breakpoint.
