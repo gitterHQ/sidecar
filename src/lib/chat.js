@@ -1,4 +1,5 @@
-import 'array.from';
+import {shim as arrayFromShim} from 'array.from';
+arrayFromShim();
 import objectAssign from 'object-assign';
 import {Promise} from 'es6-promise';
 import Symbol from './basic-symbol-ponyfill';
@@ -133,10 +134,9 @@ let addActionBar = function(chat) {
     // ------------------------------------
 
     let popOutActionElement = elementStore.createElement('a');
-    popOutActionElement.classList.add(
-      'gitter-chat-embed-action-bar-item',
-      'gitter-chat-embed-action-bar-item-pop-out'
-    );
+    // We don't combine the `classList` call because IE doesn't support it
+    popOutActionElement.classList.add('gitter-chat-embed-action-bar-item');
+    popOutActionElement.classList.add('gitter-chat-embed-action-bar-item-pop-out');
     popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
     popOutActionElement.setAttribute('href', `${opts.host}${opts.room}`);
     popOutActionElement.setAttribute('target', `_blank`);
@@ -145,10 +145,9 @@ let addActionBar = function(chat) {
 
 
     let collapseActionElement = elementStore.createElement('button');
-    collapseActionElement.classList.add(
-      'gitter-chat-embed-action-bar-item',
-      'gitter-chat-embed-action-bar-item-collapse-chat'
-    );
+    // We don't combine the `classList` call because IE doesn't support it
+    collapseActionElement.classList.add('gitter-chat-embed-action-bar-item');
+    collapseActionElement.classList.add('gitter-chat-embed-action-bar-item-collapse-chat');
     collapseActionElement.setAttribute('aria-label', 'Collapse Gitter Chat');
     elementOnActivate(collapseActionElement, (e) => {
       // Hide the chat
