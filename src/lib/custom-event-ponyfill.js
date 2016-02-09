@@ -1,8 +1,8 @@
 // via https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/CustomEvent#Polyfill
 export default function CustomEvent (event, {
   bubbles = false,
-	cancelable = false,
-	detail = undefined
+  cancelable = false,
+  detail = undefined
 }) {
   let evt;
   try {

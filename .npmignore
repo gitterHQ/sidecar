@@ -1,4 +1,8 @@
 node_modules
 .git
 
+ci
+examples
+microsite
+test
 todo.md

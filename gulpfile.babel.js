@@ -1,34 +1,35 @@
-var gulp = require('gulp');
-var through = require('through2');
-var gutil = require('gulp-util');
+import gulp from 'gulp';
+import through from 'through2';
+import gutil from 'gulp-util';
 
-var runSequence = require('run-sequence');
-var plumber = require('gulp-plumber');
-var del = require('del');
-var Promise = require('bluebird');
-var argv = require('yargs').argv;
+import runSequence from 'run-sequence';
+import plumber from 'gulp-plumber';
+import del from 'del';
+import Promise from 'bluebird';
+import { argv } from 'yargs';
 
-var path = require('path');
+import path from 'path';
 
-var cache = require('gulp-cached');
-var webpack = require('webpack');
-var gzip = require('gulp-gzip');
-var S3 = require('s3');
-var manifest = require('./package.json');
+import cache from 'gulp-cached';
+import webpack from 'webpack';
+import gzip from 'gulp-gzip';
+import S3 from 's3';
+import manifest from './package.json';
 
-var postcss = require('gulp-postcss');
-var getPostcssPluginStack = require('./postcss-plugin-stack');
+import postcss from 'gulp-postcss';
+import getPostcssPluginStack from './postcss-plugin-stack';
 
 
-//var sidecarWebpackConfig = require('./webpack.config');
-var micrositeWebpackConfig = require('./microsite/webpack.config');
-var micrositeProductionWebpackConfig = require('./microsite/webpack.production.config');
+//import sidecarWebpackConfig from './webpack.config';
+import micrositeWebpackConfig from './microsite/webpack.config';
+import micrositeProductionWebpackConfig from './microsite/webpack.production.config';
 
-var micrositeBasePath = './microsite/';
-var config = {
+import generateRenderResponse from './microsite/server/generate-render-response';
+
+let micrositeBasePath = './microsite/';
+let config = {
   paths: {
     micrositeTemplates: {
-      generateRenderResponse: require('./microsite/server/generate-render-response'),
       dist: path.join(micrositeBasePath, 'dist/'),
       watch: {
         tasks: 'build-microsite-templates',
@@ -75,9 +76,9 @@ gulp.task('compress_assets', function() {
 });
 
 gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
-  var major = manifest.version.split('.')[0];
+  let major = manifest.version.split('.')[0];
 
-  var params = {
+  let params = {
     localFile: './dist/sidecar.js.gz',
     s3Params: {
       Bucket: 'sidecar.gitter.im',
@@ -89,14 +90,14 @@ gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
     }
   };
 
-  var S3Client = S3.createClient({
+  let S3Client = S3.createClient({
     s3Options: {
       accessKeyId: process.env.AWS_KEY,
       secretAccessKey: process.env.AWS_SECRET
     }
   });
 
-  var uploader = S3Client.uploadFile(params);
+  let uploader = S3Client.uploadFile(params);
 
   uploader.on('error', function (err) {
     gutil.log(err.stack);
@@ -109,7 +110,7 @@ gulp.task('upload_sidecar_to_s3', ['compress_assets'], function(done) {
 });
 
 gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
-  var params = {
+  let params = {
     localDir: './microsite/dist',
     s3Params: {
       Bucket: 'sidecar.gitter.im',
@@ -119,14 +120,14 @@ gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
     }
   };
 
-  var S3Client = S3.createClient({
+  let S3Client = S3.createClient({
     s3Options: {
       accessKeyId: process.env.AWS_KEY,
       secretAccessKey: process.env.AWS_SECRET
     }
   });
 
-  var uploader = S3Client.uploadDir(params);
+  let uploader = S3Client.uploadDir(params);
 
   uploader.on('error', function (err) {
     gutil.log(err.stack);
@@ -142,7 +143,7 @@ gulp.task('upload_microsite_to_s3', ['build-microsite'], function(done) {
 
 
 
-var plumberErrorHandler = function(err) {
+let plumberErrorHandler = function(err) {
   console.log('Plumber caught error:');
   console.log(err.msg, err.stack);
   this.emit('end');
@@ -155,15 +156,15 @@ gulp.task('microsite-build-clean', function() {
 
 // Move the templates into dist
 gulp.task('build-microsite-templates', function() {
-  var generateTemplate = function() {
+  let generateTemplate = function() {
 
-    var stream = through.obj(function(chunk, enc, callback) {
+    let stream = through.obj(function(chunk, enc, callback) {
       this.push(chunk);
       return callback();
     });
 
-    config.paths.micrositeTemplates.generateRenderResponse().then((page) => {
-      var file = new gutil.File({
+    generateRenderResponse().then((page) => {
+      let file = new gutil.File({
         cwd: '',
         base: '',
         path: 'index.html',
@@ -201,8 +202,8 @@ gulp.task('build-microsite-styles', function() {
 });
 
 gulp.task('build-microsite-scripts', function() {
-  //var compiler = webpack(micrositeWebpackConfig);
-  //var watch = Promise.promisify(compiler.watch);
+  //let compiler = webpack(micrositeWebpackConfig);
+  //let watch = Promise.promisify(compiler.watch);
 
   return Promise.promisify(webpack)(argv.dev ? micrositeWebpackConfig : micrositeProductionWebpackConfig)
     .then(function(stats) {
@@ -231,9 +232,9 @@ gulp.task('move-sidecar-dist-to-fixtures', function() {
 // Rerun tasks when a file changes
 gulp.task('watch', function() {
   Object.keys(config.paths).forEach(function(key) {
-    var entry = config.paths[key];
+    let entry = config.paths[key];
 
-    var watchConfig = entry.watch;
+    let watchConfig = entry.watch;
     if(watchConfig) {
       gulp.watch(watchConfig.globs, [].concat(watchConfig.tasks));
     }
