@@ -26,7 +26,7 @@ This is a standalone package available on npm [`gitter-sidecar`](https://www.npm
 var Sidecar = require('gitter-sidecar');
 
 var myChat = new Sidecar({
-	room: 'gitterHQ/sidecar-demo'
+  room: 'gitterHQ/sidecar-demo'
 });
 ```
 
