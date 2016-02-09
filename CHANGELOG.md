@@ -1,4 +1,9 @@
 
+# v1.2.3 - 2016-2-9
+
+ - Fix action bar items on IE11. IE11 doesn't support adding multiple class names at once `element.classList.add('foo', 'bar')` so we separated out the calls
+ - Fixed shim usage from breaking change in [`array.from`](https://github.com/mathiasbynens/Array.from) that now uses es-shim API
+
 # v1.2.2 - 2016-2-8
 
  - Update dependencies
