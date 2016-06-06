@@ -11,8 +11,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'sidecar.js',
-    library: 'sidecar',
-    libraryTarget: 'umd'
+    library: 'sidecar'
   },
   devtool: 'source-map',
   module: {
