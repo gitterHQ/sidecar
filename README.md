@@ -30,13 +30,13 @@ var myChat = new Sidecar({
 });
 ```
 
-## Change position of sidecar
+## Change position of sidecar button.
 ```css
 .gitter-open-chat-button {
   right: 250px;
 }
 ```
-This will move the sidecar to the right.
+This will move the sidecar button to the right.
 
 # [API](https://github.com/gitterHQ/sidecar/blob/master/API.md)
 
