@@ -36,7 +36,7 @@ var myChat = new Sidecar({
   right: 250px;
 }
 ```
-This will move the sidecar button to the right.
+This will move the sidecar button 250px to the right.
 
 # [API](https://github.com/gitterHQ/sidecar/blob/master/API.md)
 
