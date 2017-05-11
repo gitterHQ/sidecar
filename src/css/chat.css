@@ -36,7 +36,7 @@
     transition: transform 0.3s cubic-bezier(0.16, 0.22, 0.22, 1.7);
 
     &.is-collapsed:not(.is-loading) {
-      transform: translateX(110%);
+      transform: translateX(110%) translateZ(0);
     }
 
     /* Add some "extension" so that there isn't a gap
