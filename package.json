@@ -5,7 +5,7 @@
   "main": "./dist/sidecar-module.js",
   "repository": "https://github.com/gitterHQ/sidecar",
   "engine": {
-    "node": "=4.0.0"
+    "node": "=4.8.6"
   },
   "scripts": {
     "prepublish": "npm run build-module && npm run build",
