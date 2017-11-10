@@ -20,7 +20,7 @@ Gitter embed widget, [sidecar.gitter.im](https://sidecar.gitter.im/)
 
 ## Module Usage
 
-This is a standalone package available on npm [`gitter-sidecar`](https://www.npmjs.com/gitter-sidecar) that doesn't pollute the global scope.
+There is also a standalone package available on npm [`gitter-sidecar`](https://www.npmjs.com/gitter-sidecar) that doesn't pollute the global scope.
 
 ```js
 var Sidecar = require('gitter-sidecar');
