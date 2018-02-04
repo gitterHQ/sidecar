@@ -1,7 +1,5 @@
 import {shim as arrayFromShim} from 'array.from';
-if (!Array.from) {
-  arrayFromShim();
-}
+arrayFromShim();
 import objectAssign from 'object-assign';
 import {Promise} from 'es6-promise';
 import Symbol from './basic-symbol-ponyfill';
