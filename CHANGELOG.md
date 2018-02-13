@@ -1,8 +1,35 @@
+# v1.3.3 - 2018-2-12
+
+ - Only shim `Array.from` when it isn't available natively
+
+
+# v1.3.2 - 2016-11-9
+
+ - Disable Selenium tests because we don't have a BrowserStack subscription anymore
+ - Update Node.js engine to `4.8.6` in CircleCI config
+
+
+# v1.3.1 - 2016-11-9
+
+ - Update Node.js engine to `4.8.6` in package.json
+
+
+# v1.3.0 - 2016-11-9
+
+ - Slight readme fixes
+ - Ignore SauceLabs log file
+
+
+# v1.2.4 - 2016-6-6
+
+ - Remove `libraryTarget: 'umd'` from webpack config
+
 
 # v1.2.3 - 2016-2-9
 
  - Fix action bar items on IE11. IE11 doesn't support adding multiple class names at once `element.classList.add('foo', 'bar')` so we separated out the calls
  - Fixed shim usage from breaking change in [`array.from`](https://github.com/mathiasbynens/Array.from) that now uses es-shim API
+
 
 # v1.2.2 - 2016-2-8
 
