@@ -142,6 +142,7 @@ let addActionBar = function(chat) {
     popOutActionElement.setAttribute('aria-label', 'Open Chat in Gitter.im');
     popOutActionElement.setAttribute('href', `${opts.host}${opts.room}`);
     popOutActionElement.setAttribute('target', `_blank`);
+    popOutActionElement.setAttribute('rel', `noopener`);
 
     actionBar.appendChild(popOutActionElement);
 
